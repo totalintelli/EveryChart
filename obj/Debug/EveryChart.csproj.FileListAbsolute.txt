@@ -1,0 +1,9 @@
+D:\Projects\EveryChart\EveryChart\bin\Debug\EveryChart.exe.config
+D:\Projects\EveryChart\EveryChart\bin\Debug\EveryChart.exe
+D:\Projects\EveryChart\EveryChart\bin\Debug\EveryChart.pdb
+D:\Projects\EveryChart\EveryChart\obj\Debug\EveryChart.csprojResolveAssemblyReference.cache
+D:\Projects\EveryChart\EveryChart\obj\Debug\EveryChart.FrmEveryChart.resources
+D:\Projects\EveryChart\EveryChart\obj\Debug\EveryChart.Properties.Resources.resources
+D:\Projects\EveryChart\EveryChart\obj\Debug\EveryChart.csproj.GenerateResource.Cache
+D:\Projects\EveryChart\EveryChart\obj\Debug\EveryChart.exe
+D:\Projects\EveryChart\EveryChart\obj\Debug\EveryChart.pdb
