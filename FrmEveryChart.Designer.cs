@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnBarGraph = new System.Windows.Forms.Button();
+            this.btnLineGraph = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // btnBarGraph
+            // btnLineGraph
             // 
-            this.btnBarGraph.Location = new System.Drawing.Point(12, 12);
-            this.btnBarGraph.Name = "btnBarGraph";
-            this.btnBarGraph.Size = new System.Drawing.Size(97, 23);
-            this.btnBarGraph.TabIndex = 0;
-            this.btnBarGraph.Text = "막대 그래프";
-            this.btnBarGraph.UseVisualStyleBackColor = true;
-            this.btnBarGraph.Click += new System.EventHandler(this.btnBarGraph_Click);
+            this.btnLineGraph.Location = new System.Drawing.Point(12, 12);
+            this.btnLineGraph.Name = "btnLineGraph";
+            this.btnLineGraph.Size = new System.Drawing.Size(97, 23);
+            this.btnLineGraph.TabIndex = 0;
+            this.btnLineGraph.Text = "꺾은 선 그래프";
+            this.btnLineGraph.UseVisualStyleBackColor = true;
+            this.btnLineGraph.Click += new System.EventHandler(this.btnLineGraph_Click);
             // 
             // panel1
             // 
@@ -57,7 +57,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(754, 555);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnBarGraph);
+            this.Controls.Add(this.btnLineGraph);
             this.Name = "FrmEveryChart";
             this.Text = "모든 차트";
             this.ResumeLayout(false);
@@ -66,7 +66,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnBarGraph;
+        private System.Windows.Forms.Button btnLineGraph;
         private System.Windows.Forms.Panel panel1;
     }
 }

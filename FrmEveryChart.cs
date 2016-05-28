@@ -17,7 +17,7 @@ namespace EveryChart
             InitializeComponent();
         }
 
-        private void btnBarGraph_Click(object sender, EventArgs e)
+        private void btnLineGraph_Click(object sender, EventArgs e)
         {
             // 제목 글자열
             string Title = "월별 책의 판매량";
