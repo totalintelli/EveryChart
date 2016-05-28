@@ -44,6 +44,11 @@ namespace EveryChart
             PointF FiftyTextPoint = new PointF(Width * 3 / 16.0f, Height * 3 / 11.0f);
 
             Graphics g = panel1.CreateGraphics();
+            // 40
+            string FourtyText = "40";
+            // 40의 위치
+            PointF FourtyTextPoint = new PointF(Width * 3 / 16.0f, Height * 4 / 11.0f);
+
             // 제목을 그린다.
             g.DrawString(Title, TitleFont, TitleBrush, TitlePoint);
 
@@ -55,6 +60,9 @@ namespace EveryChart
 
             // 50을 그린다.
             g.DrawString(FiftyText, TitleFont, TextBrush, FiftyTextPoint);
+
+            // 40을 그린다.
+            g.DrawString(FourtyText, TitleFont, TextBrush, FourtyTextPoint);
         }
     }
 }
