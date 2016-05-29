@@ -59,6 +59,16 @@ namespace EveryChart
             // 20의 위치
             PointF TwentyTextPoint = new PointF(Width * 3 / 16.0f, Height * 6 / 11.0f);
 
+            // 10
+            string TenText = "10";
+            // 10의 위치
+            PointF TenTextPoint = new PointF(Width * 3 / 16.0f, Height * 7 / 11.0f);
+
+            // 0
+            string ZeroText = "0";
+            // 0의 위치
+            PointF ZeroTextPoint = new PointF(Width * 3 / 16.0f, Height * 8 / 11.0f);
+
             // 제목을 그린다.
             g.DrawString(Title, TitleFont, TitleBrush, TitlePoint);
 
@@ -79,6 +89,12 @@ namespace EveryChart
 
             // 20을 그린다.
             g.DrawString(TwentyText, TitleFont, TextBrush, TwentyTextPoint);
+
+            // 10을 그린다.
+            g.DrawString(TenText, TitleFont, TextBrush, TenTextPoint);
+
+            // 0을 그린다.
+            g.DrawString(ZeroText, TitleFont, TextBrush, ZeroTextPoint);
         }
     }
 }
