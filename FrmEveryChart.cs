@@ -72,28 +72,28 @@ namespace EveryChart
             // 제목을 그린다.
             g.DrawString(Title, TitleFont, TitleBrush, TitlePoint);
 
-            // (만 권)을 그린다.
+            // 세로 축에 (만 권)을 그린다.
             g.DrawString(KwanText, TitleFont, TextBrush, KwanTextPoint);
 
-            // 60을 그린다.
+            // 세로 축에 60을 그린다.
             g.DrawString(SixtyText, TitleFont, TextBrush, SixtyTextPoint);
 
-            // 50을 그린다.
+            // 세로 축에 50을 그린다.
             g.DrawString(FiftyText, TitleFont, TextBrush, FiftyTextPoint);
 
-            // 40을 그린다.
+            // 세로 축에 40을 그린다.
             g.DrawString(FourtyText, TitleFont, TextBrush, FourtyTextPoint);
 
-            // 30을 그린다.
+            // 세로 축에 30을 그린다.
             g.DrawString(ThirtyText, TitleFont, TextBrush, ThirtyTextPoint);
 
-            // 20을 그린다.
+            // 세로 축에 20을 그린다.
             g.DrawString(TwentyText, TitleFont, TextBrush, TwentyTextPoint);
 
-            // 10을 그린다.
+            // 세로 축에 10을 그린다.
             g.DrawString(TenText, TitleFont, TextBrush, TenTextPoint);
 
-            // 0을 그린다.
+            // 세로 축에 0을 그린다.
             g.DrawString(ZeroText, TitleFont, TextBrush, ZeroTextPoint);
         }
     }
