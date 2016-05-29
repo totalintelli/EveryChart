@@ -49,6 +49,11 @@ namespace EveryChart
             // 40의 위치
             PointF FourtyTextPoint = new PointF(Width * 3 / 16.0f, Height * 4 / 11.0f);
 
+            // 30
+            string ThirtyText = "30";
+            // 30의 위치
+            PointF ThirtyTextPoint = new PointF(Width * 3 / 16.0f, Height * 5 / 11.0f);
+
             // 제목을 그린다.
             g.DrawString(Title, TitleFont, TitleBrush, TitlePoint);
 
@@ -63,6 +68,9 @@ namespace EveryChart
 
             // 40을 그린다.
             g.DrawString(FourtyText, TitleFont, TextBrush, FourtyTextPoint);
+
+            // 30을 그린다.
+            g.DrawString(ThirtyText, TitleFont, TextBrush, ThirtyTextPoint);
         }
     }
 }
