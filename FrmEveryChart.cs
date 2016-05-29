@@ -67,7 +67,7 @@ namespace EveryChart
             // 0
             string ZeroText = "0";
             // 0의 위치
-            PointF ZeroTextPoint = new PointF(Width * 3 / 16.0f, Height * 8 / 11.0f);
+            PointF ZeroTextPoint = new PointF(Width * 3 / 16.0f, Height * 7.5f / 11.0f);
 
             // 제목을 그린다.
             g.DrawString(Title, TitleFont, TitleBrush, TitlePoint);
