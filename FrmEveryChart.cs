@@ -19,10 +19,12 @@ namespace EveryChart
 
         private void btnLineGraph_Click(object sender, EventArgs e)
         {
-            if (panel1.Controls.Count != 0)
-                // 차트 화면을 초기화한다.
-                panel1.Controls.Clear();
+            panel1.Controls.Clear();
 
+            // 패널의 너비
+            float Width = panel1.Width;
+            // 패널의 높이
+            float Height = panel1.Height;
             // panel1에 그릴 준비를 한다.
             Graphics g = panel1.CreateGraphics();
             // 제목 글자열
@@ -71,62 +73,69 @@ namespace EveryChart
             // 가로축에 있는 1
             string OneText = "1";
             // 가로축에 있는 1의 위치
-            PointF OneTextPoint = new PointF(Width * 4 / 16.0f, Height * 8 / 11.0f);
+            PointF OneTextPoint = new PointF(Width * 3.5f / 16.0f, Height * 8 / 11.0f);
             // 가로축에 있는 2
             string TwoText = "2";
             // 가로축에 있는 2의 위치
-            PointF TwoTextPoint = new PointF(Width * 5 / 16.0f, Height * 8 / 11.0f);
+            PointF TwoTextPoint = new PointF(Width * 4.5f / 16.0f, Height * 8 / 11.0f);
             // 가로축에 있는 3
             string ThreeText = "3";
             // 가로축에 있는 3의 위치
-            PointF ThreeTextPoint = new PointF(Width * 6 / 16.0f, Height * 8 / 11.0f);
+            PointF ThreeTextPoint = new PointF(Width * 5.5f / 16.0f, Height * 8 / 11.0f);
             // 가로축에 있는 4
             string FourText = "4";
             // 가로축에 있는 4의 위치
-            PointF FourTextPoint = new PointF(Width * 7 / 16.0f, Height * 8 / 11.0f);
+            PointF FourTextPoint = new PointF(Width * 6.5f / 16.0f, Height * 8 / 11.0f);
             // 가로축에 있는 5
             string FiveText = "5";
             // 가로축에 있는 5의 위치
-            PointF FiveTextPoint = new PointF(Width * 8 / 16.0f, Height * 8 / 11.0f);
+            PointF FiveTextPoint = new PointF(Width * 7.5f / 16.0f, Height * 8 / 11.0f);
             // 가로축에 있는 6
             string SixText = "6";
             // 가로축에 있는 6의 위치
-            PointF SixTextPoint = new PointF(Width * 9 / 16.0f, Height * 8 / 11.0f);
+            PointF SixTextPoint = new PointF(Width * 8.5f / 16.0f, Height * 8 / 11.0f);
             // 가로축에 있는 7
             string SevenText = "7";
             // 가로축에 있는 7의 위치
-            PointF SevenTextPoint = new PointF(Width * 10 / 16.0f, Height * 8 / 11.0f);
+            PointF SevenTextPoint = new PointF(Width * 9.5f / 16.0f, Height * 8 / 11.0f);
             // 가로축에 있는 8
             string EightText = "8";
             // 가로축에 있는 8의 위치
-            PointF EightTextPoint = new PointF(Width * 11 / 16.0f, Height * 8 / 11.0f);
+            PointF EightTextPoint = new PointF(Width * 10.5f / 16.0f, Height * 8 / 11.0f);
             // 가로축에 있는 9
             string NineText = "9";
             // 가로축에 있는 9의 위치
-            PointF NineTextPoint = new PointF(Width * 12 / 16.0f, Height * 8 / 11.0f);
+            PointF NineTextPoint = new PointF(Width * 11.5f / 16.0f, Height * 8 / 11.0f);
             // 가로축에 있는 10
             string HorizontalTenText = "10";
             // 가로축에 있는 10의 위치
-            PointF HorizontalTenTextPoint = new PointF(Width * 13 / 16.0f, Height * 8 / 11.0f);
+            PointF HorizontalTenTextPoint = new PointF(Width * 12.5f / 16.0f, Height * 8 / 11.0f);
             // 가로축에 있는 11
             string ElevenText = "11";
             // 가로축에 있는 11의 위치
-            PointF ElevenTextPoint = new PointF(Width * 14 / 16.0f, Height * 8 / 11.0f);
+            PointF ElevenTextPoint = new PointF(Width * 13.5f / 16.0f, Height * 8 / 11.0f);
             // 가로축에 있는 12
             string TwelveText = "12";
             // 가로축에 있는 12의 위치
-            PointF TwelveTextPoint = new PointF(Width * 15 / 16.0f, Height * 8 / 11.0f);
+            PointF TwelveTextPoint = new PointF(Width * 14.5f / 16.0f, Height * 8 / 11.0f);
             // 축의 색상
             Pen LinePen = Pens.Blue;
-            // 가로축의 시작 위치
-            PointF HorizonStartPoint = new PointF(0, Height * 8 / 11.0f);
-            // 가로축의 끝 위치
-            PointF HorizonEndPoint = new PointF(Width, Height * 8 / 11.0f);
-            // 세로축의 시작 위치
-            PointF VerticalStartPoint = new PointF(Width * 3 / 16.0f, 0);
-            // 세로축의 끝 위치
-            PointF VerticalEndPoint = new PointF(Width * 3 / 16.0f, Height);
-
+            // 아래쪽 가로축의 시작 위치
+            PointF UnderHorizonStartPoint = new PointF(0, Height * 10 / 12.0f);
+            // 아래쪽 가로축의 끝 위치
+            PointF UnderHorizonEndPoint = new PointF(Width * 15.5f / 16.0f, Height * 10 / 12.0f);
+            // 왼쪽 세로축의 시작 위치
+            PointF LeftVerticalStartPoint = new PointF(Width * 3 / 16.0f, Height / 12.0f);
+            // 왼쪽 세로축의 끝 위치
+            PointF LeftVerticalEndPoint = new PointF(Width * 3 / 16.0f, Height);
+            // 위쪽 가로축의 시작 위치
+            PointF UpperHorizonStartPoint = new PointF(Width * 3 / 16.0f, Height / 12.0f);
+            // 위쪽 가로축의 끝 위치
+            PointF UpperHorizonEndPoint = new PointF(Width * 15.5f / 16.0f, Height / 12.0f);
+            // 오른쪽 세로축의 시작 위치
+            PointF RightVerticalStartPoint = new PointF(Width * 15.5f / 16.0f, Height / 12.0f);
+            // 오른쪽 세로축의 끝 위치
+            PointF RightVerticalEndPoint = new PointF(Width * 15.5f / 16.0f, Height * 10 / 12.0f);
             // 제목을 그린다.
             g.DrawString(Title, TitleFont, TitleBrush, TitlePoint);
 
@@ -190,11 +199,17 @@ namespace EveryChart
             // 가로 축에 12를 그린다.
             g.DrawString(TwelveText, TitleFont, TextBrush, TwelveTextPoint);
 
-            // 가로 축을 그린다.
-            g.DrawLine(LinePen, HorizonStartPoint, HorizonEndPoint);
+            // 아래쪽 가로 축을 그린다.
+            g.DrawLine(LinePen, UnderHorizonStartPoint, UnderHorizonEndPoint);
 
-            // 세로 축을 그린다.
-            g.DrawLine(LinePen, VerticalStartPoint, VerticalEndPoint);
+            // 왼쪽 세로 축을 그린다.
+            g.DrawLine(LinePen, LeftVerticalStartPoint, LeftVerticalEndPoint);
+
+            // 오른쪽 가로 축을 그린다.
+            g.DrawLine(LinePen, UpperHorizonStartPoint, UpperHorizonEndPoint);
+
+            // 오른쪽 세로 축을 그린다.
+            g.DrawLine(LinePen, RightVerticalStartPoint, RightVerticalEndPoint);
         }
     }
 }
