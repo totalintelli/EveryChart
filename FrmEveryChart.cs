@@ -19,6 +19,10 @@ namespace EveryChart
 
         private void btnLineGraph_Click(object sender, EventArgs e)
         {
+            if (panel1.Controls.Count != 0)
+                // 차트 화면을 초기화한다.
+                panel1.Controls.Clear();
+
             // panel1에 그릴 준비를 한다.
             Graphics g = panel1.CreateGraphics();
             // 제목 글자열
@@ -35,35 +39,35 @@ namespace EveryChart
             // (만 권)의 색상
             SolidBrush TextBrush = new SolidBrush(Color.Teal);
             // (만 권)의 위치
-            PointF KwanTextPoint = new PointF(Width / 8.0f, Height / 11.0f);
+            PointF KwanTextPoint = new PointF(Width *  1.3f / 16.0f, Height / 11.0f);
             // 세로축에 있는 60
             string SixtyText = "60";
             // 세로축에 있는 60의 위치
-            PointF SixtyTextPoint = new PointF(Width * 3 / 16.0f, Height * 2 / 11.0f);
+            PointF SixtyTextPoint = new PointF(Width * 2.3f / 16.0f, Height * 2 / 11.0f);
             // 세로축에 있는 50
             string FiftyText = "50";
             // 세로축에 있는 50의 위치
-            PointF FiftyTextPoint = new PointF(Width * 3 / 16.0f, Height * 3 / 11.0f);
+            PointF FiftyTextPoint = new PointF(Width * 2.3f / 16.0f, Height * 3 / 11.0f);
             // 세로축에 있는 40
             string FourtyText = "40";
             // 세로축에 있는 40의 위치
-            PointF FourtyTextPoint = new PointF(Width * 3 / 16.0f, Height * 4 / 11.0f);
+            PointF FourtyTextPoint = new PointF(Width * 2.3f / 16.0f, Height * 4 / 11.0f);
             // 세로축에 있는 30
             string ThirtyText = "30";
             // 세로축에 있는 30의 위치
-            PointF ThirtyTextPoint = new PointF(Width * 3 / 16.0f, Height * 5 / 11.0f);
+            PointF ThirtyTextPoint = new PointF(Width * 2.3f / 16.0f, Height * 5 / 11.0f);
             // 세로축에 있는 20
             string TwentyText = "20";
             // 세로축에 있는 20의 위치
-            PointF TwentyTextPoint = new PointF(Width * 3 / 16.0f, Height * 6 / 11.0f);
+            PointF TwentyTextPoint = new PointF(Width * 2.3f / 16.0f, Height * 6 / 11.0f);
             // 세로축에 있는 10
             string VerticalTenText = "10";
             // 세로축에 있는 10의 위치
-            PointF VerticalTenTextPoint = new PointF(Width * 3 / 16.0f, Height * 7 / 11.0f);
+            PointF VerticalTenTextPoint = new PointF(Width * 2.3f / 16.0f, Height * 7 / 11.0f);
             // 세로축에 있는 0
             string ZeroText = "0";
             // 세로축에 있는 0의 위치
-            PointF ZeroTextPoint = new PointF(Width * 3 / 16.0f, Height * 8 / 11.0f);
+            PointF ZeroTextPoint = new PointF(Width * 2.6f / 16.0f, Height * 7.5f / 11.0f);
             // 가로축에 있는 1
             string OneText = "1";
             // 가로축에 있는 1의 위치
@@ -112,6 +116,16 @@ namespace EveryChart
             string TwelveText = "12";
             // 가로축에 있는 12의 위치
             PointF TwelveTextPoint = new PointF(Width * 15 / 16.0f, Height * 8 / 11.0f);
+            // 축의 색상
+            Pen LinePen = Pens.Blue;
+            // 가로축의 시작 위치
+            PointF HorizonStartPoint = new PointF(0, Height * 8 / 11.0f);
+            // 가로축의 끝 위치
+            PointF HorizonEndPoint = new PointF(Width, Height * 8 / 11.0f);
+            // 세로축의 시작 위치
+            PointF VerticalStartPoint = new PointF(Width * 3 / 16.0f, 0);
+            // 세로축의 끝 위치
+            PointF VerticalEndPoint = new PointF(Width * 3 / 16.0f, Height);
 
             // 제목을 그린다.
             g.DrawString(Title, TitleFont, TitleBrush, TitlePoint);
@@ -175,6 +189,12 @@ namespace EveryChart
 
             // 가로 축에 12를 그린다.
             g.DrawString(TwelveText, TitleFont, TextBrush, TwelveTextPoint);
+
+            // 가로 축을 그린다.
+            g.DrawLine(LinePen, HorizonStartPoint, HorizonEndPoint);
+
+            // 세로 축을 그린다.
+            g.DrawLine(LinePen, VerticalStartPoint, VerticalEndPoint);
         }
     }
 }
