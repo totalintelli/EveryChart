@@ -137,7 +137,9 @@ namespace EveryChart
             // 오른쪽 세로축의 끝 위치
             PointF RightVerticalEndPoint = new PointF(Width * 15.5f / 16.0f, Height * 8 / 10.0f);
             // 왼쪽 아래 대각선의 시작 위치
+            PointF LeftDiagonalStartPoint = new PointF(0, Height);
             // 왼쪽 아래 대각선의 끝 위치
+            PointF LeftDiagonalEndPoint = new PointF(Width * 3 / 16.0f, Height * 8 / 10.0f);
 
             // 제목을 그린다.
             g.DrawString(Title, TitleFont, TitleBrush, TitlePoint);
@@ -213,6 +215,9 @@ namespace EveryChart
 
             // 오른쪽 세로 축을 그린다.
             g.DrawLine(LinePen, RightVerticalStartPoint, RightVerticalEndPoint);
+
+            // 왼쪽 아래 대각선을 그린다.
+            g.DrawLine(LinePen, LeftDiagonalStartPoint, LeftDiagonalEndPoint);
         }
     }
 }
