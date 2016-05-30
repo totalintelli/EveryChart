@@ -57,13 +57,61 @@ namespace EveryChart
             // 세로축에 있는 20의 위치
             PointF TwentyTextPoint = new PointF(Width * 3 / 16.0f, Height * 6 / 11.0f);
             // 세로축에 있는 10
-            string TenText = "10";
+            string VerticalTenText = "10";
             // 세로축에 있는 10의 위치
-            PointF TenTextPoint = new PointF(Width * 3 / 16.0f, Height * 7 / 11.0f);
+            PointF VerticalTenTextPoint = new PointF(Width * 3 / 16.0f, Height * 7 / 11.0f);
             // 세로축에 있는 0
             string ZeroText = "0";
             // 세로축에 있는 0의 위치
-            PointF ZeroTextPoint = new PointF(Width * 3 / 16.0f, Height * 7.5f / 11.0f);
+            PointF ZeroTextPoint = new PointF(Width * 3 / 16.0f, Height * 8 / 11.0f);
+            // 가로축에 있는 1
+            string OneText = "1";
+            // 가로축에 있는 1의 위치
+            PointF OneTextPoint = new PointF(Width * 4 / 16.0f, Height * 8 / 11.0f);
+            // 가로축에 있는 2
+            string TwoText = "2";
+            // 가로축에 있는 2의 위치
+            PointF TwoTextPoint = new PointF(Width * 5 / 16.0f, Height * 8 / 11.0f);
+            // 가로축에 있는 3
+            string ThreeText = "3";
+            // 가로축에 있는 3의 위치
+            PointF ThreeTextPoint = new PointF(Width * 6 / 16.0f, Height * 8 / 11.0f);
+            // 가로축에 있는 4
+            string FourText = "4";
+            // 가로축에 있는 4의 위치
+            PointF FourTextPoint = new PointF(Width * 7 / 16.0f, Height * 8 / 11.0f);
+            // 가로축에 있는 5
+            string FiveText = "5";
+            // 가로축에 있는 5의 위치
+            PointF FiveTextPoint = new PointF(Width * 8 / 16.0f, Height * 8 / 11.0f);
+            // 가로축에 있는 6
+            string SixText = "6";
+            // 가로축에 있는 6의 위치
+            PointF SixTextPoint = new PointF(Width * 9 / 16.0f, Height * 8 / 11.0f);
+            // 가로축에 있는 7
+            string SevenText = "7";
+            // 가로축에 있는 7의 위치
+            PointF SevenTextPoint = new PointF(Width * 10 / 16.0f, Height * 8 / 11.0f);
+            // 가로축에 있는 8
+            string EightText = "8";
+            // 가로축에 있는 8의 위치
+            PointF EightTextPoint = new PointF(Width * 11 / 16.0f, Height * 8 / 11.0f);
+            // 가로축에 있는 9
+            string NineText = "9";
+            // 가로축에 있는 9의 위치
+            PointF NineTextPoint = new PointF(Width * 12 / 16.0f, Height * 8 / 11.0f);
+            // 가로축에 있는 10
+            string HorizontalTenText = "10";
+            // 가로축에 있는 10의 위치
+            PointF HorizontalTenTextPoint = new PointF(Width * 13 / 16.0f, Height * 8 / 11.0f);
+            // 가로축에 있는 11
+            string ElevenText = "11";
+            // 가로축에 있는 11의 위치
+            PointF ElevenTextPoint = new PointF(Width * 14 / 16.0f, Height * 8 / 11.0f);
+            // 가로축에 있는 12
+            string TwelveText = "12";
+            // 가로축에 있는 12의 위치
+            PointF TwelveTextPoint = new PointF(Width * 15 / 16.0f, Height * 8 / 11.0f);
 
             // 제목을 그린다.
             g.DrawString(Title, TitleFont, TitleBrush, TitlePoint);
@@ -87,10 +135,46 @@ namespace EveryChart
             g.DrawString(TwentyText, TitleFont, TextBrush, TwentyTextPoint);
 
             // 세로 축에 10을 그린다.
-            g.DrawString(TenText, TitleFont, TextBrush, TenTextPoint);
+            g.DrawString(VerticalTenText, TitleFont, TextBrush, VerticalTenTextPoint);
 
             // 세로 축에 0을 그린다.
             g.DrawString(ZeroText, TitleFont, TextBrush, ZeroTextPoint);
+
+            // 가로 축에 1을 그린다.
+            g.DrawString(OneText, TitleFont, TextBrush, OneTextPoint);
+
+            // 가로 축에 2를 그린다.
+            g.DrawString(TwoText, TitleFont, TextBrush, TwoTextPoint);
+
+            // 가로 축에 3을 그린다.
+            g.DrawString(ThreeText, TitleFont, TextBrush, ThreeTextPoint);
+
+            // 가로 축에 4를 그린다.
+            g.DrawString(FourText, TitleFont, TextBrush, FourTextPoint);
+
+            // 가로 축에 5를 그린다.
+            g.DrawString(FiveText, TitleFont, TextBrush, FiveTextPoint);
+
+            // 가로 축에 6을 그린다.
+            g.DrawString(SixText, TitleFont, TextBrush, SixTextPoint);
+
+            // 가로 축에 7을 그린다.
+            g.DrawString(SevenText, TitleFont, TextBrush, SevenTextPoint);
+
+            // 가로 축에 8을 그린다.
+            g.DrawString(EightText, TitleFont, TextBrush, EightTextPoint);
+
+            // 가로 축에 9를 그린다.
+            g.DrawString(NineText, TitleFont, TextBrush, NineTextPoint);
+
+            // 가로 축에 10을 그린다.
+            g.DrawString(HorizontalTenText, TitleFont, TextBrush, HorizontalTenTextPoint);
+
+            // 가로 축에 11을 그린다.
+            g.DrawString(ElevenText, TitleFont, TextBrush, ElevenTextPoint);
+
+            // 가로 축에 12를 그린다.
+            g.DrawString(TwelveText, TitleFont, TextBrush, TwelveTextPoint);
         }
     }
 }
