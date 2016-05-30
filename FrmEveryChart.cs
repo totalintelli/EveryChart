@@ -140,6 +140,14 @@ namespace EveryChart
             PointF LeftDiagonalStartPoint = new PointF(0, Height);
             // 왼쪽 아래 대각선의 끝 위치
             PointF LeftDiagonalEndPoint = new PointF(Width * 3 / 16.0f, Height * 8 / 10.0f);
+            // 왼쪽 아래에 있는 판매량 
+            string SalesVolumeText = "판매량";
+            // 왼쪽 아래에 있는 판매량의 위치
+            PointF SalesVolumeTextPoint = new PointF(0, Height * 8.2f / 10.0f);
+            // 왼쪽 아래에 있는 월
+            string MonthText = "월";
+            // 왼쪽 아래에 있는 월의 위치
+            PointF MonthTextPoint = new PointF(Width * 2.2f / 16.0f, Height * 9 / 10.0f);
 
             // 제목을 그린다.
             g.DrawString(Title, TitleFont, TitleBrush, TitlePoint);
@@ -218,6 +226,12 @@ namespace EveryChart
 
             // 왼쪽 아래 대각선을 그린다.
             g.DrawLine(LinePen, LeftDiagonalStartPoint, LeftDiagonalEndPoint);
+
+            // "판매량"을 그린다.
+            g.DrawString(SalesVolumeText, TitleFont, TextBrush, SalesVolumeTextPoint);
+
+            // "월"을 그린다.
+            g.DrawString(MonthText, TitleFont, TextBrush, MonthTextPoint);
         }
     }
 }
