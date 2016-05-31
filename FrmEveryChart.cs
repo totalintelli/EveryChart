@@ -45,31 +45,31 @@ namespace EveryChart
             // (만 권)의 색상
             SolidBrush TextBrush = new SolidBrush(Color.Teal);
             // (만 권)의 위치
-            PointF KwanTextPoint = new PointF(GridWidth * 1.2f, GridHeight);
+            PointF KwanTextPoint = new PointF(GridWidth * 1.1f, GridHeight);
             // 세로축에 있는 60
             string SixtyText = "60";
             // 세로축에 있는 60의 위치
-            PointF SixtyTextPoint = new PointF(GridWidth * 2.3f, GridHeight * 2);
+            PointF SixtyTextPoint = new PointF(GridWidth * 2.2f, GridHeight * 1.7f);
             // 세로축에 있는 50
             string FiftyText = "50";
             // 세로축에 있는 50의 위치
-            PointF FiftyTextPoint = new PointF(GridWidth * 2.3f , GridHeight * 3);
+            PointF FiftyTextPoint = new PointF(GridWidth * 2.2f, GridHeight * 2.7f);
             // 세로축에 있는 40
             string FourtyText = "40";
             // 세로축에 있는 40의 위치
-            PointF FourtyTextPoint = new PointF(GridWidth * 2.3f, GridHeight * 4);
+            PointF FourtyTextPoint = new PointF(GridWidth * 2.2f, GridHeight * 3.7f);
             // 세로축에 있는 30
             string ThirtyText = "30";
             // 세로축에 있는 30의 위치
-            PointF ThirtyTextPoint = new PointF(GridWidth * 2.3f, GridHeight * 5);
+            PointF ThirtyTextPoint = new PointF(GridWidth * 2.2f, GridHeight * 4.7f);
             // 세로축에 있는 20
             string TwentyText = "20";
             // 세로축에 있는 20의 위치
-            PointF TwentyTextPoint = new PointF(GridWidth * 2.3f, GridHeight * 6);
+            PointF TwentyTextPoint = new PointF(GridWidth * 2.2f, GridHeight * 5.7f);
             // 세로축에 있는 10
             string VerticalTenText = "10";
             // 세로축에 있는 10의 위치
-            PointF VerticalTenTextPoint = new PointF(GridWidth * 2.3f, GridHeight * 7);
+            PointF VerticalTenTextPoint = new PointF(GridWidth * 2.2f, GridHeight * 6.7f);
             // 세로축에 있는 0
             string ZeroText = "0";
             // 세로축에 있는 0의 위치
