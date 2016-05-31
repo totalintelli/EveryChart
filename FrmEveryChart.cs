@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,10 +26,12 @@ namespace EveryChart
             float Width = panel1.Width;
             // 패널의 높이
             float Height = panel1.Height;
-            // 그리드의 너비
+            // 단위 그리드의 너비
             float GridWidth = panel1.Width / 17.0f;
-            // 그리드의 높이
+            // 단위 그리드의 높이
             float GridHeight = panel1.Height / 10.0f;
+            // 세로 눈금 하나 당 단위 그리드의 개수
+            int GridCount = 5;
             // panel1에 그릴 준비를 한다.
             Graphics g = panel1.CreateGraphics();
             // 제목 글자열
@@ -79,7 +82,7 @@ namespace EveryChart
             // 왼쪽 아래에 있는 "월"의 위치
             PointF MonthTextPoint = new PointF(GridWidth * 2.2f, GridHeight * 9);
             // 차트의 세로 줄의 개수
-            int VerticalLineCount = 12;
+            int VerticalLineCount = 13;
             // 차트의 세로 줄의 시작 위치
             PointF VerticalLineStartPoint = new PointF(GridWidth * 4, GridHeight);
             // 차트의 세로 줄의 끝 위치
@@ -87,9 +90,9 @@ namespace EveryChart
             // 차트의 가로 줄의 개수
             int HorizontalLineCount = 7;
             // 차트의 가로 줄의 시작 위치
-            PointF HorizontalLineStartPoint = new PointF(GridWidth * 3, GridHeight * 2);
+            PointF HorizontalLineStartPoint = new PointF(GridWidth * 3, GridHeight);
             // 차트의 가로 줄의 끝 위치
-            PointF HorizontalLineEndPoint = new PointF(GridWidth * 16, GridHeight * 2);
+            PointF HorizontalLineEndPoint = new PointF(GridWidth * 16, GridHeight);
             // 차트의 숫자
             int Number = 1;
             // 글자화된 차트의 숫자
@@ -106,10 +109,6 @@ namespace EveryChart
             g.DrawLine(LinePen, UnderHorizonStartPoint, UnderHorizonEndPoint);
             // 왼쪽 세로 축을 그린다.
             g.DrawLine(LinePen, LeftVerticalStartPoint, LeftVerticalEndPoint);
-            // 오른쪽 가로 축을 그린다.
-            g.DrawLine(LinePen, UpperHorizonStartPoint, UpperHorizonEndPoint);
-            // 오른쪽 세로 축을 그린다.
-            g.DrawLine(LinePen, RightVerticalStartPoint, RightVerticalEndPoint);
             // 왼쪽 아래 대각선을 그린다.
             g.DrawLine(LinePen, LeftDiagonalStartPoint, LeftDiagonalEndPoint);
             // "판매량"을 그린다.
@@ -123,14 +122,18 @@ namespace EveryChart
                 // 실선을 그린다.
                 g.DrawLine(LinePen, VerticalLineStartPoint, VerticalLineEndPoint);
                 // 글씨를 그린다.
-                g.DrawString(NumberText, TitleFont, TextBrush, TextPoint);
-                // 점선을 그린다.
-
+                if(i < VerticalLineCount - 1)
+                {
+                    g.DrawString(NumberText, TitleFont, TextBrush, TextPoint);
+                    Number++;
+                }
+                
+                
                 // 세로 줄을 한 칸씩 이동시킨다.
                 VerticalLineStartPoint.X += GridWidth;
                 VerticalLineEndPoint.X += GridWidth;
                 TextPoint.X += GridWidth;
-                Number++;
+
             }
 
             TextPoint = new PointF(GridWidth * 2.2f, GridHeight * 1.7f);
@@ -146,11 +149,14 @@ namespace EveryChart
                 g.DrawLine(LinePen, HorizontalLineStartPoint, HorizontalLineEndPoint);
                 // 글씨를 그린다.
                 g.DrawString(NumberText, TitleFont, TextBrush, TextPoint);
-                // 차트의 가로 눈금을 그린다.
 
-                // 가로 줄을 한 칸씩 이동시킨다.
-                HorizontalLineStartPoint.Y += GridHeight;
-                HorizontalLineEndPoint.Y += GridHeight;
+                // 차트의 가로 눈금을 그린다.
+                for (int j = 0; j < GridCount; j++)
+                {
+                    g.DrawLine(LinePen, HorizontalLineStartPoint, HorizontalLineEndPoint);
+                    HorizontalLineStartPoint.Y += GridHeight / GridCount;
+                    HorizontalLineEndPoint.Y += GridHeight / GridCount;
+                }
 
                 // 글씨를 한 칸씩 이동시킨다.
                 if (i < HorizontalLineCount - 2)
