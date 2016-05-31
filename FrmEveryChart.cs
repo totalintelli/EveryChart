@@ -25,6 +25,10 @@ namespace EveryChart
             float Width = panel1.Width;
             // 패널의 높이
             float Height = panel1.Height;
+            // 그리드의 너비
+            float GridWidth = panel1.Width / 17.0f;
+            // 그리드의 높이
+            float GridHeight = panel1.Height / 10.0f;
             // panel1에 그릴 준비를 한다.
             Graphics g = panel1.CreateGraphics();
             // 제목 글자열
@@ -41,113 +45,126 @@ namespace EveryChart
             // (만 권)의 색상
             SolidBrush TextBrush = new SolidBrush(Color.Teal);
             // (만 권)의 위치
-            PointF KwanTextPoint = new PointF(Width *  1.2f / 16.0f, Height / 10.0f);
+            PointF KwanTextPoint = new PointF(GridWidth * 1.2f, GridHeight);
             // 세로축에 있는 60
             string SixtyText = "60";
             // 세로축에 있는 60의 위치
-            PointF SixtyTextPoint = new PointF(Width * 2.3f / 16.0f, Height * 2 / 10.0f);
+            PointF SixtyTextPoint = new PointF(GridWidth * 2.3f, GridHeight * 2);
             // 세로축에 있는 50
             string FiftyText = "50";
             // 세로축에 있는 50의 위치
-            PointF FiftyTextPoint = new PointF(Width * 2.3f / 16.0f, Height * 3 / 10.0f);
+            PointF FiftyTextPoint = new PointF(GridWidth * 2.3f , GridHeight * 3);
             // 세로축에 있는 40
             string FourtyText = "40";
             // 세로축에 있는 40의 위치
-            PointF FourtyTextPoint = new PointF(Width * 2.3f / 16.0f, Height * 4 / 10.0f);
+            PointF FourtyTextPoint = new PointF(GridWidth * 2.3f, GridHeight * 4);
             // 세로축에 있는 30
             string ThirtyText = "30";
             // 세로축에 있는 30의 위치
-            PointF ThirtyTextPoint = new PointF(Width * 2.3f / 16.0f, Height * 5 / 10.0f);
+            PointF ThirtyTextPoint = new PointF(GridWidth * 2.3f, GridHeight * 5);
             // 세로축에 있는 20
             string TwentyText = "20";
             // 세로축에 있는 20의 위치
-            PointF TwentyTextPoint = new PointF(Width * 2.3f / 16.0f, Height * 6 / 10.0f);
+            PointF TwentyTextPoint = new PointF(GridWidth * 2.3f, GridHeight * 6);
             // 세로축에 있는 10
             string VerticalTenText = "10";
             // 세로축에 있는 10의 위치
-            PointF VerticalTenTextPoint = new PointF(Width * 2.3f / 16.0f, Height * 7 / 10.0f);
+            PointF VerticalTenTextPoint = new PointF(GridWidth * 2.3f, GridHeight * 7);
             // 세로축에 있는 0
             string ZeroText = "0";
             // 세로축에 있는 0의 위치
-            PointF ZeroTextPoint = new PointF(Width * 2.6f / 16.0f, Height * 7.5f / 10.0f);
+            PointF ZeroTextPoint = new PointF(GridWidth * 2.6f, GridHeight * 7.5f);
+            // X축 글자열
             // 가로축에 있는 1
             string OneText = "1";
             // 가로축에 있는 1의 위치
-            PointF OneTextPoint = new PointF(Width * 3.5f / 16.0f, Height * 8 / 10.0f);
+            PointF OneTextPoint = new PointF(GridWidth * 4, GridHeight * 8);
             // 가로축에 있는 2
             string TwoText = "2";
             // 가로축에 있는 2의 위치
-            PointF TwoTextPoint = new PointF(Width * 4.5f / 16.0f, Height * 8 / 10.0f);
+            PointF TwoTextPoint = new PointF(GridWidth * 5, GridHeight * 8);
             // 가로축에 있는 3
             string ThreeText = "3";
             // 가로축에 있는 3의 위치
-            PointF ThreeTextPoint = new PointF(Width * 5.5f / 16.0f, Height * 8 / 10.0f);
+            PointF ThreeTextPoint = new PointF(GridWidth * 6, GridHeight * 8);
             // 가로축에 있는 4
             string FourText = "4";
             // 가로축에 있는 4의 위치
-            PointF FourTextPoint = new PointF(Width * 6.5f / 16.0f, Height * 8 / 10.0f);
+            PointF FourTextPoint = new PointF(GridWidth * 7, GridHeight * 8);
             // 가로축에 있는 5
             string FiveText = "5";
             // 가로축에 있는 5의 위치
-            PointF FiveTextPoint = new PointF(Width * 7.5f / 16.0f, Height * 8 / 10.0f);
+            PointF FiveTextPoint = new PointF(GridWidth * 8, GridHeight * 8);
             // 가로축에 있는 6
             string SixText = "6";
             // 가로축에 있는 6의 위치
-            PointF SixTextPoint = new PointF(Width * 8.5f / 16.0f, Height * 8 / 10.0f);
+            PointF SixTextPoint = new PointF(GridWidth * 9, GridHeight * 8);
             // 가로축에 있는 7
             string SevenText = "7";
             // 가로축에 있는 7의 위치
-            PointF SevenTextPoint = new PointF(Width * 9.5f / 16.0f, Height * 8 / 10.0f);
+            PointF SevenTextPoint = new PointF(GridWidth * 10, GridHeight * 8);
             // 가로축에 있는 8
             string EightText = "8";
             // 가로축에 있는 8의 위치
-            PointF EightTextPoint = new PointF(Width * 10.5f / 16.0f, Height * 8 / 10.0f);
+            PointF EightTextPoint = new PointF(GridWidth * 11, GridHeight * 8);
             // 가로축에 있는 9
             string NineText = "9";
             // 가로축에 있는 9의 위치
-            PointF NineTextPoint = new PointF(Width * 11.5f / 16.0f, Height * 8 / 10.0f);
+            PointF NineTextPoint = new PointF(GridWidth * 12, GridHeight * 8);
             // 가로축에 있는 10
             string HorizontalTenText = "10";
             // 가로축에 있는 10의 위치
-            PointF HorizontalTenTextPoint = new PointF(Width * 12.5f / 16.0f, Height * 8 / 10.0f);
+            PointF HorizontalTenTextPoint = new PointF(GridWidth * 13, GridHeight * 8);
             // 가로축에 있는 11
             string ElevenText = "11";
             // 가로축에 있는 11의 위치
-            PointF ElevenTextPoint = new PointF(Width * 13.5f / 16.0f, Height * 8 / 10.0f);
+            PointF ElevenTextPoint = new PointF(GridWidth * 14, GridHeight * 8);
             // 가로축에 있는 12
             string TwelveText = "12";
             // 가로축에 있는 12의 위치
-            PointF TwelveTextPoint = new PointF(Width * 14.5f / 16.0f, Height * 8 / 10.0f);
+            PointF TwelveTextPoint = new PointF(GridWidth * 15, GridHeight * 8);
             // 축의 색상
             Pen LinePen = Pens.Blue;
             // 아래쪽 가로축의 시작 위치
-            PointF UnderHorizonStartPoint = new PointF(0, Height * 8 / 10.0f);
+            PointF UnderHorizonStartPoint = new PointF(0, GridHeight * 8);
             // 아래쪽 가로축의 끝 위치
-            PointF UnderHorizonEndPoint = new PointF(Width * 15.5f / 16.0f, Height * 8 / 10.0f);
+            PointF UnderHorizonEndPoint = new PointF(GridWidth * 16, GridHeight * 8);
             // 왼쪽 세로축의 시작 위치
-            PointF LeftVerticalStartPoint = new PointF(Width * 3 / 16.0f, Height / 12.0f);
+            PointF LeftVerticalStartPoint = new PointF(GridWidth * 3, GridHeight);
             // 왼쪽 세로축의 끝 위치
-            PointF LeftVerticalEndPoint = new PointF(Width * 3 / 16.0f, Height);
+            PointF LeftVerticalEndPoint = new PointF(GridWidth * 3, Height);
             // 위쪽 가로축의 시작 위치
-            PointF UpperHorizonStartPoint = new PointF(Width * 3 / 16.0f, Height / 12.0f);
+            PointF UpperHorizonStartPoint = new PointF(GridWidth * 3, GridHeight);
             // 위쪽 가로축의 끝 위치
-            PointF UpperHorizonEndPoint = new PointF(Width * 15.5f / 16.0f, Height / 12.0f);
+            PointF UpperHorizonEndPoint = new PointF(GridWidth * 16, GridHeight);
             // 오른쪽 세로축의 시작 위치
-            PointF RightVerticalStartPoint = new PointF(Width * 15.5f / 16.0f, Height / 12.0f);
+            PointF RightVerticalStartPoint = new PointF(GridWidth * 16, GridHeight);
             // 오른쪽 세로축의 끝 위치
-            PointF RightVerticalEndPoint = new PointF(Width * 15.5f / 16.0f, Height * 8 / 10.0f);
+            PointF RightVerticalEndPoint = new PointF(GridWidth * 16, GridHeight * 8);
             // 왼쪽 아래 대각선의 시작 위치
             PointF LeftDiagonalStartPoint = new PointF(0, Height);
             // 왼쪽 아래 대각선의 끝 위치
-            PointF LeftDiagonalEndPoint = new PointF(Width * 3 / 16.0f, Height * 8 / 10.0f);
-            // 왼쪽 아래에 있는 판매량 
+            PointF LeftDiagonalEndPoint = new PointF(GridWidth * 3, GridHeight * 8);
+            // 왼쪽 아래에 있는 "판매량" 
             string SalesVolumeText = "판매량";
-            // 왼쪽 아래에 있는 판매량의 위치
-            PointF SalesVolumeTextPoint = new PointF(0, Height * 8.2f / 10.0f);
-            // 왼쪽 아래에 있는 월
+            // 왼쪽 아래에 있는 "판매량"의 위치
+            PointF SalesVolumeTextPoint = new PointF(0, GridHeight * 8.2f);
+            // 왼쪽 아래에 있는 "월"
             string MonthText = "월";
-            // 왼쪽 아래에 있는 월의 위치
-            PointF MonthTextPoint = new PointF(Width * 2.2f / 16.0f, Height * 9 / 10.0f);
+            // 왼쪽 아래에 있는 "월"의 위치
+            PointF MonthTextPoint = new PointF(GridWidth * 2.2f, GridHeight * 9);
+            // 차트의 세로 줄의 개수
+            int VerticalLineCount = 12;
+            // 차트의 세로 줄의 시작 위치
+            PointF VerticalLineStartPoint = new PointF(GridWidth * 4, GridHeight);
+            // 차트의 세로 줄의 끝 위치
+            PointF VerticalLineEndPoint = new PointF(GridWidth * 4, GridHeight * 8);
+            // 차트의 가로 줄의 개수
+            int HorizontalLineCount = 7;
+            // 차트의 가로 줄의 시작 위치
+            PointF HorizontalLineStartPoint = new PointF(GridWidth * 3, GridHeight * 2);
+            // 차트의 가로 줄의 끝 위치
+            PointF HorizontalLineEndPoint = new PointF(GridWidth * 16, GridHeight * 2);
 
             // 제목을 그린다.
             g.DrawString(Title, TitleFont, TitleBrush, TitlePoint);
@@ -232,6 +249,28 @@ namespace EveryChart
 
             // "월"을 그린다.
             g.DrawString(MonthText, TitleFont, TextBrush, MonthTextPoint);
+
+            // 차트의 세로 줄을 그린다.
+            for (int i = 0; i < VerticalLineCount; i++)
+            {
+                
+                g.DrawLine(LinePen, VerticalLineStartPoint, VerticalLineEndPoint);
+
+                // 세로 줄을 한 칸씩 이동시킨다.
+                VerticalLineStartPoint.X += GridWidth;
+                VerticalLineEndPoint.X += GridWidth;
+            }
+
+            // 차트의 가로 줄을 그린다.
+            for (int i = 0; i < HorizontalLineCount; i++)
+            {
+
+                g.DrawLine(LinePen, HorizontalLineStartPoint, HorizontalLineEndPoint);
+
+                // 가로 줄을 한 칸씩 이동시킨다.
+                HorizontalLineStartPoint.Y += GridHeight;
+                HorizontalLineEndPoint.Y += GridHeight;
+            }
         }
     }
 }
