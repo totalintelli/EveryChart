@@ -61,10 +61,6 @@ namespace EveryChart
             PointF LeftVerticalStartPoint = new PointF(GridWidth * 3, GridHeight);
             // 왼쪽 세로축의 끝 위치
             PointF LeftVerticalEndPoint = new PointF(GridWidth * 3, Height);
-            // 위쪽 가로축의 시작 위치
-            PointF UpperHorizonStartPoint = new PointF(GridWidth * 3, GridHeight);
-            // 위쪽 가로축의 끝 위치
-            PointF UpperHorizonEndPoint = new PointF(GridWidth * 16, GridHeight);
             // 오른쪽 세로축의 시작 위치
             PointF RightVerticalStartPoint = new PointF(GridWidth * 16, GridHeight);
             // 오른쪽 세로축의 끝 위치
@@ -176,7 +172,8 @@ namespace EveryChart
                 Number -= 10;
             }
 
-            
+            // 차트의 점과 선을 그린다.
+
 
         }
     }
