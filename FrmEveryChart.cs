@@ -150,12 +150,17 @@ namespace EveryChart
                 // 글씨를 그린다.
                 g.DrawString(NumberText, TitleFont, TextBrush, TextPoint);
 
-                // 차트의 가로 눈금을 그린다.
-                for (int j = 0; j < GridCount; j++)
+                using (Pen the_pen = new Pen(Color.Blue))
                 {
-                    g.DrawLine(LinePen, HorizontalLineStartPoint, HorizontalLineEndPoint);
-                    HorizontalLineStartPoint.Y += GridHeight / GridCount;
-                    HorizontalLineEndPoint.Y += GridHeight / GridCount;
+                    the_pen.DashStyle = DashStyle.Dot;
+                    // 차트의 가로 눈금을 그린다.
+                    for (int j = 0; j < GridCount; j++)
+                    {
+                        g.DrawLine(the_pen, HorizontalLineStartPoint, HorizontalLineEndPoint);
+                        HorizontalLineStartPoint.Y += GridHeight / GridCount;
+                        HorizontalLineEndPoint.Y += GridHeight / GridCount;
+                    }
+
                 }
 
                 // 글씨를 한 칸씩 이동시킨다.
