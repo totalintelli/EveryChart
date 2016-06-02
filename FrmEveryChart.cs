@@ -18,6 +18,11 @@ namespace EveryChart
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 꺽은 선 그래프를 그리는 버튼
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLineGraph_Click(object sender, EventArgs e)
         {
             panel1.CreateGraphics().Clear(panel1.BackColor);
@@ -54,7 +59,7 @@ namespace EveryChart
             // 축의 색상
             Pen LinePen = Pens.Blue;
             // 아래쪽 가로축의 시작 위치
-            PointF UnderHorizonStartPoint = new PointF(0, GridHeight * 8);
+            PointF UnderHorizonStartPoint = new PointF(0.0f, GridHeight * 8);
             // 아래쪽 가로축의 끝 위치
             PointF UnderHorizonEndPoint = new PointF(GridWidth * 16, GridHeight * 8);
             // 왼쪽 세로축의 시작 위치
@@ -95,6 +100,18 @@ namespace EveryChart
             string NumberText;
             // 차트의 숫자의 위치
             PointF TextPoint = new PointF(GridWidth * 3.75f, GridHeight * 8);
+            // 데이터의 좌표값들
+            List<PointF> DataPoints = new List<PointF> ();
+            // 차트의 점의 좌표
+            RectangleF ChartPointRect;
+            // 단위 그리드 사각형의 정보
+            RectangleF GridRect = new RectangleF(GridWidth * 4, GridHeight, GridWidth, GridHeight);
+            // 차트의 원점의 좌표값
+            PointF OriginPoint = new PointF(GridWidth * 3, GridHeight * 8);
+            // 차트에 있는 점의 색상
+            SolidBrush ChartBrush = new SolidBrush(Color.Red);
+            // 차트에 있는 점들
+            List<RectangleF> ChartPointRects = new List<RectangleF>();
 
             // 차트의 선을 제외한 나머지 부분을 그린다.
             // 제목을 그린다.
@@ -172,9 +189,49 @@ namespace EveryChart
                 Number -= 10;
             }
 
-            // 차트의 점과 선을 그린다.
+            // 데이터의 좌표값들을 추가한다.
+            DataPoints.Add(new PointF(1, 23));
+            DataPoints.Add(new PointF(2, 32));
+            DataPoints.Add(new PointF(3, 50));
+            DataPoints.Add(new PointF(4, 44));
+            DataPoints.Add(new PointF(5, 52));
+            DataPoints.Add(new PointF(6, 49));
+            DataPoints.Add(new PointF(7, 38));
+            DataPoints.Add(new PointF(8, 36));
+            DataPoints.Add(new PointF(10, 58));
+            DataPoints.Add(new PointF(11, 52));
+            DataPoints.Add(new PointF(12, 56));
 
+            // 차트의 점을 그린다.
+            for(int i = 0; i < 11; i++)
+            {
+                ChartPointRects.Add(GetChartPoint(DataPoints[i], GridRect, VerticalLineCount, OriginPoint));
+                g.FillEllipse(ChartBrush, ChartPointRects[i]);
+            }
+            
+            // 차트의 선을 그린다.
 
+        }
+
+        /// <summary>
+        /// 차트에서의 점의 위치를 구한다.
+        /// </summary>
+        /// <param name="DataPoint">좌표값</param>
+        /// <param name="GridRect">단위 그리드 사각형 정보</param>
+        /// <param name="VerticalNumberCount">세로 눈금의 숫자의 개수</param>
+        /// <param name="OriginPoint">차트의 원점</param>
+        /// <returns></returns>
+        private RectangleF GetChartPoint(PointF DataPoint, RectangleF GridRect, int VerticalNumberCount, PointF OriginPoint)
+        {
+            // 차트에서의 점의 위치
+            RectangleF ChartPointRect = new RectangleF(OriginPoint.X, OriginPoint.Y, 10, 10);
+
+            // 차트에서의 점의 위치를 구한다.
+            ChartPointRect.X = OriginPoint.X + (GridRect.Width * DataPoint.X) - (ChartPointRect.Width / 2.0f);
+            ChartPointRect.Y = OriginPoint.Y - ((GridRect.Height / 10.0f) * DataPoint.Y) - (ChartPointRect.Height / 2.0f);
+
+            // 차트에서의 점의 위치를 출력한다.
+            return ChartPointRect;
         }
     }
 }
