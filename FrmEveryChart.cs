@@ -66,7 +66,11 @@ namespace EveryChart
             // 단위 그리드의 높이
             float GridHeight = panel1.Height / 10.0f;
             // 글자의 크기
-            float TextSize = (GridWidth + GridHeight) / 8.0f;
+            float TextSize = 1;
+            if (GridWidth > 0 && GridHeight > 0)
+            {
+                TextSize = (GridWidth + GridHeight) / 8.0f;
+            } 
             // 제목의 폰트
             Font TitleFont = new Font("SansSerif", TextSize);
             // 제목의 색상
@@ -79,7 +83,7 @@ namespace EveryChart
             // (만 권)의 색상
             SolidBrush TextBrush = new SolidBrush(Color.Teal);
             // (만 권)의 위치
-            PointF KwanTextPoint = new PointF(GridWidth * 1.3f, ButtonDockPanel.Height + GridHeight * 0.5f);
+            PointF KwanTextPoint = new PointF(GridWidth * 1.6f, ButtonDockPanel.Height + GridHeight * 0.5f);
             // 축의 색상
             Pen LinePen = Pens.Blue;
             // 아래쪽 가로축의 시작 위치
@@ -101,11 +105,11 @@ namespace EveryChart
             // 왼쪽 아래에 있는 "판매량" 
             string SalesVolumeText = "판매량";
             // 왼쪽 아래에 있는 "판매량"의 위치
-            PointF SalesVolumeTextPoint = new PointF(0.0f, ButtonDockPanel.Height + GridHeight * 7.7f);
+            PointF SalesVolumeTextPoint = new PointF(0.0f, UnderHorizonStartPoint.Y + GridHeight * 0.1f);
             // 왼쪽 아래에 있는 "월"
             string MonthText = "월";
             // 왼쪽 아래에 있는 "월"의 위치
-            PointF MonthTextPoint = new PointF(GridWidth * 2.5f, GridHeight * 9.5f);
+            PointF MonthTextPoint = new PointF(GridWidth * 2.5f, UnderHorizonStartPoint.Y + GridHeight * 0.9f);
             // 차트의 세로 줄의 개수
             int VerticalLineCount = 13;
             // 차트의 세로 줄의 시작 위치
@@ -123,7 +127,7 @@ namespace EveryChart
             // 글자화된 차트의 숫자
             string NumberText;
             // 차트의 숫자의 위치
-            PointF TextPoint = new PointF(GridWidth * 3.75f, GridHeight * 8.7f);
+            PointF TextPoint = new PointF(GridWidth * 3.8f, ButtonDockPanel.Height + GridHeight * 7.7f);
             // 데이터의 좌표값들
             List<PointF> DataPoints = new List<PointF>();
             // 단위 그리드 사각형의 정보
@@ -175,7 +179,7 @@ namespace EveryChart
 
             }
 
-            TextPoint = new PointF(GridWidth * 2.2f, ButtonDockPanel.Height + GridHeight * 1.3f);
+            TextPoint = new PointF(GridWidth * 2.4f, ButtonDockPanel.Height + GridHeight * 1.3f);
             Number = 60;
 
             // 차트의 가로 줄을 그린다.
