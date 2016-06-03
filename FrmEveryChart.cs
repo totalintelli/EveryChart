@@ -17,15 +17,14 @@ namespace EveryChart
         {
             None = 0,           // 그래프가 없음.
             LineGraph = 1,      // 꺾은선 그래프.
-            CircleGraph = 2,    // 원 그래프.
-            SpeacialGraph1 = 3, // 특수 그래프1.
-            SpeacialGraph2 = 4, // 특수 그래프2.
+            BarGraph = 2,       // 막대 그래프.
+            CircleGraph = 3,    // 원 그래프.
+            SpeacialGraph1 = 4, // 특수 그래프1.
+            SpeacialGraph2 = 5  // 특수 그래프2.
         }
 
         // 그래프의 상태
         CurrentGraph CurrentState = CurrentGraph.None;
-        
-
 
         public FrmEveryChart()
         {
@@ -48,6 +47,7 @@ namespace EveryChart
         /// </summary>
         private void DrawLineGraph()
         {
+            // 패널을 초기화 한다.
             panel1.CreateGraphics().Clear(panel1.BackColor);
 
             // 패널의 너비
@@ -55,7 +55,7 @@ namespace EveryChart
             // 패널의 높이
             float Height = panel1.Height - ButtonDockPanel.Height;
             
-            // 세로 눈금 하나 당 단위 그리드의 개수
+            // 숫자 사이에 있는 세로 눈금의 개수
             int GridCount = 5;
             // panel1에 그릴 준비를 한다.
             Graphics g = panel1.CreateGraphics();
@@ -109,7 +109,7 @@ namespace EveryChart
             // 왼쪽 아래에 있는 "월"
             string MonthText = "월";
             // 왼쪽 아래에 있는 "월"의 위치
-            PointF MonthTextPoint = new PointF(GridWidth * 2.5f, UnderHorizonStartPoint.Y + GridHeight * 0.9f);         // 2.5f와 0.9f는 "월"의 위치를 정하기 위한 값으로 고정값.
+            PointF MonthTextPoint = new PointF(GridWidth * 2.6f, panel1.Height - GridHeight * 0.5f);         // 2.5f와 0.9f는 "월"의 위치를 정하기 위한 값으로 고정값.
             // 차트의 세로줄의 개수
             int VerticalLineCount = 13;
             // 차트의 세로줄의 시작 위치
@@ -142,9 +142,10 @@ namespace EveryChart
             Pen ChartPen = Pens.Red;
             // 차트에 있는 점들
             List<PointF> ChartPoints = new List<PointF>();
-            // 차트를 그리는 유효성 체크
+            // 차트 그리기의 유효성 
             bool IsDrawing = false;
 
+            // 차트 그리기의 유효성을 확인한다.
             if((TitlePoint.X > 0 && TitlePoint.Y > 0) && (KwanTextPoint.X > 0 && KwanTextPoint.Y > 0) &&
                 (UnderHorizonStartPoint.X >= 0 && UnderHorizonStartPoint.Y > 0) && (UnderHorizonEndPoint.X > 0 && UnderHorizonEndPoint.Y > 0) &&
                 (LeftVerticalStartPoint.X > 0 && LeftVerticalStartPoint.Y > 0) && (LeftVerticalEndPoint.X > 0 && LeftVerticalEndPoint.Y > 0) && 
@@ -157,6 +158,7 @@ namespace EveryChart
                 IsDrawing = true;
             }
 
+            // 차트 그리기가 유효하면 차트를 그린다.
             if(IsDrawing)
             {
                 // 차트의 선을 제외한 나머지 부분을 그린다.
@@ -194,10 +196,8 @@ namespace EveryChart
                     TextPoint.X += GridWidth;
 
                 }
-
                 TextPoint = new PointF(GridWidth * 2.4f, ButtonDockPanel.Height + GridHeight * 1.3f);
                 Number = 60;
-
                 // 차트의 가로 줄을 그린다.
                 for (int i = 0; i < HorizontalLineCount; i++)
                 {
@@ -235,6 +235,7 @@ namespace EveryChart
                     Number -= 10;
                 }
 
+                // 차트의 내부 요소들을 그린다.
                 // 데이터의 좌표값들을 추가한다.
                 DataPoints.Add(new PointF(1, 23));
                 DataPoints.Add(new PointF(2, 32));
@@ -247,20 +248,17 @@ namespace EveryChart
                 DataPoints.Add(new PointF(10, 58));
                 DataPoints.Add(new PointF(11, 52));
                 DataPoints.Add(new PointF(12, 56));
-
                 // 차트의 점을 그린다.
                 for (int i = 0; i < 11; i++)
                 {
                     ChartPointRects.Add(GetChartRect(DataPoints[i], GridRect, OriginPoint, TextSize));
                     g.FillEllipse(ChartBrush, ChartPointRects[i]);
                 }
-
                 // 선이 지나갈 부분의 보조점을 찍는다.
                 for (int j = 0; j < 11; j++)
                 {
                     ChartPoints.Add(GetChartPoint(DataPoints[j], GridRect, OriginPoint, TextSize));
                 }
-
                 // 차트의 선을 그린다.
                 for (int k = 0; k < 10; k++)
                 {
@@ -283,9 +281,9 @@ namespace EveryChart
             RectangleF ChartPointRect = new RectangleF(OriginPoint.X - TextSize, OriginPoint.Y - TextSize, TextSize, TextSize);
 
             // 차트에서의 점의 위치를 구한다.
-            ChartPointRect.X = OriginPoint.X + (GridRect.Width * DataPoint.X) - (ChartPointRect.Width / 2.0f);
-            ChartPointRect.Y = OriginPoint.Y - ((GridRect.Height / 10.0f) * DataPoint.Y) - (ChartPointRect.Height / 2.0f);
-
+            ChartPointRect.X = OriginPoint.X + (GridRect.Width * DataPoint.X) - (ChartPointRect.Width / 2.0f);             // 1 / 2.0f는 차트에서의 점의 위치의 X값을 정하기 위한 값으로 고정값.
+            ChartPointRect.Y = OriginPoint.Y - ((GridRect.Height / 10.0f) * DataPoint.Y) - (ChartPointRect.Height / 2.0f); // 1/ 10.0f는 큰 눈금 사이의 간격을 구하기 위한 값이고, 
+                                                                                                                           // 1 / 2.0f는 차트에서의 점의 위치의 Y값을 정하기 위한 값으로 고정값.
             // 차트에서의 점의 위치를 출력한다.
             return ChartPointRect;
         }
@@ -305,7 +303,7 @@ namespace EveryChart
 
             // 차트에서의 점의 위치를 구한다.
             ChartPoint.X = OriginPoint.X + (GridRect.Width * DataPoint.X);
-            ChartPoint.Y = OriginPoint.Y - ((GridRect.Height / 10.0f) * DataPoint.Y);
+            ChartPoint.Y = OriginPoint.Y - ((GridRect.Height / 10.0f) * DataPoint.Y); // 1/ 10.0f는 큰 눈금 사이의 간격을 구하기 위한 값으로 고정값.
 
             // 차트에서의 점의 위치를 출력한다.
             return ChartPoint;
@@ -320,6 +318,8 @@ namespace EveryChart
                     break;
                 case CurrentGraph.LineGraph:
                     DrawLineGraph();
+                    break;
+                case CurrentGraph.BarGraph:
                     break;
                 case CurrentGraph.CircleGraph:
                     break;
