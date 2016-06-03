@@ -76,7 +76,7 @@ namespace EveryChart
             // 제목의 색상
             SolidBrush TitleBrush = new SolidBrush(Color.Blue);
             // 제목의 위치
-            PointF TitlePoint = new PointF(Width / 2.0f, ButtonDockPanel.Height); // 1/ 2.0f는 제목의 위치를 정하기 위한 값으로 고정값.
+            PointF TitlePoint = new PointF(Width / 2.0f, ButtonDockPanel.Height); // 1 / 2.0f는 제목의 위치를 정하기 위한 값으로 고정값.
             // Y축 글자열
             // (만 권)
             string KwanText = "(만 권)";
@@ -142,113 +142,130 @@ namespace EveryChart
             Pen ChartPen = Pens.Red;
             // 차트에 있는 점들
             List<PointF> ChartPoints = new List<PointF>();
+            // 차트를 그리는 유효성 체크
+            bool IsDrawing = false;
 
-            // 차트의 선을 제외한 나머지 부분을 그린다.
-            // 제목을 그린다.
-            g.DrawString(Title, TitleFont, TitleBrush, TitlePoint);
-            // 세로 축에 (만 권)을 그린다.
-            g.DrawString(KwanText, TitleFont, TextBrush, KwanTextPoint);
-            // 아래쪽 가로 축을 그린다.
-            g.DrawLine(LinePen, UnderHorizonStartPoint, UnderHorizonEndPoint);
-            // 왼쪽 세로 축을 그린다.
-            g.DrawLine(LinePen, LeftVerticalStartPoint, LeftVerticalEndPoint);
-            // 왼쪽 아래 대각선을 그린다.
-            g.DrawLine(LinePen, LeftDiagonalStartPoint, LeftDiagonalEndPoint);
-            // "판매량"을 그린다.
-            g.DrawString(SalesVolumeText, TitleFont, TextBrush, SalesVolumeTextPoint);
-            // "월"을 그린다.
-            g.DrawString(MonthText, TitleFont, TextBrush, MonthTextPoint);
-            // 차트의 세로 줄을 그린다.
-            for (int i = 0; i < VerticalLineCount; i++)
+            if((TitlePoint.X > 0 && TitlePoint.Y > 0) && (KwanTextPoint.X > 0 && KwanTextPoint.Y > 0) &&
+                (UnderHorizonStartPoint.X >= 0 && UnderHorizonStartPoint.Y > 0) && (UnderHorizonEndPoint.X > 0 && UnderHorizonEndPoint.Y > 0) &&
+                (LeftVerticalStartPoint.X > 0 && LeftVerticalStartPoint.Y > 0) && (LeftVerticalEndPoint.X > 0 && LeftVerticalEndPoint.Y > 0) && 
+                (LeftDiagonalStartPoint.X >= 0 && LeftDiagonalStartPoint.Y > 0) && (LeftDiagonalEndPoint.X > 0 && LeftDiagonalEndPoint.Y > 0) && 
+                (SalesVolumeTextPoint.X >= 0 && SalesVolumeTextPoint.Y > 0) && (MonthTextPoint.X >= 0 && MonthTextPoint.Y > 0) &&
+                (VerticalLineStartPoint.X > 0 && VerticalLineStartPoint.Y > 0) && (VerticalLineEndPoint.X > 0 && VerticalLineEndPoint.Y > 0) &&
+                (HorizontalLineStartPoint.X > 0 && HorizontalLineStartPoint.Y > 0 && HorizontalLineEndPoint.X > 0 && HorizontalLineEndPoint.Y > 0) &&
+                (OriginPoint.X > 0 && OriginPoint.Y > 0) && (GridRect.X > 0 && GridRect.Y > 0))
             {
-                NumberText = Number.ToString();
-                // 실선을 그린다.
-                g.DrawLine(LinePen, VerticalLineStartPoint, VerticalLineEndPoint);
-                // 글씨를 그린다.
-                if (i < VerticalLineCount - 1)
-                {
-                    g.DrawString(NumberText, TitleFont, TextBrush, TextPoint);
-                    Number++;
-                }
-
-
-                // 세로 줄을 한 칸씩 이동시킨다.
-                VerticalLineStartPoint.X += GridWidth;
-                VerticalLineEndPoint.X += GridWidth;
-                TextPoint.X += GridWidth;
-
+                IsDrawing = true;
             }
 
-            TextPoint = new PointF(GridWidth * 2.4f, ButtonDockPanel.Height + GridHeight * 1.3f);
-            Number = 60;
-
-            // 차트의 가로 줄을 그린다.
-            for (int i = 0; i < HorizontalLineCount; i++)
+            if(IsDrawing)
             {
-                //차트에 넣을 숫자를 구한다.
-                NumberText = Number.ToString();
-
-                // 실선을 그린다.
-                g.DrawLine(LinePen, HorizontalLineStartPoint, HorizontalLineEndPoint);
-                // 글씨를 그린다.
-                g.DrawString(NumberText, TitleFont, TextBrush, TextPoint);
-
-                using (Pen the_pen = new Pen(Color.Blue))
+                // 차트의 선을 제외한 나머지 부분을 그린다.
+                // 제목을 그린다.
+                g.DrawString(Title, TitleFont, TitleBrush, TitlePoint);
+                // 세로 축에 (만 권)을 그린다.
+                g.DrawString(KwanText, TitleFont, TextBrush, KwanTextPoint);
+                // 아래쪽 가로 축을 그린다.
+                g.DrawLine(LinePen, UnderHorizonStartPoint, UnderHorizonEndPoint);
+                // 왼쪽 세로 축을 그린다.
+                g.DrawLine(LinePen, LeftVerticalStartPoint, LeftVerticalEndPoint);
+                // 왼쪽 아래 대각선을 그린다.
+                g.DrawLine(LinePen, LeftDiagonalStartPoint, LeftDiagonalEndPoint);
+                // "판매량"을 그린다.
+                g.DrawString(SalesVolumeText, TitleFont, TextBrush, SalesVolumeTextPoint);
+                // "월"을 그린다.
+                g.DrawString(MonthText, TitleFont, TextBrush, MonthTextPoint);
+                // 차트의 세로 줄을 그린다.
+                for (int i = 0; i < VerticalLineCount; i++)
                 {
-                    the_pen.DashStyle = DashStyle.Dot;
-                    // 차트의 가로 눈금을 그린다.
-                    for (int j = 0; j < GridCount; j++)
+                    NumberText = Number.ToString();
+                    // 실선을 그린다.
+                    g.DrawLine(LinePen, VerticalLineStartPoint, VerticalLineEndPoint);
+                    // 글씨를 그린다.
+                    if (i < VerticalLineCount - 1)
                     {
-                        g.DrawLine(the_pen, HorizontalLineStartPoint, HorizontalLineEndPoint);
-                        HorizontalLineStartPoint.Y += GridHeight / GridCount;
-                        HorizontalLineEndPoint.Y += GridHeight / GridCount;
+                        g.DrawString(NumberText, TitleFont, TextBrush, TextPoint);
+                        Number++;
                     }
 
+
+                    // 세로 줄을 한 칸씩 이동시킨다.
+                    VerticalLineStartPoint.X += GridWidth;
+                    VerticalLineEndPoint.X += GridWidth;
+                    TextPoint.X += GridWidth;
+
                 }
 
-                // 글씨를 한 칸씩 이동시킨다.
-                if (i < HorizontalLineCount - 2)
+                TextPoint = new PointF(GridWidth * 2.4f, ButtonDockPanel.Height + GridHeight * 1.3f);
+                Number = 60;
+
+                // 차트의 가로 줄을 그린다.
+                for (int i = 0; i < HorizontalLineCount; i++)
                 {
-                    TextPoint.Y += GridHeight;
+                    //차트에 넣을 숫자를 구한다.
+                    NumberText = Number.ToString();
+
+                    // 실선을 그린다.
+                    g.DrawLine(LinePen, HorizontalLineStartPoint, HorizontalLineEndPoint);
+                    // 글씨를 그린다.
+                    g.DrawString(NumberText, TitleFont, TextBrush, TextPoint);
+
+                    using (Pen the_pen = new Pen(Color.Blue))
+                    {
+                        the_pen.DashStyle = DashStyle.Dot;
+                        // 차트의 가로 눈금을 그린다.
+                        for (int j = 0; j < GridCount; j++)
+                        {
+                            g.DrawLine(the_pen, HorizontalLineStartPoint, HorizontalLineEndPoint);
+                            HorizontalLineStartPoint.Y += GridHeight / GridCount;
+                            HorizontalLineEndPoint.Y += GridHeight / GridCount;
+                        }
+
+                    }
+
+                    // 글씨를 한 칸씩 이동시킨다.
+                    if (i < HorizontalLineCount - 2)
+                    {
+                        TextPoint.Y += GridHeight;
+                    }
+                    else
+                    {
+                        TextPoint.Y += GridHeight / 2.0f;
+                    }
+
+                    Number -= 10;
                 }
-                else
+
+                // 데이터의 좌표값들을 추가한다.
+                DataPoints.Add(new PointF(1, 23));
+                DataPoints.Add(new PointF(2, 32));
+                DataPoints.Add(new PointF(3, 50));
+                DataPoints.Add(new PointF(4, 44));
+                DataPoints.Add(new PointF(5, 52));
+                DataPoints.Add(new PointF(6, 49));
+                DataPoints.Add(new PointF(7, 38));
+                DataPoints.Add(new PointF(8, 36));
+                DataPoints.Add(new PointF(10, 58));
+                DataPoints.Add(new PointF(11, 52));
+                DataPoints.Add(new PointF(12, 56));
+
+                // 차트의 점을 그린다.
+                for (int i = 0; i < 11; i++)
                 {
-                    TextPoint.Y += GridHeight / 2.0f;
+                    ChartPointRects.Add(GetChartRect(DataPoints[i], GridRect, OriginPoint, TextSize));
+                    g.FillEllipse(ChartBrush, ChartPointRects[i]);
                 }
 
-                Number -= 10;
-            }
+                // 선이 지나갈 부분의 보조점을 찍는다.
+                for (int j = 0; j < 11; j++)
+                {
+                    ChartPoints.Add(GetChartPoint(DataPoints[j], GridRect, OriginPoint, TextSize));
+                }
 
-            // 데이터의 좌표값들을 추가한다.
-            DataPoints.Add(new PointF(1, 23));
-            DataPoints.Add(new PointF(2, 32));
-            DataPoints.Add(new PointF(3, 50));
-            DataPoints.Add(new PointF(4, 44));
-            DataPoints.Add(new PointF(5, 52));
-            DataPoints.Add(new PointF(6, 49));
-            DataPoints.Add(new PointF(7, 38));
-            DataPoints.Add(new PointF(8, 36));
-            DataPoints.Add(new PointF(10, 58));
-            DataPoints.Add(new PointF(11, 52));
-            DataPoints.Add(new PointF(12, 56));
-
-            // 차트의 점을 그린다.
-            for (int i = 0; i < 11; i++)
-            {
-                ChartPointRects.Add(GetChartRect(DataPoints[i], GridRect, VerticalLineCount, OriginPoint, TextSize));
-                g.FillEllipse(ChartBrush, ChartPointRects[i]);
-            }
-
-            // 선이 지나갈 부분의 보조점을 찍는다.
-            for (int j = 0; j < 11; j++)
-            {
-                ChartPoints.Add(GetChartPoint(DataPoints[j], GridRect, VerticalLineCount, OriginPoint, TextSize));
-            }
-
-            // 차트의 선을 그린다.
-            for (int k = 0; k < 10; k++)
-            {
-                g.DrawLine(ChartPen, ChartPoints[k], ChartPoints[k + 1]);
+                // 차트의 선을 그린다.
+                for (int k = 0; k < 10; k++)
+                {
+                    g.DrawLine(ChartPen, ChartPoints[k], ChartPoints[k + 1]);
+                }
             }
         }
 
@@ -257,11 +274,10 @@ namespace EveryChart
         /// </summary>
         /// <param name="DataPoint">좌표값</param>
         /// <param name="GridRect">단위 그리드 사각형 정보</param>
-        /// <param name="VerticalNumberCount">세로 눈금의 숫자의 개수</param>
         /// <param name="OriginPoint">차트의 원점</param>
         /// <param name="TextSize">글자의 사이즈이자 점의 크기</param>
         /// <returns>차트에 있는 점을 둘러싼 사각형</returns>
-        private RectangleF GetChartRect(PointF DataPoint, RectangleF GridRect, int VerticalNumberCount, PointF OriginPoint, float TextSize)
+        private RectangleF GetChartRect(PointF DataPoint, RectangleF GridRect, PointF OriginPoint, float TextSize)
         {
             // 차트에서의 점의 위치
             RectangleF ChartPointRect = new RectangleF(OriginPoint.X - TextSize, OriginPoint.Y - TextSize, TextSize, TextSize);
@@ -279,11 +295,10 @@ namespace EveryChart
         /// </summary>
         /// <param name="DataPoint">좌표값</param>
         /// <param name="GridRect">단위 그리드 사각형 정보</param>
-        /// <param name="VerticalNumberCount">세로 눈금의 숫자의 개수</param>
         /// <param name="OriginPoint">차트의 원점</param>
         /// <param name="TextSize">글자의 사이즈이자 점의 크기</param>
         /// <returns>차트에 있는 점의 좌표값</returns>
-        private PointF GetChartPoint(PointF DataPoint, RectangleF GridRect, int VerticalNumberCount, PointF OriginPoint, float TextSize)
+        private PointF GetChartPoint(PointF DataPoint, RectangleF GridRect, PointF OriginPoint, float TextSize)
         {
             // 차트에서의 점의 위치
             PointF ChartPoint = new PointF(OriginPoint.X, OriginPoint.Y);
