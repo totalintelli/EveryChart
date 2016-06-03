@@ -30,6 +30,9 @@
         {
             this.btnLineGraph = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ButtonDockPanel = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
+            this.ButtonDockPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnLineGraph
@@ -45,12 +48,23 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.PowderBlue;
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 40);
+            this.panel1.Controls.Add(this.ButtonDockPanel);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(754, 515);
+            this.panel1.Size = new System.Drawing.Size(754, 555);
             this.panel1.TabIndex = 1;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.panel1.SizeChanged += new System.EventHandler(this.panel1_SizeChanged);
+            // 
+            // ButtonDockPanel
+            // 
+            this.ButtonDockPanel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ButtonDockPanel.Controls.Add(this.btnLineGraph);
+            this.ButtonDockPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ButtonDockPanel.Location = new System.Drawing.Point(0, 0);
+            this.ButtonDockPanel.Name = "ButtonDockPanel";
+            this.ButtonDockPanel.Size = new System.Drawing.Size(754, 49);
+            this.ButtonDockPanel.TabIndex = 0;
             // 
             // FrmEveryChart
             // 
@@ -58,9 +72,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(754, 555);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnLineGraph);
             this.Name = "FrmEveryChart";
             this.Text = "모든 차트";
+            this.panel1.ResumeLayout(false);
+            this.ButtonDockPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -69,6 +84,7 @@
 
         private System.Windows.Forms.Button btnLineGraph;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel ButtonDockPanel;
     }
 }
 
