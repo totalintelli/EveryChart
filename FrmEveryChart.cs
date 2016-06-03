@@ -128,8 +128,12 @@ namespace EveryChart
             PointF OriginPoint = new PointF(GridWidth * 3, GridHeight * 8);
             // 차트에 있는 점의 색상
             SolidBrush ChartBrush = new SolidBrush(Color.Red);
-            // 차트에 있는 점들
+            // 차트에 있는 점들을 둘러싼 사각형들
             List<RectangleF> ChartPointRects = new List<RectangleF>();
+            // 점들을 있는 선들의 색상
+            Pen ChartPen = Pens.Red;
+            // 차트에 있는 점들
+            List<PointF> ChartPoints = new List<PointF>();
 
             // 차트의 선을 제외한 나머지 부분을 그린다.
             // 제목을 그린다.
@@ -223,22 +227,32 @@ namespace EveryChart
             // 차트의 점을 그린다.
             for (int i = 0; i < 11; i++)
             {
-                ChartPointRects.Add(GetChartPoint(DataPoints[i], GridRect, VerticalLineCount, OriginPoint));
+                ChartPointRects.Add(GetChartRect(DataPoints[i], GridRect, VerticalLineCount, OriginPoint));
                 g.FillEllipse(ChartBrush, ChartPointRects[i]);
             }
 
+            // 선이 지나갈 부분의 보조점을 찍는다.
+            for (int j = 0; j < 11; j++)
+            {
+                ChartPoints.Add(GetChartPoint(DataPoints[j], GridRect, VerticalLineCount, OriginPoint));
+            }
+
             // 차트의 선을 그린다.
+            for (int k = 0; k < 10; k++)
+            {
+                g.DrawLine(ChartPen, ChartPoints[k], ChartPoints[k + 1]);
+            }
         }
 
         /// <summary>
-        /// 차트에서의 점의 위치를 구한다.
+        /// 차트에 있는 점을 둘러싼 사각형을 구한다.
         /// </summary>
         /// <param name="DataPoint">좌표값</param>
         /// <param name="GridRect">단위 그리드 사각형 정보</param>
         /// <param name="VerticalNumberCount">세로 눈금의 숫자의 개수</param>
         /// <param name="OriginPoint">차트의 원점</param>
-        /// <returns></returns>
-        private RectangleF GetChartPoint(PointF DataPoint, RectangleF GridRect, int VerticalNumberCount, PointF OriginPoint)
+        /// <returns>차트에 있는 점을 둘러싼 사각형</returns>
+        private RectangleF GetChartRect(PointF DataPoint, RectangleF GridRect, int VerticalNumberCount, PointF OriginPoint)
         {
             // 차트에서의 점의 위치
             RectangleF ChartPointRect = new RectangleF(OriginPoint.X, OriginPoint.Y, 10, 10);
@@ -249,6 +263,27 @@ namespace EveryChart
 
             // 차트에서의 점의 위치를 출력한다.
             return ChartPointRect;
+        }
+
+        /// <summary>
+        /// 차트에 있는 점의 좌표값을 구한다.
+        /// </summary>
+        /// <param name="DataPoint">좌표값</param>
+        /// <param name="GridRect">단위 그리드 사각형 정보</param>
+        /// <param name="VerticalNumberCount">세로 눈금의 숫자의 개수</param>
+        /// <param name="OriginPoint">차트의 원점</param>
+        /// <returns>차트에 있는 점의 좌표값</returns>
+        private PointF GetChartPoint(PointF DataPoint, RectangleF GridRect, int VerticalNumberCount, PointF OriginPoint)
+        {
+            // 차트에서의 점의 위치
+            PointF ChartPoint = new PointF(OriginPoint.X, OriginPoint.Y);
+
+            // 차트에서의 점의 위치를 구한다.
+            ChartPoint.X = OriginPoint.X + (GridRect.Width * DataPoint.X);
+            ChartPoint.Y = OriginPoint.Y - ((GridRect.Height / 10.0f) * DataPoint.Y);
+
+            // 차트에서의 점의 위치를 출력한다.
+            return ChartPoint;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
