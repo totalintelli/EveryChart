@@ -109,7 +109,7 @@ namespace EveryChart
             // 왼쪽 아래에 있는 "월"
             string MonthText = "월";
             // 왼쪽 아래에 있는 "월"의 위치
-            PointF MonthTextPoint = new PointF(GridWidth * 2.5f, panel1.Height - GridHeight * 0.5f);         // 2.5f와 0.9f는 "월"의 위치를 정하기 위한 값으로 고정값.
+            PointF MonthTextPoint = new PointF(GridWidth * 2.5f, panel1.Height - GridHeight * 0.5f);                    // 2.5f와 0.9f는 "월"의 위치를 정하기 위한 값으로 고정값.
             // 차트의 세로줄의 개수
             int VerticalLineCount = 13;
             // 차트의 세로줄의 시작 위치
