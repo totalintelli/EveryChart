@@ -13,6 +13,17 @@ namespace EveryChart
 {
     public partial class FrmEveryChart : Form
     {
+        enum CurrentGraph
+        {
+            None = 0,           // 그래프가 없음.
+            LineGraph = 1,      // 꺾은선 그래프.
+            CircleGraph = 2,    // 원 그래프.
+            SpeacialGraph1 = 3, // 특수 그래프1.
+            SpeacialGraph2 = 4, // 특수 그래프2.
+        }
+
+        CurrentGraph CurrentState = CurrentGraph.None;
+
         public FrmEveryChart()
         {
             InitializeComponent();
@@ -24,6 +35,15 @@ namespace EveryChart
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnLineGraph_Click(object sender, EventArgs e)
+        {
+            DrawLineGraph();
+            CurrentState = CurrentGraph.LineGraph;
+        }
+
+        /// <summary>
+        /// 꺽은 선 그래프를 그리는 함수
+        /// </summary>
+        private void DrawLineGraph()
         {
             panel1.CreateGraphics().Clear(panel1.BackColor);
 
@@ -101,9 +121,7 @@ namespace EveryChart
             // 차트의 숫자의 위치
             PointF TextPoint = new PointF(GridWidth * 3.75f, GridHeight * 8);
             // 데이터의 좌표값들
-            List<PointF> DataPoints = new List<PointF> ();
-            // 차트의 점의 좌표
-            RectangleF ChartPointRect;
+            List<PointF> DataPoints = new List<PointF>();
             // 단위 그리드 사각형의 정보
             RectangleF GridRect = new RectangleF(GridWidth * 4, GridHeight, GridWidth, GridHeight);
             // 차트의 원점의 좌표값
@@ -135,13 +153,13 @@ namespace EveryChart
                 // 실선을 그린다.
                 g.DrawLine(LinePen, VerticalLineStartPoint, VerticalLineEndPoint);
                 // 글씨를 그린다.
-                if(i < VerticalLineCount - 1)
+                if (i < VerticalLineCount - 1)
                 {
                     g.DrawString(NumberText, TitleFont, TextBrush, TextPoint);
                     Number++;
                 }
-                
-                
+
+
                 // 세로 줄을 한 칸씩 이동시킨다.
                 VerticalLineStartPoint.X += GridWidth;
                 VerticalLineEndPoint.X += GridWidth;
@@ -157,7 +175,7 @@ namespace EveryChart
             {
                 //차트에 넣을 숫자를 구한다.
                 NumberText = Number.ToString();
-                
+
                 // 실선을 그린다.
                 g.DrawLine(LinePen, HorizontalLineStartPoint, HorizontalLineEndPoint);
                 // 글씨를 그린다.
@@ -185,7 +203,7 @@ namespace EveryChart
                 {
                     TextPoint.Y += GridHeight / 2.0f;
                 }
-                
+
                 Number -= 10;
             }
 
@@ -203,14 +221,13 @@ namespace EveryChart
             DataPoints.Add(new PointF(12, 56));
 
             // 차트의 점을 그린다.
-            for(int i = 0; i < 11; i++)
+            for (int i = 0; i < 11; i++)
             {
                 ChartPointRects.Add(GetChartPoint(DataPoints[i], GridRect, VerticalLineCount, OriginPoint));
                 g.FillEllipse(ChartBrush, ChartPointRects[i]);
             }
-            
-            // 차트의 선을 그린다.
 
+            // 차트의 선을 그린다.
         }
 
         /// <summary>
@@ -232,6 +249,27 @@ namespace EveryChart
 
             // 차트에서의 점의 위치를 출력한다.
             return ChartPointRect;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            switch (CurrentState)
+            {
+                case CurrentGraph.None:
+                    panel1.CreateGraphics().Clear(panel1.BackColor);
+                    break;
+                case CurrentGraph.LineGraph:
+                    DrawLineGraph();
+                    break;
+                case CurrentGraph.CircleGraph:
+                    break;
+                case CurrentGraph.SpeacialGraph1:
+                    break;
+                case CurrentGraph.SpeacialGraph2:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
