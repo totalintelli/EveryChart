@@ -22,7 +22,10 @@ namespace EveryChart
             SpeacialGraph2 = 4, // 특수 그래프2.
         }
 
+        // 그래프의 상태
         CurrentGraph CurrentState = CurrentGraph.None;
+        
+
 
         public FrmEveryChart()
         {
@@ -51,18 +54,21 @@ namespace EveryChart
             float Width = panel1.Width;
             // 패널의 높이
             float Height = panel1.Height - ButtonDockPanel.Height;
-            // 단위 그리드의 너비
-            float GridWidth = panel1.Width / 17.0f;
-            // 단위 그리드의 높이
-            float GridHeight = panel1.Height / 10.0f;
+            
             // 세로 눈금 하나 당 단위 그리드의 개수
             int GridCount = 5;
             // panel1에 그릴 준비를 한다.
             Graphics g = panel1.CreateGraphics();
             // 제목 글자열
             string Title = "월별 책의 판매량";
+            // 단위 그리드의 너비
+            float GridWidth = panel1.Width / 17.0f;
+            // 단위 그리드의 높이
+            float GridHeight = panel1.Height / 10.0f;
+            // 글자의 크기
+            float TextSize = (GridWidth + GridHeight) / 8.0f;
             // 제목의 폰트
-            Font TitleFont = new Font("SansSerif", (GridWidth + GridHeight) / 8.0f);
+            Font TitleFont = new Font("SansSerif", TextSize);
             // 제목의 색상
             SolidBrush TitleBrush = new SolidBrush(Color.Blue);
             // 제목의 위치
@@ -77,9 +83,9 @@ namespace EveryChart
             // 축의 색상
             Pen LinePen = Pens.Blue;
             // 아래쪽 가로축의 시작 위치
-            PointF UnderHorizonStartPoint = new PointF(0.0f, GridHeight * 8.7f);
+            PointF UnderHorizonStartPoint = new PointF(0.0f, ButtonDockPanel.Height + GridHeight * 7.5f);
             // 아래쪽 가로축의 끝 위치
-            PointF UnderHorizonEndPoint = new PointF(GridWidth * 16.0f, GridHeight * 8.7f);
+            PointF UnderHorizonEndPoint = new PointF(GridWidth * 16.0f, ButtonDockPanel.Height + GridHeight * 7.5f);
             // 왼쪽 세로축의 시작 위치
             PointF LeftVerticalStartPoint = new PointF(GridWidth * 3.0f, ButtonDockPanel.Height + GridHeight * 0.5f);
             // 왼쪽 세로축의 끝 위치
@@ -91,21 +97,21 @@ namespace EveryChart
             // 왼쪽 아래 대각선의 시작 위치
             PointF LeftDiagonalStartPoint = new PointF(0.0f, panel1.Height);
             // 왼쪽 아래 대각선의 끝 위치
-            PointF LeftDiagonalEndPoint = new PointF(GridWidth * 3.0f, GridHeight * 8.7f);
+            PointF LeftDiagonalEndPoint = new PointF(GridWidth * 3.0f, ButtonDockPanel.Height + GridHeight * 7.5f);
             // 왼쪽 아래에 있는 "판매량" 
             string SalesVolumeText = "판매량";
             // 왼쪽 아래에 있는 "판매량"의 위치
-            PointF SalesVolumeTextPoint = new PointF(0.0f, GridHeight * 8.8f);
+            PointF SalesVolumeTextPoint = new PointF(0.0f, ButtonDockPanel.Height + GridHeight * 7.7f);
             // 왼쪽 아래에 있는 "월"
             string MonthText = "월";
             // 왼쪽 아래에 있는 "월"의 위치
-            PointF MonthTextPoint = new PointF(GridWidth * 2.2f, GridHeight * 9.5f);
+            PointF MonthTextPoint = new PointF(GridWidth * 2.5f, GridHeight * 9.5f);
             // 차트의 세로 줄의 개수
             int VerticalLineCount = 13;
             // 차트의 세로 줄의 시작 위치
             PointF VerticalLineStartPoint = new PointF(GridWidth * 4.0f, ButtonDockPanel.Height + GridHeight * 0.5f);
             // 차트의 세로 줄의 끝 위치
-            PointF VerticalLineEndPoint = new PointF(GridWidth * 4.0f, ButtonDockPanel.Height + GridHeight * 7.3f);
+            PointF VerticalLineEndPoint = new PointF(GridWidth * 4.0f, ButtonDockPanel.Height + GridHeight * 7.5f);
             // 차트의 가로 줄의 개수
             int HorizontalLineCount = 7;
             // 차트의 가로 줄의 시작 위치
@@ -123,7 +129,7 @@ namespace EveryChart
             // 단위 그리드 사각형의 정보
             RectangleF GridRect = new RectangleF(GridWidth * 4.0f, GridHeight, GridWidth, GridHeight);
             // 차트의 원점의 좌표값
-            PointF OriginPoint = new PointF(GridWidth * 3, GridHeight * 8.0f);
+            PointF OriginPoint = new PointF(GridWidth * 3.0f, ButtonDockPanel.Height + GridHeight * 7.5f);
             // 차트에 있는 점의 색상
             SolidBrush ChartBrush = new SolidBrush(Color.Red);
             // 차트에 있는 점들을 둘러싼 사각형들
@@ -225,14 +231,14 @@ namespace EveryChart
             // 차트의 점을 그린다.
             for (int i = 0; i < 11; i++)
             {
-                ChartPointRects.Add(GetChartRect(DataPoints[i], GridRect, VerticalLineCount, OriginPoint));
+                ChartPointRects.Add(GetChartRect(DataPoints[i], GridRect, VerticalLineCount, OriginPoint, TextSize));
                 g.FillEllipse(ChartBrush, ChartPointRects[i]);
             }
 
             // 선이 지나갈 부분의 보조점을 찍는다.
             for (int j = 0; j < 11; j++)
             {
-                ChartPoints.Add(GetChartPoint(DataPoints[j], GridRect, VerticalLineCount, OriginPoint));
+                ChartPoints.Add(GetChartPoint(DataPoints[j], GridRect, VerticalLineCount, OriginPoint, TextSize));
             }
 
             // 차트의 선을 그린다.
@@ -249,11 +255,12 @@ namespace EveryChart
         /// <param name="GridRect">단위 그리드 사각형 정보</param>
         /// <param name="VerticalNumberCount">세로 눈금의 숫자의 개수</param>
         /// <param name="OriginPoint">차트의 원점</param>
+        /// <param name="TextSize">글자의 사이즈이자 점의 크기</param>
         /// <returns>차트에 있는 점을 둘러싼 사각형</returns>
-        private RectangleF GetChartRect(PointF DataPoint, RectangleF GridRect, int VerticalNumberCount, PointF OriginPoint)
+        private RectangleF GetChartRect(PointF DataPoint, RectangleF GridRect, int VerticalNumberCount, PointF OriginPoint, float TextSize)
         {
             // 차트에서의 점의 위치
-            RectangleF ChartPointRect = new RectangleF(OriginPoint.X, OriginPoint.Y, 10, 10);
+            RectangleF ChartPointRect = new RectangleF(OriginPoint.X - TextSize, OriginPoint.Y - TextSize, TextSize, TextSize);
 
             // 차트에서의 점의 위치를 구한다.
             ChartPointRect.X = OriginPoint.X + (GridRect.Width * DataPoint.X) - (ChartPointRect.Width / 2.0f);
@@ -270,8 +277,9 @@ namespace EveryChart
         /// <param name="GridRect">단위 그리드 사각형 정보</param>
         /// <param name="VerticalNumberCount">세로 눈금의 숫자의 개수</param>
         /// <param name="OriginPoint">차트의 원점</param>
+        /// <param name="TextSize">글자의 사이즈이자 점의 크기</param>
         /// <returns>차트에 있는 점의 좌표값</returns>
-        private PointF GetChartPoint(PointF DataPoint, RectangleF GridRect, int VerticalNumberCount, PointF OriginPoint)
+        private PointF GetChartPoint(PointF DataPoint, RectangleF GridRect, int VerticalNumberCount, PointF OriginPoint, float TextSize)
         {
             // 차트에서의 점의 위치
             PointF ChartPoint = new PointF(OriginPoint.X, OriginPoint.Y);
