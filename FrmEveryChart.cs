@@ -358,7 +358,7 @@ namespace EveryChart
             // 차트의 점을 그린다.
             for (int i = 0; i < 11; i++)
             {
-                ChartPointRects.Add(GetChartRect(DataPoints[i], GridRect, OriginPoint, TextSize));
+                ChartPointRects.Add(GetChartPointRect(DataPoints[i], GridRect, OriginPoint, TextSize));
                 g.FillEllipse(ChartBrush, ChartPointRects[i]);
             }
             // 선이 지나갈 부분의 보조점을 찍는다.
@@ -381,7 +381,7 @@ namespace EveryChart
         /// <param name="OriginPoint">차트의 원점</param>
         /// <param name="TextSize">글자의 사이즈이자 점의 크기</param>
         /// <returns>차트에 있는 점을 둘러싼 사각형</returns>
-        private RectangleF GetChartRect(PointF DataPoint, RectangleF GridRect, PointF OriginPoint, float TextSize)
+        private RectangleF GetChartPointRect(PointF DataPoint, RectangleF GridRect, PointF OriginPoint, float TextSize)
         {
             // 차트에서의 점의 위치
             RectangleF ChartPointRect = new RectangleF(OriginPoint.X - TextSize, OriginPoint.Y - TextSize, TextSize, TextSize);
