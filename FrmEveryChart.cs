@@ -43,9 +43,9 @@ namespace EveryChart
         }
 
         /// <summary>
-        /// 꺾은 선 그래프를 그리는 함수
+        /// 차트의 눈금과 숫자와 글자들을 그리는 함수.
         /// </summary>
-        private void DrawLineGraph()
+        private void DrawChartOutline()
         {
             // 패널을 초기화 한다.
             panel1.CreateGraphics().Clear(panel1.BackColor);
@@ -54,7 +54,7 @@ namespace EveryChart
             float Width = panel1.Width;
             // 패널의 높이
             float Height = panel1.Height - ButtonDockPanel.Height;
-            
+
             // 숫자 사이에 있는 세로 눈금의 개수
             int GridCount = 5;
             // panel1에 그릴 준비를 한다.
@@ -70,7 +70,7 @@ namespace EveryChart
             if (GridWidth > 0 && GridHeight > 0)
             {
                 TextSize = (GridWidth + GridHeight) / 8.0f;                                                                       // 8.0f는 글자의 크기를 구하기 위한 값으로 고정값.
-            } 
+            }
             // 제목의 폰트
             Font TitleFont = new Font("SansSerif", TextSize);
             // 제목의 색상
@@ -128,20 +128,6 @@ namespace EveryChart
             string NumberText;
             // 차트의 숫자의 위치
             PointF TextPoint = new PointF(GridWidth * 3.8f, ButtonDockPanel.Height + GridHeight * 7.7f);                          // 3.8f와 7.7f는 차트의 숫자의 위치를 정하기 위한 값으로 고정값.
-            // 데이터의 좌표값들
-            List<PointF> DataPoints = new List<PointF>();
-            // 단위 그리드 사각형의 정보
-            RectangleF GridRect = new RectangleF(GridWidth * 4.0f, GridHeight, GridWidth, GridHeight);                            // 4.0f는 단위 그리드 사각형의 X값을 정하기 위한 값으로 고정값.
-            // 차트의 원점의 좌표값
-            PointF OriginPoint = new PointF(GridWidth * 3.0f, ButtonDockPanel.Height + GridHeight * 7.5f);                        // 3.0f와 7.5f는 차트의 원점의 좌표값을 정하기 위한 값으로 고정값.
-            // 차트에 있는 점의 색상
-            SolidBrush ChartBrush = new SolidBrush(Color.Red);
-            // 차트에 있는 점들을 둘러싼 사각형들
-            List<RectangleF> ChartPointRects = new List<RectangleF>();
-            // 점들을 있는 선들의 색상
-            Pen ChartPen = Pens.Red;
-            // 차트에 있는 점들
-            List<PointF> ChartPoints = new List<PointF>();
 
             // 차트의 선을 제외한 나머지 부분을 그린다.
             // 제목을 그린다.
@@ -216,6 +202,42 @@ namespace EveryChart
 
                 Number -= 10;
             }
+        }
+
+        /// <summary>
+        /// 꺾은 선 그래프를 그리는 함수
+        /// </summary>
+        private void DrawLineGraph()
+        {
+            // panel1에 그릴 준비를 한다.
+            Graphics g = panel1.CreateGraphics();
+            // 단위 그리드의 너비
+            float GridWidth = panel1.Width / 17.0f;                                                                               // 1 / 17.0f는 단위 그리드의 너비를 구하기 위한 값으로 고정값.
+            // 단위 그리드의 높이
+            float GridHeight = panel1.Height / 10.0f;                                                                             // 1 / 10.0f는 단위 그리드의 높이를 구하기 위한 값으로 고정값.
+            // 글자의 크기   
+            float TextSize = 1;
+            if (GridWidth > 0 && GridHeight > 0)
+            {
+                TextSize = (GridWidth + GridHeight) / 8.0f;                                                                       // 8.0f는 글자의 크기를 구하기 위한 값으로 고정값.
+            }
+            // 데이터의 좌표값들
+            List<PointF> DataPoints = new List<PointF>();
+            // 단위 그리드 사각형의 정보
+            RectangleF GridRect = new RectangleF(GridWidth * 4.0f, GridHeight, GridWidth, GridHeight);                            // 4.0f는 단위 그리드 사각형의 X값을 정하기 위한 값으로 고정값.
+            // 차트의 원점의 좌표값
+            PointF OriginPoint = new PointF(GridWidth * 3.0f, ButtonDockPanel.Height + GridHeight * 7.5f);                        // 3.0f와 7.5f는 차트의 원점의 좌표값을 정하기 위한 값으로 고정값.
+            // 차트에 있는 점의 색상
+            SolidBrush ChartBrush = new SolidBrush(Color.Red);
+            // 차트에 있는 점들을 둘러싼 사각형들
+            List<RectangleF> ChartPointRects = new List<RectangleF>();
+            // 점들을 있는 선들의 색상
+            Pen ChartPen = Pens.Red;
+            // 차트에 있는 점들
+            List<PointF> ChartPoints = new List<PointF>();
+
+            // 눈금과 숫자와 글자를 그린다.
+            DrawChartOutline();
 
             // 차트의 내부 요소들을 그린다.
             // 데이터의 좌표값들을 추가한다.
