@@ -188,12 +188,18 @@ namespace EveryChart
             int Number = 1;
             // 글자화된 차트의 숫자
             string NumberText;
-            // 차트의 숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 X좌표
-            float TextPointX = GridWidth * 3.8f;                                                                                  // 3.8f은 차트의 숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 X좌표를 정하기 위한 값.
-            // 차트의 숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 Y좌표
-            float TextPointY = ButtonDockPanel.Height + GridHeight * 7.7f;                                                        // 7.7f은 차트의 숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 Y좌표를 정하기 위한 값.
-            // 차트의 숫자의 위치
-            PointF TextPoint = new PointF(TextPointX, TextPointY);                          
+            // 차트의 아래에 있는 숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 X좌표
+            float UnderTextPointX = GridWidth * 3.8f;                                                                             // 3.8f은 차트의 아래에 있는숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 X좌표를 정하기 위한 값.
+            // 차트의 아래에 있는 숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 Y좌표
+            float UnderTextPointY = ButtonDockPanel.Height + GridHeight * 7.7f;                                                   // 7.7f은 차트의 아래에 있는숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 Y좌표를 정하기 위한 값.
+            // 차트의 아래에 있는 숫자의 위치
+            PointF UnderTextPoint = new PointF(UnderTextPointX, UnderTextPointY);
+            // 차트의 왼쪽에 있는 숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 X좌표
+            float LeftTextPointX = GridWidth * 2.0f;                                                                              // 2.0f는 차트의 왼쪽에 있는 숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 X좌표를 정하기 위한 값.
+            // 차트의 왼쪽에 있는 숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 Y좌표
+            float LeftTextPointY = ButtonDockPanel.Height + GridHeight * 1.3f;                                                    // 1.3f는 차트의 왼쪽에 있는 숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 Y좌표를 정하기 위한 값.
+            // 차트의 아래에 있는 숫자의 위치
+            PointF LeftTextPoint = new PointF(LeftTextPointX, LeftTextPointY);
 
             // 꺾은 선 그래프의 아웃라인을 그린다.
             switch (CurrentState)
@@ -225,7 +231,7 @@ namespace EveryChart
                             // 글씨를 그린다.
                             if (i < VerticalLineCount - 1)
                             {
-                                g.DrawString(NumberText, TitleFont, TextBrush, TextPoint);
+                                g.DrawString(NumberText, TitleFont, TextBrush, UnderTextPoint);
                                 Number++;
                             }
 
@@ -233,12 +239,12 @@ namespace EveryChart
                             // 세로 줄을 한 칸씩 이동시킨다.
                             VerticalLineStartPoint.X += GridWidth;
                             VerticalLineEndPoint.X += GridWidth;
-                            TextPoint.X += GridWidth;
+                            UnderTextPoint.X += GridWidth;
 
                         }
-                        TextPoint = new PointF(GridWidth * 2.0f, ButtonDockPanel.Height + GridHeight * 1.3f); // 2.0f와 1.3f는 세로축의 숫자들의 위치를 정하기 위한 값으로 고정값.
-                        Number = 60;
+
                         // 차트의 가로 줄을 그린다.
+                        Number = 60;
                         for (int i = 0; i < HorizontalLineCount; i++)
                         {
                             //차트에 넣을 숫자를 구한다.
@@ -247,7 +253,7 @@ namespace EveryChart
                             // 실선을 그린다.
                             g.DrawLine(LinePen, HorizontalLineStartPoint, HorizontalLineEndPoint);
                             // 글씨를 그린다.
-                            g.DrawString(NumberText, TitleFont, TextBrush, TextPoint);
+                            g.DrawString(NumberText, TitleFont, TextBrush, LeftTextPoint);
 
                             using (Pen the_pen = new Pen(Color.Blue))
                             {
@@ -265,11 +271,11 @@ namespace EveryChart
                             // 글씨를 한 칸씩 이동시킨다.
                             if (i < HorizontalLineCount - 2)
                             {
-                                TextPoint.Y += GridHeight;
+                                LeftTextPoint.Y += GridHeight;
                             }
                             else
                             {
-                                TextPoint.Y += GridHeight / 2.0f;
+                                LeftTextPoint.Y += GridHeight / 2.0f;
                             }
 
                             Number -= 10;
