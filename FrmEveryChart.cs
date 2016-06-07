@@ -314,10 +314,18 @@ namespace EveryChart
             }
             // 데이터의 좌표값들
             List<PointF> DataPoints = new List<PointF>();
+            // 단위 그리드 사각형의 왼쪽 위 꼭지점의 X좌표
+            float GridRectX = GridWidth * 4.0f;
+            // 단위 그리드 사각형의 왼쪽 위 꼭지점의 Y좌표
+            float GridRectY = GridHeight;
             // 단위 그리드 사각형의 정보
-            RectangleF GridRect = new RectangleF(GridWidth * 4.0f, GridHeight, GridWidth, GridHeight);                            // 4.0f는 단위 그리드 사각형의 X값을 정하기 위한 값으로 고정값.
+            RectangleF GridRect = new RectangleF(GridRectX, GridRectY, GridWidth, GridHeight);                                    // 4.0f는 단위 그리드 사각형의 X값을 정하기 위한 값으로 고정값.
+            // 차트의 원점의 X좌표
+            float OriginPointX = GridWidth * 3.0f;                                                                                // 3.0f는 차트의 원점의 X좌표값을 정하기 위한 값으로 고정값.
+            // 차트의 원점의 Y좌표
+            float OriginPointY = ButtonDockPanel.Height + GridHeight * 7.5f;                                                      // 7.5f는 차트의 원점의 Y좌표값을 정하기 위한 값으로 고정값.
             // 차트의 원점의 좌표값
-            PointF OriginPoint = new PointF(GridWidth * 3.0f, ButtonDockPanel.Height + GridHeight * 7.5f);                        // 3.0f와 7.5f는 차트의 원점의 좌표값을 정하기 위한 값으로 고정값.
+            PointF OriginPoint = new PointF(OriginPointX, OriginPointY);                        
             // 차트에 있는 점의 색상
             SolidBrush ChartBrush = new SolidBrush(Color.Red);
             // 차트에 있는 점들을 둘러싼 사각형들
