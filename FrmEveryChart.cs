@@ -83,7 +83,7 @@ namespace EveryChart
             // (만 권)의 색상
             SolidBrush TextBrush = new SolidBrush(Color.Teal);
             // (만 권)의 위치
-            PointF KwanTextPoint = new PointF(GridWidth * 1.6f, ButtonDockPanel.Height + GridHeight * 0.5f);                      // 1.6f와 0.5f는 (만 권)의 위치를 정하기 위한 값으로 고정값.
+            PointF KwanTextPoint = new PointF(GridWidth, ButtonDockPanel.Height + GridHeight * 0.5f);                             // 0.5f는 (만 권)의 위치를 정하기 위한 값으로 고정값.
             // 축의 색상
             Pen LinePen = Pens.Blue;
             // 아래쪽 가로축의 시작 위치
@@ -109,7 +109,7 @@ namespace EveryChart
             // 왼쪽 아래에 있는 "월"
             string MonthText = "월";
             // 왼쪽 아래에 있는 "월"의 위치
-            PointF MonthTextPoint = new PointF(LeftVerticalEndPoint.X - GridWidth * 0.5f, UnderHorizonStartPoint.Y + GridHeight); // 0.5f는 "월"의 위치를 정하기 위한 값으로 고정값.
+            PointF MonthTextPoint = new PointF(LeftVerticalEndPoint.X - GridWidth * 0.7f, UnderHorizonStartPoint.Y + GridHeight); // 0.5f는 "월"의 위치를 정하기 위한 값으로 고정값.
             // 차트의 세로줄의 개수
             int VerticalLineCount = 13;
             // 차트의 세로줄의 시작 위치
@@ -178,7 +178,7 @@ namespace EveryChart
                 TextPoint.X += GridWidth;
 
             }
-            TextPoint = new PointF(GridWidth * 2.4f, ButtonDockPanel.Height + GridHeight * 1.3f);
+            TextPoint = new PointF(GridWidth * 2.0f, ButtonDockPanel.Height + GridHeight * 1.3f); // 2.0f와 1.3f는 세로축의 숫자들의 위치를 정하기 위한 값으로 고정값.
             Number = 60;
             // 차트의 가로 줄을 그린다.
             for (int i = 0; i < HorizontalLineCount; i++)
@@ -284,7 +284,7 @@ namespace EveryChart
 
             // 차트에서의 점의 위치를 구한다.
             ChartPoint.X = OriginPoint.X + (GridRect.Width * DataPoint.X);
-            ChartPoint.Y = OriginPoint.Y - ((GridRect.Height / 10.0f) * DataPoint.Y); // 1/ 10.0f는 큰 눈금 사이의 간격을 구하기 위한 값으로 고정값.
+            ChartPoint.Y = OriginPoint.Y - ((GridRect.Height / 10.0f) * DataPoint.Y);                                      // 1/ 10.0f는 큰 눈금 사이의 간격을 구하기 위한 값으로 고정값.
 
             // 차트에서의 점의 위치를 출력한다.
             return ChartPoint;
