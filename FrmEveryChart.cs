@@ -38,7 +38,9 @@ namespace EveryChart
         /// <param name="e"></param>
         private void btnLineGraph_Click(object sender, EventArgs e)
         {
+            // 현재 상태를 꺾은 선 그래프로 정한다.
             CurrentState = CurrentGraph.LineGraph;
+            // 꺾은 선 그래프를 그린다.
             DrawLineGraph();
         }
 
@@ -47,9 +49,6 @@ namespace EveryChart
         /// </summary>
         private void DrawChartOutline(CurrentGraph CurrentState)
         {
-            // 패널을 초기화 한다.
-            panel1.CreateGraphics().Clear(panel1.BackColor);
-
             // 패널의 너비
             float Width = panel1.Width;
             // 패널의 높이
@@ -150,12 +149,14 @@ namespace EveryChart
             PointF SalesVolumeTextPoint = new PointF(SalesVolumeTextPointX, SalesVolumeTextPointY);
             // 왼쪽 아래에 있는 "월"을 둘러싸는 사각형의 왼쪽 위 꼭지점의 X좌표
             float MonthTextPointX = LeftVerticalEndPoint.X - GridWidth * 0.7f;                                                    // 0.7f는 "월"을 둘러싸는 왼쪽 위 꼭지점의 X좌표의 위치를 정하기 위한 값.
+            // 차트의 원점의 Y좌표
+            float OriginPointY = ButtonDockPanel.Height + GridHeight * 7.5f;                                                      // 7.5f는 차트의 원점의 Y좌표값을 정하기 위한 값으로 고정값.
             // 왼쪽 아래에 있는 "월"을 둘러싸는 사각형의 왼쪽 위 꼭지점의 Y좌표
-            float MonthTextPointY = UnderHorizonStartPoint.Y + GridHeight;
+            float MonthTextPointY = UnderHorizonStartPoint.Y + (panel1.Height - OriginPointY) * 0.5f;                             // 0.5f는 왼쪽 아래에 있는 "월"을 둘러싸는 사각형의 왼쪽 위 꼭지점의 Y좌표를 정하기 위한 값으로 고정값.
             // 왼쪽 아래에 있는 "월"
             string MonthText = "월";
             // 왼쪽 아래에 있는 "월"의 위치
-            PointF MonthTextPoint = new PointF(MonthTextPointX, UnderHorizonStartPoint.Y + GridHeight); 
+            PointF MonthTextPoint = new PointF(MonthTextPointX, MonthTextPointY); 
             // 차트의 세로줄의 개수
             int VerticalLineCount = 13;
             // 차트의 세로줄의 시작점의 X좌표
@@ -200,6 +201,9 @@ namespace EveryChart
             float LeftTextPointY = ButtonDockPanel.Height + GridHeight * 1.3f;                                                    // 1.3f는 차트의 왼쪽에 있는 숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 Y좌표를 정하기 위한 값.
             // 차트의 아래에 있는 숫자의 위치
             PointF LeftTextPoint = new PointF(LeftTextPointX, LeftTextPointY);
+
+            // 패널을 초기화 한다.
+            panel1.CreateGraphics().Clear(panel1.BackColor);
 
             // 꺾은 선 그래프의 아웃라인을 그린다.
             switch (CurrentState)
