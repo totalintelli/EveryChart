@@ -38,14 +38,14 @@ namespace EveryChart
         /// <param name="e"></param>
         private void btnLineGraph_Click(object sender, EventArgs e)
         {
-            DrawLineGraph();
             CurrentState = CurrentGraph.LineGraph;
+            DrawLineGraph();
         }
 
         /// <summary>
-        /// 차트의 눈금과 숫자와 글자들을 그리는 함수.
+        /// 차트의 아웃라인(눈금과 숫자와 글자들)을 그리는 함수.
         /// </summary>
-        private void DrawChartOutline()
+        private void DrawChartOutline(CurrentGraph CurrentState)
         {
             // 패널을 초기화 한다.
             panel1.CreateGraphics().Clear(panel1.BackColor);
@@ -61,22 +61,28 @@ namespace EveryChart
             Graphics g = panel1.CreateGraphics();
             // 제목 글자열
             string Title = "월별 책의 판매량";
+            // 단위 그리드의 가로 개수
+            float HorizontalGridCount = 17.0f;                                                                                    // 17.0f는 단위 그리드의 너비를 구하기 위한 값.
+            // 단위 그리드의 세로 개수
+            float VerticalGridCount = 10.0f;                                                                                      // 10.0f는 단위 그리드의 높이를 구하기 위한 값.
             // 단위 그리드의 너비
-            float GridWidth = panel1.Width / 17.0f;                                                                               // 1 / 17.0f는 단위 그리드의 너비를 구하기 위한 값으로 고정값.
+            float GridWidth = panel1.Width / HorizontalGridCount;                                                                               
             // 단위 그리드의 높이
-            float GridHeight = panel1.Height / 10.0f;                                                                             // 1 / 10.0f는 단위 그리드의 높이를 구하기 위한 값으로 고정값.
+            float GridHeight = panel1.Height / VerticalGridCount;
+            // 글자의 비율
+            float TextRate = 8.0f;                                                                                                // 8.0f는 글자의 크기를 구하기 위한 값.                                                                      
             // 글자의 크기   
             float TextSize = 1;
             if (GridWidth > 0 && GridHeight > 0)
             {
-                TextSize = (GridWidth + GridHeight) / 8.0f;                                                                       // 8.0f는 글자의 크기를 구하기 위한 값으로 고정값.
+                TextSize = (GridWidth + GridHeight) / TextRate;                                                                       
             }
             // 제목의 폰트
             Font TitleFont = new Font("SansSerif", TextSize);
             // 제목의 색상
             SolidBrush TitleBrush = new SolidBrush(Color.Blue);
             // 제목의 위치
-            PointF TitlePoint = new PointF(Width / 2.0f, ButtonDockPanel.Height);                                                 // 1 / 2.0f는 제목의 위치를 정하기 위한 값으로 고정값.
+            PointF TitlePoint = new PointF(Width * 0.5f, ButtonDockPanel.Height);                                                 // 0.5f는 제목의 위치를 정하기 위한 값으로 고정값.
             // Y축 글자열
             // (만 권)
             string KwanText = "(만 권)";
@@ -86,121 +92,200 @@ namespace EveryChart
             PointF KwanTextPoint = new PointF(GridWidth, ButtonDockPanel.Height + GridHeight * 0.5f);                             // 0.5f는 (만 권)의 위치를 정하기 위한 값으로 고정값.
             // 축의 색상
             Pen LinePen = Pens.Blue;
-            // 아래쪽 가로축의 시작 위치
-            PointF UnderHorizonStartPoint = new PointF(0.0f, ButtonDockPanel.Height + GridHeight * 7.5f);                         // 0.0f와 7.5f는 아래쪽 가로축의 시작 위치를 정하기 위한 값으로 고정값.
+            // 아래쪽 가로축 시작점의 X좌표
+            float UnderHorizonStartPointX = 0.0f;                                                                                 // 0.0f은 아래쪽 가로축 시작점의 X좌표를 정하기 위한 값.  
+            // 아래쪽 가로축 시작점의 Y좌표
+            float UnderHorizonStartPointY = ButtonDockPanel.Height + GridHeight * 7.5f;                                           // 7.5f는 아래쪽 가로축 시작점의 Y좌표를 정하기 위한 값.
+            // 아래쪽 가로축 시작점의 위치
+            PointF UnderHorizonStartPoint = new PointF(UnderHorizonStartPointX, UnderHorizonStartPointY);
+            // 아래쪽 가로축 끝점의 X좌표
+            float UnderHorizonEndPointX = GridWidth * 16.0f;                                                                      // 16.0f는 아래쪽 가로축 끝점의 X좌표를 정하기 위한 값.
+            // 아래쪽 가로축 끝점의 Y좌표 
+            float UnderHorizonEndPointY = ButtonDockPanel.Height + GridHeight * 7.5f;                                             // 7.5f는 아래쪽 가로축 끝점의 Y좌표를 정하기 위한 값.
             // 아래쪽 가로축의 끝 위치
-            PointF UnderHorizonEndPoint = new PointF(GridWidth * 16.0f, ButtonDockPanel.Height + GridHeight * 7.5f);              // 16.0f와 7.5f는 아래쪽 가로축의 끝 위치를 정하기 위한 값으로 고정값.
-            // 왼쪽 세로축의 시작 위치
-            PointF LeftVerticalStartPoint = new PointF(GridWidth * 3.0f, ButtonDockPanel.Height + GridHeight * 0.5f);             // 3.0f와 0.5f는 왼쪽 세로축의 시작 위치를 정하기 위한 값으로 고정값.
-            // 왼쪽 세로축의 끝 위치
-            PointF LeftVerticalEndPoint = new PointF(GridWidth * 3.0f, panel1.Height);                                            // 3.0f는 왼쪽 세로축의 끝 위치를 정하기 위한 값으로 고정값.
-            // 오른쪽 세로축의 시작 위치   
-            PointF RightVerticalStartPoint = new PointF(GridWidth * 16.0f, GridHeight);                                           // 16.0f는 오른쪽 세로축의 시작 위치를 정하기 위한 값으로 고정값.
+            PointF UnderHorizonEndPoint = new PointF(UnderHorizonEndPointX, UnderHorizonEndPointY);
+            // 왼쪽 세로축의 시작점의 X좌표
+            float LeftVerticalStartPointX = GridWidth * 3.0f;                                                                     // 3.0f는 왼쪽 세로축의 시작점의 X좌표값을 정하기 위한 값.
+            // 왼쪽 세로축의 시작점의 Y좌표
+            float LeftVerticalStartPointY = ButtonDockPanel.Height + GridHeight * 0.5f;                                           // 0.5f는 왼쪽 세로축의 시작점의 Y좌표값을 정하기 위한 값.
+            // 왼쪽 세로축 시작점의 위치
+            PointF LeftVerticalStartPoint = new PointF(LeftVerticalStartPointX, LeftVerticalStartPointY);
+            // 왼쪽 세로축의 끝점의 X좌표
+            float LeftVerticalEndPointX = GridWidth * 3.0f;                                                                       // 3.0f는 왼쪽 세로축 끝점의 X좌표를 정하기 위한 값.
+            // 왼쪽 세로축의 끝점의 Y좌표 
+            float LeftVerticalEndPointY = panel1.Height;
+            // 왼쪽 세로축 끝점의 위치
+            PointF LeftVerticalEndPoint = new PointF(LeftVerticalEndPointX, LeftVerticalEndPointY);
+            // 오른쪽 세로축 시작점의 X좌표
+            float RightVerticalStartPointX = GridWidth * 16.0f;                                                                   // 16.0f는 오른쪽 세로축 시작점의 X좌표값을 정하기 위한 값.
+            // 오른쪽 세로축 시작점의 Y좌표 
+            float RightVerticalStartPointY = GridHeight;
+            // 오른쪽 세로축 시작점의 위치   
+            PointF RightVerticalStartPoint = new PointF(RightVerticalStartPointX, RightVerticalStartPointY);
+            // 오른쪽 세로축 끝점의 X좌표
+            float RightVerticalEndPointX = GridWidth * 16.0f;                                                                     // 16.0f은 오른쪽 세로축 끝점의 X값을 정하기 위한 값.
+            // 오른쪽 세로축 끝점의 Y좌표                    
+            float RightVerticalEndPointY = GridHeight * 8.0f;                                                                     // 8.0f는 오른쪽 세로축 끝점의 Y값을 정하기 위한 값.
             // 오른쪽 세로축의 끝 위치
-            PointF RightVerticalEndPoint = new PointF(GridWidth * 16.0f, GridHeight * 8.0f);                                      // 16.0f와 8.0f는 오른쪽 세로축의 끝 위치를 정하기 위한 값으로 고정값.
+            PointF RightVerticalEndPoint = new PointF(RightVerticalEndPointX, RightVerticalEndPointY);
+            // 왼쪽 아래 대각선의 시작점의 X좌표
+            float LeftDiagonalStartPointX = 0.0f;                                                                                 // 0.0f는 왼쪽 아래 대각선의 시작점의 X좌표값을 정하기 위한 값.
+            // 왼쪽 아래 대각선의 시작점의 Y좌표  
+            float LeftDiagonalStartPointY = panel1.Height;
             // 왼쪽 아래 대각선의 시작 위치
-            PointF LeftDiagonalStartPoint = new PointF(0.0f, panel1.Height);                                                      // 0.0f는 왼쪽 아래 대각선의 시작 위치를 정하기 위한 값으로 고정값.
+            PointF LeftDiagonalStartPoint = new PointF(LeftDiagonalStartPointX, LeftDiagonalStartPointY);
+            // 왼쪽 아래 대각선의 끝점의 X좌표
+            float LeftDiagonalEndPointX = GridWidth * 3.0f;                                                                       // 3.0f은 왼쪽 아래 대각선의 끝점의 X좌표를 정하기 위한 값.  
+            // 왼쪽 아래 대각선의 끝점의 Y좌표  
+            float LeftDiagonalEndPointY = ButtonDockPanel.Height + GridHeight * 7.5f;                                             // 7.5f는 왼쪽 아래 대각선의 끝점의 Y좌표값을 정하기 위한 값.
             // 왼쪽 아래 대각선의 끝 위치
-            PointF LeftDiagonalEndPoint = new PointF(GridWidth * 3.0f, ButtonDockPanel.Height + GridHeight * 7.5f);               // 3.0f와 7.5f는 왼쪽 아래 대각선의 끝 위치를 정하기 위한 값으로 고정값.  
+            PointF LeftDiagonalEndPoint = new PointF(LeftDiagonalEndPointX, LeftDiagonalEndPointY);               
             // 왼쪽 아래에 있는 "판매량" 
             string SalesVolumeText = "판매량";
+            // 왼쪽 아래에 있는 "판매량"을 둘러싸는 사각형의 왼쪽 위 꼭지점의 X좌표
+            float SalesVolumeTextPointX = 0.0f;                                                                                   // 0.0f은 "판매량"을 둘러싸는 사각형의 왼쪽 위 꼭지점의 X좌표를 정하기 위한 값.
+            // 왼쪽 아래에 있는 "판매량"을 둘러싸는 사각형의 왼쪽 위 꼭지점의 Y좌표
+            float SalesVolumeTextPointY = UnderHorizonStartPoint.Y + GridHeight * 0.1f;                                           // 0.1f는 "판매량"을 둘러싸는 사각형의 왼쪽 위 꼭지점의 Y좌표의 위치를 정하기 위한 값.
             // 왼쪽 아래에 있는 "판매량"의 위치
-            PointF SalesVolumeTextPoint = new PointF(0.0f, UnderHorizonStartPoint.Y + GridHeight * 0.1f);                         // 0.0f와 0.1f는 "판매량"의 위치를 정하기 위한 값으로 고정값.
+            PointF SalesVolumeTextPoint = new PointF(SalesVolumeTextPointX, SalesVolumeTextPointY);
+            // 왼쪽 아래에 있는 "월"을 둘러싸는 사각형의 왼쪽 위 꼭지점의 X좌표
+            float MonthTextPointX = LeftVerticalEndPoint.X - GridWidth * 0.7f;                                                    // 0.7f는 "월"을 둘러싸는 왼쪽 위 꼭지점의 X좌표의 위치를 정하기 위한 값.
+            // 왼쪽 아래에 있는 "월"을 둘러싸는 사각형의 왼쪽 위 꼭지점의 Y좌표
+            float MonthTextPointY = UnderHorizonStartPoint.Y + GridHeight;
             // 왼쪽 아래에 있는 "월"
             string MonthText = "월";
             // 왼쪽 아래에 있는 "월"의 위치
-            PointF MonthTextPoint = new PointF(LeftVerticalEndPoint.X - GridWidth * 0.7f, UnderHorizonStartPoint.Y + GridHeight); // 0.5f는 "월"의 위치를 정하기 위한 값으로 고정값.
+            PointF MonthTextPoint = new PointF(MonthTextPointX, UnderHorizonStartPoint.Y + GridHeight); 
             // 차트의 세로줄의 개수
             int VerticalLineCount = 13;
+            // 차트의 세로줄의 시작점의 X좌표
+            float VerticalLineStartPointX = GridWidth * 4.0f;                                                                     // 4.0f는 차트의 세로줄의 시작점의 X좌표의 위치를 정하기 위한 값.
+            // 차트의 세로줄의 시작점의 Y좌표
+            float VerticalLineStartPointY = ButtonDockPanel.Height + GridHeight * 0.5f;                                           // 0.5f는 차트의 세로줄의 시작점의 Y좌표의 위치를 정하기 위한 값.
             // 차트의 세로줄의 시작 위치
-            PointF VerticalLineStartPoint = new PointF(GridWidth * 4.0f, ButtonDockPanel.Height + GridHeight * 0.5f);             // 4.0f와 0.5f는 차트의 세로줄의 시작 위치를 정하기 위한 값으로 고정값.
+            PointF VerticalLineStartPoint = new PointF(VerticalLineStartPointX, VerticalLineStartPointY);
+            // 차트의 세로줄의 끝점의 X좌표
+            float VerticalLineEndPointX = GridWidth * 4.0f;                                                                       // 4.0f는 차트의 세로줄의 끝점의 X좌표를 정하기 위한 값.
+            // 차트의 세로줄의 끝점의 Y좌표             
+            float VerticalLineEndPointY = ButtonDockPanel.Height + GridHeight * 7.5f;                                             // 7.5f는 차트의 세로줄의 끝점의 Y좌표를 정하기 위한 값.
             // 차트의 세로줄의 끝 위치
-            PointF VerticalLineEndPoint = new PointF(GridWidth * 4.0f, ButtonDockPanel.Height + GridHeight * 7.5f);               // 4.0f와 7.5f는 차트의 세로줄의 끝 위치를 정하기 위한 값으로 고정값.
+            PointF VerticalLineEndPoint = new PointF(VerticalLineEndPointX, VerticalLineEndPointY);               
             // 차트의 가로줄의 개수
             int HorizontalLineCount = 7;
-            // 차트의 가로줄의 시작 위치
-            PointF HorizontalLineStartPoint = new PointF(GridWidth * 3.0f, ButtonDockPanel.Height + GridHeight * 0.5f);           // 3.0f와 0.5f는 차트의 가로줄의 시작 위치를 정하기 위한 값으로 고정값.
-            // 차트의 가로줄의 끝 위치
-            PointF HorizontalLineEndPoint = new PointF(GridWidth * 16.0f, ButtonDockPanel.Height + GridHeight * 0.5f);            // 16.0f와 0.5f는 차트의 가로줄의 끝 위치를 정하기 위한 값으로 고정값.
+            // 차트의 가로줄의 시작점의 X좌표
+            float HorizontalLineStartPointX = GridWidth * 3.0f;                                                                   // 3.0f은 차트의 가로줄의 시작점의 X좌표를 정하기 위한 값.
+            // 차트의 가로줄의 시작점의 Y좌표
+            float HorizontalLineStartPointY = ButtonDockPanel.Height + GridHeight * 0.5f;                                         // 0.5f는 차트의 가로줄의 시작점의 Y좌표를 정하기 위한 값.
+            // 차트의 가로줄의 시작점의 위치
+            PointF HorizontalLineStartPoint = new PointF(HorizontalLineStartPointX, HorizontalLineStartPointY);
+            // 차트의 가로줄의 끝점의 X좌표
+            float HorizontalLineEndPointX = GridWidth * 16.0f;                                                                    // 16.0f는 차트의 가로줄의 끝점의 X값을 정하기 위한 값.              
+            // 차트의 가로줄의 끝점의 Y좌표          
+            float HorizontalLineEndPointY = ButtonDockPanel.Height + GridHeight * 0.5f;                                           // 0.5f는 차트의 가로줄의 끝점의 Y값을 정하기 위한 값.
+            // 차트의 가로줄의 끝점의 위치
+            PointF HorizontalLineEndPoint = new PointF(HorizontalLineEndPointX, HorizontalLineEndPointY);            
             // 차트의 숫자
             int Number = 1;
             // 글자화된 차트의 숫자
             string NumberText;
+            // 차트의 숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 X좌표
+            float TextPointX = GridWidth * 3.8f;                                                                                  // 3.8f은 차트의 숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 X좌표를 정하기 위한 값.
+            // 차트의 숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 Y좌표
+            float TextPointY = ButtonDockPanel.Height + GridHeight * 7.7f;                                                        // 7.7f은 차트의 숫자를 둘러싸는 사각형의 왼쪽 위 꼭지점의 Y좌표를 정하기 위한 값.
             // 차트의 숫자의 위치
-            PointF TextPoint = new PointF(GridWidth * 3.8f, ButtonDockPanel.Height + GridHeight * 7.7f);                          // 3.8f와 7.7f는 차트의 숫자의 위치를 정하기 위한 값으로 고정값.
+            PointF TextPoint = new PointF(TextPointX, TextPointY);                          
 
-            // 차트의 선을 제외한 나머지 부분을 그린다.
-            // 제목을 그린다.
-            g.DrawString(Title, TitleFont, TitleBrush, TitlePoint);
-            // 세로 축에 (만 권)을 그린다.
-            g.DrawString(KwanText, TitleFont, TextBrush, KwanTextPoint);
-            // 아래쪽 가로 축을 그린다.
-            g.DrawLine(LinePen, UnderHorizonStartPoint, UnderHorizonEndPoint);
-            // 왼쪽 세로 축을 그린다.
-            g.DrawLine(LinePen, LeftVerticalStartPoint, LeftVerticalEndPoint);
-            // 왼쪽 아래 대각선을 그린다.
-            g.DrawLine(LinePen, LeftDiagonalStartPoint, LeftDiagonalEndPoint);
-            // "판매량"을 그린다.
-            g.DrawString(SalesVolumeText, TitleFont, TextBrush, SalesVolumeTextPoint);
-            // "월"을 그린다.
-            g.DrawString(MonthText, TitleFont, TextBrush, MonthTextPoint);
-            // 차트의 세로 줄을 그린다.
-            for (int i = 0; i < VerticalLineCount; i++)
+            // 꺾은 선 그래프의 아웃라인을 그린다.
+            switch (CurrentState)
             {
-                NumberText = Number.ToString();
-                // 실선을 그린다.
-                g.DrawLine(LinePen, VerticalLineStartPoint, VerticalLineEndPoint);
-                // 글씨를 그린다.
-                if (i < VerticalLineCount - 1)
-                {
-                    g.DrawString(NumberText, TitleFont, TextBrush, TextPoint);
-                    Number++;
-                }
-
-
-                // 세로 줄을 한 칸씩 이동시킨다.
-                VerticalLineStartPoint.X += GridWidth;
-                VerticalLineEndPoint.X += GridWidth;
-                TextPoint.X += GridWidth;
-
-            }
-            TextPoint = new PointF(GridWidth * 2.0f, ButtonDockPanel.Height + GridHeight * 1.3f); // 2.0f와 1.3f는 세로축의 숫자들의 위치를 정하기 위한 값으로 고정값.
-            Number = 60;
-            // 차트의 가로 줄을 그린다.
-            for (int i = 0; i < HorizontalLineCount; i++)
-            {
-                //차트에 넣을 숫자를 구한다.
-                NumberText = Number.ToString();
-
-                // 실선을 그린다.
-                g.DrawLine(LinePen, HorizontalLineStartPoint, HorizontalLineEndPoint);
-                // 글씨를 그린다.
-                g.DrawString(NumberText, TitleFont, TextBrush, TextPoint);
-
-                using (Pen the_pen = new Pen(Color.Blue))
-                {
-                    the_pen.DashStyle = DashStyle.Dot;
-                    // 차트의 가로 눈금을 그린다.
-                    for (int j = 0; j < GridCount; j++)
+                case CurrentGraph.None:
+                    break;
+                case CurrentGraph.LineGraph:
                     {
-                        g.DrawLine(the_pen, HorizontalLineStartPoint, HorizontalLineEndPoint);
-                        HorizontalLineStartPoint.Y += GridHeight / GridCount;
-                        HorizontalLineEndPoint.Y += GridHeight / GridCount;
+                        // 제목을 그린다.
+                        g.DrawString(Title, TitleFont, TitleBrush, TitlePoint);
+                        // 세로 축에 (만 권)을 그린다.
+                        g.DrawString(KwanText, TitleFont, TextBrush, KwanTextPoint);
+                        // 아래쪽 가로 축을 그린다.
+                        g.DrawLine(LinePen, UnderHorizonStartPoint, UnderHorizonEndPoint);
+                        // 왼쪽 세로 축을 그린다.
+                        g.DrawLine(LinePen, LeftVerticalStartPoint, LeftVerticalEndPoint);
+                        // 왼쪽 아래 대각선을 그린다.
+                        g.DrawLine(LinePen, LeftDiagonalStartPoint, LeftDiagonalEndPoint);
+                        // "판매량"을 그린다.
+                        g.DrawString(SalesVolumeText, TitleFont, TextBrush, SalesVolumeTextPoint);
+                        // "월"을 그린다.
+                        g.DrawString(MonthText, TitleFont, TextBrush, MonthTextPoint);
+                        // 차트의 세로 줄을 그린다.
+                        for (int i = 0; i < VerticalLineCount; i++)
+                        {
+                            NumberText = Number.ToString();
+                            // 실선을 그린다.
+                            g.DrawLine(LinePen, VerticalLineStartPoint, VerticalLineEndPoint);
+                            // 글씨를 그린다.
+                            if (i < VerticalLineCount - 1)
+                            {
+                                g.DrawString(NumberText, TitleFont, TextBrush, TextPoint);
+                                Number++;
+                            }
+
+
+                            // 세로 줄을 한 칸씩 이동시킨다.
+                            VerticalLineStartPoint.X += GridWidth;
+                            VerticalLineEndPoint.X += GridWidth;
+                            TextPoint.X += GridWidth;
+
+                        }
+                        TextPoint = new PointF(GridWidth * 2.0f, ButtonDockPanel.Height + GridHeight * 1.3f); // 2.0f와 1.3f는 세로축의 숫자들의 위치를 정하기 위한 값으로 고정값.
+                        Number = 60;
+                        // 차트의 가로 줄을 그린다.
+                        for (int i = 0; i < HorizontalLineCount; i++)
+                        {
+                            //차트에 넣을 숫자를 구한다.
+                            NumberText = Number.ToString();
+
+                            // 실선을 그린다.
+                            g.DrawLine(LinePen, HorizontalLineStartPoint, HorizontalLineEndPoint);
+                            // 글씨를 그린다.
+                            g.DrawString(NumberText, TitleFont, TextBrush, TextPoint);
+
+                            using (Pen the_pen = new Pen(Color.Blue))
+                            {
+                                the_pen.DashStyle = DashStyle.Dot;
+                                // 차트의 가로 눈금을 그린다.
+                                for (int j = 0; j < GridCount; j++)
+                                {
+                                    g.DrawLine(the_pen, HorizontalLineStartPoint, HorizontalLineEndPoint);
+                                    HorizontalLineStartPoint.Y += GridHeight / GridCount;
+                                    HorizontalLineEndPoint.Y += GridHeight / GridCount;
+                                }
+
+                            }
+
+                            // 글씨를 한 칸씩 이동시킨다.
+                            if (i < HorizontalLineCount - 2)
+                            {
+                                TextPoint.Y += GridHeight;
+                            }
+                            else
+                            {
+                                TextPoint.Y += GridHeight / 2.0f;
+                            }
+
+                            Number -= 10;
+                        }
                     }
-
-                }
-
-                // 글씨를 한 칸씩 이동시킨다.
-                if (i < HorizontalLineCount - 2)
-                {
-                    TextPoint.Y += GridHeight;
-                }
-                else
-                {
-                    TextPoint.Y += GridHeight / 2.0f;
-                }
-
-                Number -= 10;
+                    break;
+                case CurrentGraph.BarGraph:
+                    break;
+                case CurrentGraph.CircleGraph:
+                    break;
+                case CurrentGraph.SpeacialGraph1:
+                    break;
+                case CurrentGraph.SpeacialGraph2:
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -237,7 +322,7 @@ namespace EveryChart
             List<PointF> ChartPoints = new List<PointF>();
 
             // 눈금과 숫자와 글자를 그린다.
-            DrawChartOutline();
+            DrawChartOutline(CurrentState);
 
             // 차트의 내부 요소들을 그린다.
             // 데이터의 좌표값들을 추가한다.
