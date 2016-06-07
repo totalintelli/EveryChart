@@ -43,7 +43,7 @@ namespace EveryChart
         }
 
         /// <summary>
-        /// 꺽은 선 그래프를 그리는 함수
+        /// 꺾은 선 그래프를 그리는 함수
         /// </summary>
         private void DrawLineGraph()
         {
