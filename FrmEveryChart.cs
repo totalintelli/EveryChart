@@ -13,6 +13,14 @@ namespace EveryChart
 {
     public partial class FrmEveryChart : Form
     {
+        enum OriginPointPosition
+        {
+           LowerLeft = 0,  // 원점이 왼쪽 아래에 있는 경우
+           LowerRight = 1, // 원점이 오른쪽 아래에 있는 경우
+           UpperRight = 2, // 원점이 오른쪽 위에 있는 경우
+           UpperLeft = 3   // 원점이 왼쪽 위에 있는 경우
+        }
+
         enum CurrentGraph
         {
             None = 0,           // 그래프가 없음.
@@ -23,6 +31,8 @@ namespace EveryChart
             SpeacialGraph2 = 5  // 특수 그래프2.
         }
 
+        // 그래프의 원점의 위치
+        OriginPointPosition CurrentOriginPoint = OriginPointPosition.LowerLeft;
         // 그래프의 상태
         CurrentGraph CurrentState = CurrentGraph.None;
 
@@ -58,27 +68,44 @@ namespace EveryChart
             // 수학 포인트 : 원점이 폼의 왼쪽 하단인 포인트
             PointF MathicaPoint1 = new PointF();
 
-            RealPoint = new PointF(panel1.Width / 2, panel1.Height / 2);
+            // 중점을 표시한다.
+            e.Graphics.DrawLine(Pens.Blue, new PointF(0, 0), new PointF(panel1.Width, panel1.Height));
+            e.Graphics.DrawLine(Pens.Blue, new PointF(panel1.Width, 0), new PointF(0, panel1.Height));
+
+            //RealPoint = new PointF(panel1.Width / 2.0f, panel1.Height / 2.0f);
+            //RealPoint = new PointF(0.0f, 0.0f);
+            //RealPoint = new PointF(0.0f, ButtonDockPanel.Height);
+            //RealPoint = new PointF(panel1.Width, ButtonDockPanel.Height);
+            RealPoint = new PointF(panel1.Width, 0);
 
             // 수학 포인트를 구한다.
-            MathicaPoint1 = MathPoint(RealPoint, XMin, XMax, YMin, YMax);
-
+            MathicaPoint1 = MathPoint(RealPoint);
             // 수학 포인트의 좌표를 표시한다.
-            e.Graphics.DrawString(RealPoint.X.ToString(), new Font("Gulim", 12), Brushes.Black, 10, 50);
-            e.Graphics.DrawString(RealPoint.Y.ToString(), new Font("Gulim", 12), Brushes.Black, 10, 70);
-            e.Graphics.DrawString(MathicaPoint1.X.ToString(), new Font("Gulim", 12), Brushes.Black, 10, 90);
-            e.Graphics.DrawString(MathicaPoint1.Y.ToString(), new Font("Gulim", 12), Brushes.Black, 10, 110);
+            e.Graphics.FillEllipse(Brushes.Red, MathicaPoint1.X, MathicaPoint1.Y, 10, 10);
         }
 
-        private PointF MathPoint(PointF RealPoint, float XMin, float XMax, float YMin, float YMax)
+        private PointF MathPoint(PointF RealPoint)
         {
             // 수학 포인트
             PointF MathPoint = new PointF();
 
-            // 수학 포인트를 구한다.
-            MathPoint.X = RealPoint.X * ((XMax - XMin) / panel1.Width);
-            MathPoint.Y = ((panel1.Height - RealPoint.Y) / panel1.Height) * (YMax - YMin);
-
+            switch (CurrentOriginPoint)
+            {
+                case OriginPointPosition.LowerLeft:
+                    // 원점이 왼쪽 아래인 수학 포인트를 구한다.
+                    MathPoint.X = RealPoint.X - 5;                  // 5는 점의 너비의 절반 값으로 원점의 X값을 정하기 위한 값.
+                    MathPoint.Y = panel1.Height - RealPoint.Y - 5;  // 5는 점의 높이의 절반 값으로 원점의 Y값을 정하기 위한 값.
+                    break;
+                case OriginPointPosition.LowerRight:
+                    break;
+                case OriginPointPosition.UpperRight:
+                    break;
+                case OriginPointPosition.UpperLeft:
+                    break;
+                default:
+                    break;
+            }
+            
             return MathPoint;
         }
     }
