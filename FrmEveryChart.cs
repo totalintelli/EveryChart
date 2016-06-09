@@ -61,16 +61,6 @@ namespace EveryChart
                                                 10, (panel1.Height - ButtonDockPanel.Height) * 2 / 10);
             // 실제 포인트 : 폼 위의 좌표
             PointF RealPoint;
-            // X축 범위의 최소값
-            float XMin = 0.0f;
-            // X축 범위의 최대값
-            float XMax = 10.0f;
-            // Y축 범위의 최소값
-            float YMin = 0.0f;
-            // Y축 범위의 최대값
-            float YMax = 10.0f;
-            // 수학 포인트 : 원점이 폼의 왼쪽 하단인 포인트
-            PointF MathicaPoint = new PointF();
             // 그래프 포인트 : 그래프에 있는 포인트
             PointF GraphPoint = new PointF();
             // 데이터 값
@@ -84,22 +74,7 @@ namespace EveryChart
             // 그래프 포인트를 둘러싸는 사각형
             RectangleF GraphPointRect = new RectangleF(0, 0 , 10, 10);
 
-            // 중점을 표시한다.
-            e.Graphics.DrawLine(Pens.Blue, new PointF(0, 0), new PointF(panel1.Width, panel1.Height));
-            e.Graphics.DrawLine(Pens.Blue, new PointF(panel1.Width, 0), new PointF(0, panel1.Height));
-
-            //RealPoint = new PointF(panel1.Width / 2.0f, panel1.Height / 2.0f);
-            //RealPoint = new PointF(0.0f, 0.0f);
-            //RealPoint = new PointF(0.0f, ButtonDockPanel.Height);
-            //RealPoint = new PointF(panel1.Width, ButtonDockPanel.Height);
-            //RealPoint = new PointF(panel1.Width, 0);
-            //RealPoint = new PointF(0, panel1.Height);
-            //RealPoint = new PointF(0, panel1.Height - ButtonDockPanel.Height);
-            //RealPoint = new PointF(panel1.Width, panel1.Height);
-            //RealPoint = new PointF(panel1.Width, panel1.Height - ButtonDockPanel.Height);
-            //RealPoint = new PointF(10.0f, 0.0f);
             RealPoint = new PointF(ButtonDockPanel.Width, ButtonDockPanel.Height);
-
 
             CurrentOriginPoint = OriginPointPosition.LowerLeft;
 
