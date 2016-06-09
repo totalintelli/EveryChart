@@ -78,9 +78,13 @@ namespace EveryChart
             //RealPoint = new PointF(panel1.Width, ButtonDockPanel.Height);
             //RealPoint = new PointF(panel1.Width, 0);
             //RealPoint = new PointF(0, panel1.Height);
-            RealPoint = new PointF(panel1.Width, panel1.Height);
+            //RealPoint = new PointF(0, panel1.Height - ButtonDockPanel.Height);
+            //RealPoint = new PointF(panel1.Width, panel1.Height);
+            //RealPoint = new PointF(panel1.Width, panel1.Height - ButtonDockPanel.Height);
+            //RealPoint = new PointF(10.0f, 0.0f);
+            RealPoint = new PointF(ButtonDockPanel.Width, ButtonDockPanel.Height);
 
-            CurrentOriginPoint = OriginPointPosition.UpperLeft;
+            CurrentOriginPoint = OriginPointPosition.UpperRight;
 
             // 수학 포인트를 구한다.
             MathicaPoint1 = MathPoint(RealPoint);
@@ -97,17 +101,23 @@ namespace EveryChart
             {
                 case OriginPointPosition.LowerLeft:
                     // 원점이 왼쪽 아래인 수학 포인트를 구한다.
-                    MathPoint.X = RealPoint.X - 5;                  // 5는 점의 너비의 절반 값으로 원점의 X값을 정하기 위한 값.
-                    MathPoint.Y = panel1.Height - RealPoint.Y - 5;  // 5는 점의 높이의 절반 값으로 원점의 Y값을 정하기 위한 값.
+                    MathPoint.X = RealPoint.X - 5;                 // 5는 점의 너비의 절반 값으로 원점의 X값을 정하기 위한 값.
+                    MathPoint.Y = panel1.Height - RealPoint.Y - 5; // 5는 점의 높이의 절반 값으로 원점의 Y값을 정하기 위한 값.
                     break;
                 case OriginPointPosition.LowerRight:
+                    // 원점이 오른쪽 아래인 수학 포인트를 구한다.
+                    MathPoint.X = panel1.Width - RealPoint.X - 5;  // 5는 점의 너비의 절반 값으로 원점의 X값을 정하기 위한 값.
+                    MathPoint.Y = panel1.Height - RealPoint.Y - 5; // 5는 점의 너비의 절반 값으로 원점의 Y값을 정하기 위한 값.
                     break;
                 case OriginPointPosition.UpperRight:
+                    // 원점이 오른쪽 위인 수학 포인트를 구한다.
+                    MathPoint.X = panel1.Width - RealPoint.X - 5;  // 5는 점의 너비의 절반 값으로 원점의 X값을 정하기 위한 값.
+                    MathPoint.Y = RealPoint.Y - 5; // 5는 점의 너비의 절반 값으로 원점의 Y값을 정하기 위한 값.
                     break;
                 case OriginPointPosition.UpperLeft:
                     // 원점이 왼쪽 위인 수학 포인트를 구한다.
-                    MathPoint.X = RealPoint.X - 5;
-                    MathPoint.Y = RealPoint.Y - 5;
+                    MathPoint.X = RealPoint.X - 5;                // 5는 점의 너비의 절반 값으로 원점의 X값을 정하기 위한 값.
+                    MathPoint.Y = RealPoint.Y - 5;                // 5는 점의 너비의 절반 값으로 원점의 Y값을 정하기 위한 값.
                     break;
                 default:
                     break;
