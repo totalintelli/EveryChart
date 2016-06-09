@@ -76,7 +76,11 @@ namespace EveryChart
             //RealPoint = new PointF(0.0f, 0.0f);
             //RealPoint = new PointF(0.0f, ButtonDockPanel.Height);
             //RealPoint = new PointF(panel1.Width, ButtonDockPanel.Height);
-            RealPoint = new PointF(panel1.Width, 0);
+            //RealPoint = new PointF(panel1.Width, 0);
+            //RealPoint = new PointF(0, panel1.Height);
+            RealPoint = new PointF(panel1.Width, panel1.Height);
+
+            CurrentOriginPoint = OriginPointPosition.UpperLeft;
 
             // 수학 포인트를 구한다.
             MathicaPoint1 = MathPoint(RealPoint);
@@ -101,6 +105,9 @@ namespace EveryChart
                 case OriginPointPosition.UpperRight:
                     break;
                 case OriginPointPosition.UpperLeft:
+                    // 원점이 왼쪽 위인 수학 포인트를 구한다.
+                    MathPoint.X = RealPoint.X - 5;
+                    MathPoint.Y = RealPoint.Y - 5;
                     break;
                 default:
                     break;
