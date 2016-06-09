@@ -35,6 +35,7 @@ namespace EveryChart
         OriginPointPosition CurrentOriginPoint = OriginPointPosition.LowerLeft;
         // 그래프의 상태
         CurrentGraph CurrentState = CurrentGraph.None;
+        
 
         public FrmEveryChart()
         {
@@ -55,6 +56,9 @@ namespace EveryChart
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
+            // 그래프의 마진
+            Padding GraphMargin = new Padding(panel1.Width / 4, ButtonDockPanel.Height + (panel1.Height - ButtonDockPanel.Height) * 1 / 10, 
+                                                10, (panel1.Height - ButtonDockPanel.Height) * 2 / 10);
             // 실제 포인트 : 폼 위의 좌표
             PointF RealPoint;
             // X축 범위의 최소값
@@ -66,7 +70,19 @@ namespace EveryChart
             // Y축 범위의 최대값
             float YMax = 10.0f;
             // 수학 포인트 : 원점이 폼의 왼쪽 하단인 포인트
-            PointF MathicaPoint1 = new PointF();
+            PointF MathicaPoint = new PointF();
+            // 그래프 포인트 : 그래프에 있는 포인트
+            PointF GraphPoint = new PointF();
+            // 데이터 값
+            float Value;
+            // 데이터의 최소값
+            float Min;
+            // 데이터의 최대값
+            float Max;
+            // X값 여부
+            bool IsX = false;
+            // 그래프 포인트를 둘러싸는 사각형
+            RectangleF GraphPointRect = new RectangleF(0, 0 , 10, 10);
 
             // 중점을 표시한다.
             e.Graphics.DrawLine(Pens.Blue, new PointF(0, 0), new PointF(panel1.Width, panel1.Height));
@@ -84,15 +100,30 @@ namespace EveryChart
             //RealPoint = new PointF(10.0f, 0.0f);
             RealPoint = new PointF(ButtonDockPanel.Width, ButtonDockPanel.Height);
 
-            CurrentOriginPoint = OriginPointPosition.UpperRight;
 
-            // 수학 포인트를 구한다.
-            MathicaPoint1 = MathPoint(RealPoint);
-            // 수학 포인트의 좌표를 표시한다.
-            e.Graphics.FillEllipse(Brushes.Red, MathicaPoint1.X, MathicaPoint1.Y, 10, 10);
+            CurrentOriginPoint = OriginPointPosition.LowerLeft;
+
+            // 데이터 값을 정의한다.
+            //Value = 23;
+            Value = 1;
+            // 최소값을 정의한다.
+            Min = 0;
+            // 최대값을 정의한다.
+            //Max = 70;
+            Max = 13;
+            // X값 여부를 정한다.
+            //IsX = false;
+            IsX = true;
+            // 그래프 포인트를 구한다.
+            GraphPoint = GetGraphPoint(Value, Min, Max, IsX, GraphMargin);
+            GraphPointRect.X = GraphPoint.X;
+            GraphPointRect.Y = GraphPoint.Y;
+            // 그래프 포인트를 표시한다.
+            e.Graphics.FillEllipse(Brushes.Red, GraphPointRect);
+
         }
 
-        private PointF MathPoint(PointF RealPoint)
+        private PointF GetMathPoint(PointF RealPoint)
         {
             // 수학 포인트
             PointF MathPoint = new PointF();
@@ -124,6 +155,34 @@ namespace EveryChart
             }
             
             return MathPoint;
+        }
+
+        private PointF GetGraphPoint(float Value, float Min, float Max, bool IsX, Padding GraphMargin)
+        {
+            PointF GraphPoint = new PointF();
+            PointF RealPoint = new PointF();
+
+            // 값이 최소값보다 크고 최대값보다 작은지 확인한다.
+            if(Value >= Min && Value <= Max)
+            {
+                // 맞으면, X값인지 확인한다.
+                if (IsX)
+                {
+                    // X값이면 실제 포인트의 X값을 구한다.
+                    RealPoint.X = GraphMargin.Left + ((panel1.Width - GraphMargin.Left - GraphMargin.Right) * Value) / (Max - Min);
+                    RealPoint.Y = 0;
+                }
+                else
+                {
+                    RealPoint.X = 0;
+                    // X값이 아니면 실제 포인트의 Y값을 구한다.
+                    RealPoint.Y = GraphMargin.Top + ((panel1.Height - GraphMargin.Top - GraphMargin.Bottom) * Value) / (Max - Min);
+                }
+            }
+
+            GraphPoint = GetMathPoint(RealPoint);
+
+            return GraphPoint;
         }
     }
 }
