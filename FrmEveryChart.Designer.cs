@@ -33,6 +33,8 @@
             this.ButtonDockPanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.lbMathPointXValue = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lbMapthPointYValue = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.ButtonDockPanel.SuspendLayout();
             this.SuspendLayout();
@@ -62,6 +64,8 @@
             // ButtonDockPanel
             // 
             this.ButtonDockPanel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ButtonDockPanel.Controls.Add(this.lbMapthPointYValue);
+            this.ButtonDockPanel.Controls.Add(this.label2);
             this.ButtonDockPanel.Controls.Add(this.lbMathPointXValue);
             this.ButtonDockPanel.Controls.Add(this.label1);
             this.ButtonDockPanel.Controls.Add(this.btnLineGraph);
@@ -89,6 +93,24 @@
             this.lbMathPointXValue.TabIndex = 2;
             this.lbMathPointXValue.Text = "label2";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(646, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(27, 12);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Y  =";
+            // 
+            // lbMapthPointYValue
+            // 
+            this.lbMapthPointYValue.AutoSize = true;
+            this.lbMapthPointYValue.Location = new System.Drawing.Point(680, 12);
+            this.lbMapthPointYValue.Name = "lbMapthPointYValue";
+            this.lbMapthPointYValue.Size = new System.Drawing.Size(38, 12);
+            this.lbMapthPointYValue.TabIndex = 4;
+            this.lbMapthPointYValue.Text = "label3";
+            // 
             // FrmEveryChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -111,6 +133,8 @@
         private System.Windows.Forms.Panel ButtonDockPanel;
         private System.Windows.Forms.Label lbMathPointXValue;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbMapthPointYValue;
     }
 }
 

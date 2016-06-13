@@ -23,6 +23,7 @@ namespace EveryChart
             InitializeComponent();
 
             NewGraph.GraphMargin.Left = 54;
+            NewGraph.GraphMargin.Top = 49;
         }
 
         /// <summary>
@@ -104,10 +105,13 @@ namespace EveryChart
             int YValue = e.Y;
 
             // 현재 원점의 위치를 정한다.
-            NewGraph.CurrentOriginPoint = Graph.OriginPointPosition.LowerRight;
+            NewGraph.CurrentOriginPoint = Graph.OriginPointPosition.UpperRight;
 
             // 수학 포인트의 X 좌표값을 표시한다.
             lbMathPointXValue.Text = NewGraph.GetMathPointXValue(XValue).ToString();
+
+            // 수학 포인트의 Y 좌표값을 표시한다.
+            lbMapthPointYValue.Text = NewGraph.GetMathPointYValue(YValue).ToString();
         }
     }
 }

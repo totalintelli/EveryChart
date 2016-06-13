@@ -114,6 +114,38 @@ namespace EveryChart
         }
 
         /// <summary>
+        /// 수학 포인트의 Y값을 구한다.
+        /// </summary>
+        /// <param name="RealPointYValue">컴퓨터가 인식하는 좌표의 Y값</param>
+        /// <returns>수학 포인트의 Y값</returns>
+        public float GetMathPointYValue(int RealPointYValue)
+        {
+            // 수학 포인트의 X값
+            float MathPointYValue = -1.0f;
+
+            switch (CurrentOriginPoint)
+            {
+                case OriginPointPosition.LowerLeft:
+                    // 원점이 왼쪽 아래인 수학 포인트의 X값을 구한다.
+                    MathPointYValue = DrawRect.Height - RealPointYValue;
+                    break;
+                case OriginPointPosition.LowerRight:
+                    MathPointYValue = DrawRect.Height - RealPointYValue;
+                    break;
+                case OriginPointPosition.UpperRight:
+                    MathPointYValue = RealPointYValue - GraphMargin.Top;
+                    break;
+                case OriginPointPosition.UpperLeft:
+                    MathPointYValue = RealPointYValue - GraphMargin.Top;
+                    break;
+                default:
+                    break;
+            }
+
+            return MathPointYValue;
+        }
+
+        /// <summary>
         /// 그래프 포인트의 X좌표를 구한다.
         /// </summary>
         /// <param name="Value">데이터의 X값</param>
