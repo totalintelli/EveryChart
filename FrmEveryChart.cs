@@ -46,8 +46,6 @@ namespace EveryChart
             float Min;
             // 데이터의 최대값
             float Max;
-            // X값 여부
-            bool IsX = false;
             // 수학 포인트를 둘러싸는 사각형
             RectangleF MathPointRect = new RectangleF(0, 0, 10, 10);
             // 그래프 포인트를 둘러싸는 사각형
@@ -69,20 +67,21 @@ namespace EveryChart
             e.Graphics.FillEllipse(Brushes.Black, MathPointRect);
 
             // 데이터 값을 정의한다.
-            //Value = 23;
-            Value = 1;
+            Value = 23;
+            //Value = 1;
             // 최소값을 정의한다.
             Min = 0;
             // 최대값을 정의한다.
-            //Max = 70;
-            Max = 13;
+            Max = 70;
+            //Max = 13;
             // X값 여부를 정한다.
             //IsX = false;
-            IsX = true;
             // 그래프 포인트를 구한다.
-            GraphPoint = NewGraph.GetGraphPoint(Value, Min, Max, IsX);
+            //GraphPoint = NewGraph.GetGraphXPoint(Value, Min, Max);
+            GraphPoint = NewGraph.GetGraphYPoint(Value, Min, Max);
             GraphPointRect.X = GraphPoint.X - MathPointRect.Width * 0.5f;
             GraphPointRect.Y = GraphPoint.Y - MathPointRect.Height * 0.5f;
+
             // 그래프 포인트를 표시한다.
             e.Graphics.FillEllipse(Brushes.Red, GraphPointRect);
 
