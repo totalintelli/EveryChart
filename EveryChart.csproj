@@ -52,6 +52,7 @@
     <Compile Include="FrmEveryChart.Designer.cs">
       <DependentUpon>FrmEveryChart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Graph.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmEveryChart.resx">
