@@ -13,9 +13,16 @@ namespace EveryChart
 {
     public partial class FrmEveryChart : Form
     {
+        // 그래프 객체
+        Graph NewGraph = new Graph();
+
+        
+
         public FrmEveryChart()
         {
             InitializeComponent();
+
+            NewGraph.GraphMargin.Left = 54;
         }
 
         /// <summary>
@@ -32,8 +39,6 @@ namespace EveryChart
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            // 그래프 객체
-            Graph NewGraph = new Graph();
             // 실제 포인트 : 폼 위의 좌표
             PointF RealPoint;
             // 수학 포인트 : 실제 포인트를 원점의 위치에 맞게 변환한 포인트
@@ -54,8 +59,10 @@ namespace EveryChart
             // 그리는 위치를 정한다.
             NewGraph.DrawRect = new RectangleF(0, ButtonDockPanel.Height, panel1.Width, panel1.Height);
 
+            // 컴퓨터가 인식하는 포인트를 초기화한다.
             RealPoint = new PointF(0, 0);
 
+            // 현재 원점의 위치를 정한다.
             NewGraph.CurrentOriginPoint = Graph.OriginPointPosition.LowerLeft;
 
             // 수학 포인트를 구한다.
@@ -85,8 +92,22 @@ namespace EveryChart
             // 그래프 포인트를 표시한다.
             e.Graphics.FillEllipse(Brushes.Red, GraphPointRect);
 
+            
+
         }
 
-        
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            // 마우스 커서가 가리키는 위치의 X값
+            int XValue = e.X;
+            // 마우스 커서가 가리키는 위치의 Y값
+            int YValue = e.Y;
+
+            // 현재 원점의 위치를 정한다.
+            NewGraph.CurrentOriginPoint = Graph.OriginPointPosition.LowerRight;
+
+            // 수학 포인트의 X 좌표값을 표시한다.
+            lbMathPointXValue.Text = NewGraph.GetMathPointXValue(XValue).ToString();
+        }
     }
 }

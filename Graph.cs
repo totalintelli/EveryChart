@@ -33,7 +33,7 @@ namespace EveryChart
         // 그래프의 상태
         public CurrentGraph CurrentState = CurrentGraph.None;
         // 그래프의 마진
-        public Padding GraphMargin = new Padding(0, 49, 0, 0);
+        public Padding GraphMargin = new Padding(0, 0, 0, 0);
 
         // 실제 그래프 영역
         RectangleF _DrawRect = new RectangleF(0, 0, 0, 0);
@@ -82,6 +82,37 @@ namespace EveryChart
             return MathPoint;
         }
         
+        /// <summary>
+        /// 수학 포인트의 X값을 구한다.
+        /// </summary>
+        /// <param name="RealPointXValue">컴퓨터가 인식하는 좌표의 X값</param>
+        /// <returns>수학 포인트의 X값</returns>
+        public float GetMathPointXValue(int RealPointXValue) {
+            // 수학 포인트의 X값
+            float MathPointXValue = -1.0f;
+
+            switch (CurrentOriginPoint)
+            {
+                case OriginPointPosition.LowerLeft:
+                    // 원점이 왼쪽 아래인 수학 포인트의 X값을 구한다.
+                    MathPointXValue = RealPointXValue;
+                    break;
+                case OriginPointPosition.LowerRight:
+                    MathPointXValue = DrawRect.Width - RealPointXValue;
+                    break;
+                case OriginPointPosition.UpperRight:
+                    MathPointXValue = DrawRect.Width - RealPointXValue;
+                    break;
+                case OriginPointPosition.UpperLeft:
+                    MathPointXValue = RealPointXValue;
+                    break;
+                default:
+                    break;
+            }
+
+            return MathPointXValue;
+        }
+
         /// <summary>
         /// 그래프 포인트의 X좌표를 구한다.
         /// </summary>

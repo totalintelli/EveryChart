@@ -31,6 +31,8 @@
             this.btnLineGraph = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ButtonDockPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lbMathPointXValue = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.ButtonDockPanel.SuspendLayout();
             this.SuspendLayout();
@@ -55,16 +57,37 @@
             this.panel1.Size = new System.Drawing.Size(754, 555);
             this.panel1.TabIndex = 1;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             // 
             // ButtonDockPanel
             // 
             this.ButtonDockPanel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ButtonDockPanel.Controls.Add(this.lbMathPointXValue);
+            this.ButtonDockPanel.Controls.Add(this.label1);
             this.ButtonDockPanel.Controls.Add(this.btnLineGraph);
             this.ButtonDockPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.ButtonDockPanel.Location = new System.Drawing.Point(0, 0);
             this.ButtonDockPanel.Name = "ButtonDockPanel";
             this.ButtonDockPanel.Size = new System.Drawing.Size(754, 49);
             this.ButtonDockPanel.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(567, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(27, 12);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "X = ";
+            // 
+            // lbMathPointXValue
+            // 
+            this.lbMathPointXValue.AutoSize = true;
+            this.lbMathPointXValue.Location = new System.Drawing.Point(601, 12);
+            this.lbMathPointXValue.Name = "lbMathPointXValue";
+            this.lbMathPointXValue.Size = new System.Drawing.Size(38, 12);
+            this.lbMathPointXValue.TabIndex = 2;
+            this.lbMathPointXValue.Text = "label2";
             // 
             // FrmEveryChart
             // 
@@ -76,6 +99,7 @@
             this.Text = "모든 차트";
             this.panel1.ResumeLayout(false);
             this.ButtonDockPanel.ResumeLayout(false);
+            this.ButtonDockPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -85,6 +109,8 @@
         private System.Windows.Forms.Button btnLineGraph;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel ButtonDockPanel;
+        private System.Windows.Forms.Label lbMathPointXValue;
+        private System.Windows.Forms.Label label1;
     }
 }
 
