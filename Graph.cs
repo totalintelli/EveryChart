@@ -58,12 +58,12 @@ namespace EveryChart
                 case OriginPointPosition.LowerLeft:
                     // 원점이 왼쪽 아래인 수학 포인트를 구한다.
                     MathPoint.X = RealPoint.X + GraphMargin.Left;
-                    MathPoint.Y = DrawRect.Height - RealPoint.Y - GraphMargin.Bottom;
+                    MathPoint.Y = DrawRect.Height - RealPoint.Y - GraphMargin.Bottom + GraphMargin.Top;
                     break;
                 case OriginPointPosition.LowerRight:
                     // 원점이 오른쪽 아래인 수학 포인트를 구한다.
                     MathPoint.X = DrawRect.Width - RealPoint.X + GraphMargin.Right;
-                    MathPoint.Y = DrawRect.Height - RealPoint.Y - GraphMargin.Bottom;
+                    MathPoint.Y = DrawRect.Height - RealPoint.Y - GraphMargin.Bottom + GraphMargin.Top;
                     break;
                 case OriginPointPosition.UpperRight:
                     // 원점이 오른쪽 위인 수학 포인트를 구한다.
@@ -187,7 +187,7 @@ namespace EveryChart
             {
                 GraphPoint.X = 0;
                 // 맞으면 실제 포인트의 Y값을 구한다.
-                GraphPoint.Y = GraphMargin.Top + ((DrawRect.Height * Value) / (Max - Min));
+                GraphPoint.Y = ((DrawRect.Height * Value) / (Max - Min));
             }
 
             MathYPoint = GetMathPoint(GraphPoint);
