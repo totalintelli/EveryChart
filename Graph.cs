@@ -43,6 +43,11 @@ namespace EveryChart
             set { _DrawRect = value; }
         }
 
+        /// <summary>
+        /// 수학 포인트를 구한다.
+        /// </summary>
+        /// <param name="RealPoint">컴퓨터가 인식하는 좌표</param>
+        /// <returns></returns>
         public PointF GetMathPoint(PointF RealPoint)
         {
             // 수학 포인트
@@ -76,9 +81,14 @@ namespace EveryChart
 
             return MathPoint;
         }
-
-
-
+        
+        /// <summary>
+        /// 그래프 포인트의 X좌표를 구한다.
+        /// </summary>
+        /// <param name="Value">데이터의 X값</param>
+        /// <param name="Min">데이터의 X값의 최소값</param>
+        /// <param name="Max">데이터의 X값의 최대값</param>
+        /// <returns></returns>
         public PointF GetGraphXPoint(float Value, float Min, float Max)
         {
             PointF GraphPoint = new PointF();
@@ -97,6 +107,13 @@ namespace EveryChart
             return GraphPoint;
         }
 
+        /// <summary>
+        /// 그래프 포인트의 Y좌표를 구한다.
+        /// </summary>
+        /// <param name="Value">데이터의 Y값</param>
+        /// <param name="Min">데이터의 Y값의 최소값</param>
+        /// <param name="Max">데이터의 Y값의 최대값</param>
+        /// <returns></returns>
         public PointF GetGraphYPoint(float Value, float Min, float Max)
         {
             PointF GraphPoint = new PointF();
