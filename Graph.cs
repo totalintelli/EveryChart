@@ -95,16 +95,16 @@ namespace EveryChart
             {
                 case OriginPointPosition.LowerLeft:
                     // 원점이 왼쪽 아래인 수학 포인트의 X값을 구한다.
-                    MathPointXValue = RealPointXValue;
+                    MathPointXValue = RealPointXValue + GraphMargin.Left;
                     break;
                 case OriginPointPosition.LowerRight:
-                    MathPointXValue = DrawRect.Width - RealPointXValue;
+                    MathPointXValue = DrawRect.Width - RealPointXValue + GraphMargin.Right;
                     break;
                 case OriginPointPosition.UpperRight:
-                    MathPointXValue = DrawRect.Width - RealPointXValue;
+                    MathPointXValue = DrawRect.Width - RealPointXValue + GraphMargin.Left;
                     break;
                 case OriginPointPosition.UpperLeft:
-                    MathPointXValue = RealPointXValue;
+                    MathPointXValue = RealPointXValue + GraphMargin.Left;
                     break;
                 default:
                     break;
@@ -152,22 +152,22 @@ namespace EveryChart
         /// <param name="Min">데이터의 X값의 최소값</param>
         /// <param name="Max">데이터의 X값의 최대값</param>
         /// <returns></returns>
-        public PointF GetGraphXPoint(float Value, float Min, float Max)
+        public PointF GetMathXPoint(float Value, float Min, float Max)
         {
             PointF GraphPoint = new PointF();
-            PointF RealPoint = new PointF();
+            PointF MathXPoint = new PointF();
 
             // 값이 최소값보다 크고 최대값보다 작은지 확인한다.
             if (Value >= Min && Value <= Max)
             {
                 // 맞으면 실제 포인트의 X값을 구한다.
-                RealPoint.X = GraphMargin.Left + ((DrawRect.Width * Value) / (Max - Min));
-                RealPoint.Y = 0;
+                GraphPoint.X = ((DrawRect.Width * Value) / (Max - Min));
+                GraphPoint.Y = 0;
             }
 
-            GraphPoint = GetMathPoint(RealPoint);
+            MathXPoint = GetMathPoint(GraphPoint);
 
-            return GraphPoint;
+            return MathXPoint;
         }
 
         /// <summary>
@@ -177,22 +177,22 @@ namespace EveryChart
         /// <param name="Min">데이터의 Y값의 최소값</param>
         /// <param name="Max">데이터의 Y값의 최대값</param>
         /// <returns></returns>
-        public PointF GetGraphYPoint(float Value, float Min, float Max)
+        public PointF GetMathYPoint(float Value, float Min, float Max)
         {
             PointF GraphPoint = new PointF();
-            PointF RealPoint = new PointF();
+            PointF MathYPoint = new PointF();
 
             // 값이 최소값보다 크고 최대값보다 작은지 확인한다.
             if (Value >= Min && Value <= Max)
             {
-                RealPoint.X = 0;
+                GraphPoint.X = 0;
                 // 맞으면 실제 포인트의 Y값을 구한다.
-                RealPoint.Y = GraphMargin.Top + ((DrawRect.Height * Value) / (Max - Min));
+                GraphPoint.Y = GraphMargin.Top + ((DrawRect.Height * Value) / (Max - Min));
             }
 
-            GraphPoint = GetMathPoint(RealPoint);
+            MathYPoint = GetMathPoint(GraphPoint);
 
-            return GraphPoint;
+            return MathYPoint;
         }
     }
 }

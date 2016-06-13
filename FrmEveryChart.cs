@@ -75,26 +75,23 @@ namespace EveryChart
             e.Graphics.FillEllipse(Brushes.Black, MathPointRect);
 
             // 데이터 값을 정의한다.
-            Value = 23;
-            //Value = 1;
+            //Value = 23;
+            Value = 1;
             // 최소값을 정의한다.
             Min = 0;
             // 최대값을 정의한다.
-            Max = 70;
-            //Max = 13;
+            //Max = 70;
+            Max = 13;
             // X값 여부를 정한다.
             //IsX = false;
             // 그래프 포인트를 구한다.
-            //GraphPoint = NewGraph.GetGraphXPoint(Value, Min, Max);
-            GraphPoint = NewGraph.GetGraphYPoint(Value, Min, Max);
+            GraphPoint = NewGraph.GetMathXPoint(Value, Min, Max);
+            //GraphPoint = NewGraph.GetMathYPoint(Value, Min, Max);
             GraphPointRect.X = GraphPoint.X - MathPointRect.Width * 0.5f;
             GraphPointRect.Y = GraphPoint.Y - MathPointRect.Height * 0.5f;
 
             // 그래프 포인트를 표시한다.
             e.Graphics.FillEllipse(Brushes.Red, GraphPointRect);
-
-            
-
         }
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
