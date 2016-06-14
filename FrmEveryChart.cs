@@ -64,8 +64,8 @@ namespace EveryChart
             // 컴퓨터가 인식하는 포인트를 초기화한다.
             RealPoint = new PointF(700, 500);
 
-            // 수학 포인트를 구한다.
-            MathPoint = NewGraph.GetMathPoint(RealPoint);
+            // 컴퓨터의 좌표에서 수학 포인트로 바꾼다.
+            MathPoint = NewGraph.RealPointToMathPoint(RealPoint);
             MathPointRect.X = MathPoint.X - MathPointRect.Width * 0.5f;  // 0.5f는 점의 너비의 절반 값으로 원점의 X값을 정하기 위한 값.
             MathPointRect.Y = MathPoint.Y - MathPointRect.Height * 0.5f; // 0.5f는 점의 높이의 절반 값으로 원점의 Y값을 정하기 위한 값.
 

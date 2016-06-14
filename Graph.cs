@@ -122,7 +122,7 @@ namespace EveryChart
         }
 
         /// <summary>
-        /// 수학 포인트의 X값을 구한다.
+        /// 컴퓨터 좌표의 X값을 수학 포인트의 X값으로 바꾼다.
         /// </summary>
         /// <param name="RealPointXValue">컴퓨터가 인식하는 좌표의 X값</param>
         /// <returns>수학 포인트의 X값</returns>
@@ -134,16 +134,16 @@ namespace EveryChart
             {
                 case OriginPointPosition.LowerLeft:
                     // 원점이 왼쪽 아래인 수학 포인트의 X값을 구한다.
-                    MathPointXValue = RealPointXValue + GraphMargin.Left;
+                    MathPointXValue = RealPointXValue;
                     break;
                 case OriginPointPosition.LowerRight:
-                    MathPointXValue = DrawRect.Width - RealPointXValue + GraphMargin.Right;
+                    MathPointXValue = DrawRect.Width - RealPointXValue;
                     break;
                 case OriginPointPosition.UpperRight:
-                    MathPointXValue = DrawRect.Width - RealPointXValue + GraphMargin.Left;
+                    MathPointXValue = DrawRect.Width - RealPointXValue;
                     break;
                 case OriginPointPosition.UpperLeft:
-                    MathPointXValue = RealPointXValue + GraphMargin.Left;
+                    MathPointXValue = RealPointXValue;
                     break;
                 default:
                     break;
@@ -153,9 +153,9 @@ namespace EveryChart
         }
 
         /// <summary>
-        /// 수학 포인트의 Y값을 구한다.
+        /// 컴퓨터 좌표의 X값을 수학 포인트의 Y값으로 바꾼다.
         /// </summary>
-        /// <param name="RealPointYValue">컴퓨터가 인식하는 좌표의 Y값</param>
+        /// <param name="RealPointYValue">컴퓨터 좌표의 Y값</param>
         /// <returns>수학 포인트의 Y값</returns>
         public float GetMathPointYValue(int RealPointYValue)
         {
@@ -172,10 +172,10 @@ namespace EveryChart
                     MathPointYValue = DrawRect.Height - RealPointYValue;
                     break;
                 case OriginPointPosition.UpperRight:
-                    MathPointYValue = RealPointYValue - GraphMargin.Top;
+                    MathPointYValue = RealPointYValue;
                     break;
                 case OriginPointPosition.UpperLeft:
-                    MathPointYValue = RealPointYValue - GraphMargin.Top;
+                    MathPointYValue = RealPointYValue;
                     break;
                 default:
                     break;
@@ -204,7 +204,7 @@ namespace EveryChart
                 GraphPoint.Y = 0;
             }
 
-            MathXPoint = GetMathPoint(GraphPoint);
+            MathXPoint = GraphPointToRealPoint(GraphPoint);
 
             return MathXPoint;
         }
@@ -229,7 +229,7 @@ namespace EveryChart
                 GraphPoint.Y = ((DrawRect.Height * Value) / (Max - Min));
             }
 
-            MathYPoint = GetMathPoint(GraphPoint);
+            MathYPoint = GraphPointToRealPoint(GraphPoint);
 
             return MathYPoint;
         }
