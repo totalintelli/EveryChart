@@ -16,14 +16,15 @@ namespace EveryChart
         // 그래프 객체
         Graph NewGraph = new Graph();
 
-        
-
         public FrmEveryChart()
         {
             InitializeComponent();
 
             NewGraph.GraphMargin.Left = 54;
             NewGraph.GraphMargin.Top = 49;
+
+            // 현재 원점의 위치를 정한다.
+            NewGraph.CurrentOriginPoint = Graph.OriginPointPosition.LowerLeft;
         }
 
         /// <summary>
@@ -63,9 +64,6 @@ namespace EveryChart
             // 컴퓨터가 인식하는 포인트를 초기화한다.
             RealPoint = new PointF(0, 0);
 
-            // 현재 원점의 위치를 정한다.
-            NewGraph.CurrentOriginPoint = Graph.OriginPointPosition.LowerLeft;
-
             // 수학 포인트를 구한다.
             MathPoint = NewGraph.GetMathPoint(RealPoint);
             MathPointRect.X = MathPoint.X - MathPointRect.Width * 0.5f;  // 0.5f는 점의 너비의 절반 값으로 원점의 X값을 정하기 위한 값.
@@ -98,9 +96,6 @@ namespace EveryChart
             int XValue = e.X;
             // 마우스 커서가 가리키는 위치의 Y값
             int YValue = e.Y;
-
-            // 현재 원점의 위치를 정한다.
-            NewGraph.CurrentOriginPoint = Graph.OriginPointPosition.UpperRight;
 
             // 수학 포인트의 X 좌표값을 표시한다.
             lbMathPointXValue.Text = NewGraph.GetMathPointXValue(XValue).ToString();
