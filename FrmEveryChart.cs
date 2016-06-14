@@ -62,7 +62,7 @@ namespace EveryChart
             NewGraph.DrawRect = new RectangleF(0, ButtonDockPanel.Height, panel1.Width, panel1.Height);
 
             // 컴퓨터가 인식하는 포인트를 초기화한다.
-            RealPoint = new PointF(0, 0);
+            RealPoint = new PointF(700, 500);
 
             // 수학 포인트를 구한다.
             MathPoint = NewGraph.GetMathPoint(RealPoint);

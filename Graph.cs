@@ -44,11 +44,11 @@ namespace EveryChart
         }
 
         /// <summary>
-        /// 수학 포인트를 구한다.
+        /// 컴퓨터의 좌표에서 수학 포인트로 치환한다.
         /// </summary>
-        /// <param name="RealPoint">컴퓨터가 인식하는 좌표</param>
-        /// <returns></returns>
-        public PointF GetMathPoint(PointF RealPoint)
+        /// <param name="RealPoint">컴퓨터의 좌표</param>
+        /// <returns>수학 포인트</returns>
+        public PointF RealPointToMathPoint(PointF RealPoint)
         {
             // 수학 포인트
             PointF MathPoint = new PointF();
@@ -57,23 +57,23 @@ namespace EveryChart
             {
                 case OriginPointPosition.LowerLeft:
                     // 원점이 왼쪽 아래인 수학 포인트를 구한다.
-                    MathPoint.X = RealPoint.X + GraphMargin.Left;
-                    MathPoint.Y = DrawRect.Height - RealPoint.Y + GraphMargin.Bottom;
+                    MathPoint.X = RealPoint.X;
+                    MathPoint.Y = DrawRect.Height - RealPoint.Y;
                     break;
                 case OriginPointPosition.LowerRight:
                     // 원점이 오른쪽 아래인 수학 포인트를 구한다.
-                    MathPoint.X = DrawRect.Width - RealPoint.X + GraphMargin.Right;
-                    MathPoint.Y = DrawRect.Height - RealPoint.Y + GraphMargin.Bottom;
+                    MathPoint.X = DrawRect.Width - RealPoint.X;
+                    MathPoint.Y = DrawRect.Height - RealPoint.Y;
                     break;
                 case OriginPointPosition.UpperRight:
                     // 원점이 오른쪽 위인 수학 포인트를 구한다.
-                    MathPoint.X = DrawRect.Width - RealPoint.X + GraphMargin.Right;
-                    MathPoint.Y = RealPoint.Y + GraphMargin.Top;
+                    MathPoint.X = DrawRect.Width - RealPoint.X;
+                    MathPoint.Y = RealPoint.Y;
                     break;
                 case OriginPointPosition.UpperLeft:
                     // 원점이 왼쪽 위인 수학 포인트를 구한다.
-                    MathPoint.X = RealPoint.X + GraphMargin.Left;
-                    MathPoint.Y = RealPoint.Y + GraphMargin.Top;
+                    MathPoint.X = RealPoint.X;
+                    MathPoint.Y = RealPoint.Y;
                     break;
                 default:
                     break;
@@ -81,7 +81,46 @@ namespace EveryChart
 
             return MathPoint;
         }
-        
+
+        /// <summary>
+        /// 그래프 좌표에서 컴퓨터의 좌표로 치환한다.
+        /// </summary>
+        /// <param name="GraphPoint">그래프 좌표</param>
+        /// <returns>컴퓨터의 좌표</returns>
+        public PointF GraphPointToRealPoint(PointF GraphPoint)
+        {
+            // 수학 포인트
+            PointF RealPoint = new PointF();
+
+            switch (CurrentOriginPoint)
+            {
+                case OriginPointPosition.LowerLeft:
+                    // 원점이 왼쪽 아래인 수학 포인트를 구한다.
+                    RealPoint.X = GraphPoint.X + GraphMargin.Left;
+                    RealPoint.Y = DrawRect.Height - GraphPoint.Y + GraphMargin.Bottom;
+                    break;
+                case OriginPointPosition.LowerRight:
+                    // 원점이 오른쪽 아래인 수학 포인트를 구한다.
+                    RealPoint.X = DrawRect.Width - GraphPoint.X + GraphMargin.Right;
+                    RealPoint.Y = DrawRect.Height - GraphPoint.Y + GraphMargin.Bottom;
+                    break;
+                case OriginPointPosition.UpperRight:
+                    // 원점이 오른쪽 위인 수학 포인트를 구한다.
+                    RealPoint.X = DrawRect.Width - GraphPoint.X + GraphMargin.Right;
+                    RealPoint.Y = GraphPoint.Y + GraphMargin.Top;
+                    break;
+                case OriginPointPosition.UpperLeft:
+                    // 원점이 왼쪽 위인 수학 포인트를 구한다.
+                    RealPoint.X = GraphPoint.X + GraphMargin.Left;
+                    RealPoint.Y = GraphPoint.Y + GraphMargin.Top;
+                    break;
+                default:
+                    break;
+            }
+
+            return RealPoint;
+        }
+
         /// <summary>
         /// 수학 포인트의 X값을 구한다.
         /// </summary>
