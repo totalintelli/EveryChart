@@ -47,7 +47,7 @@ namespace EveryChart
         /// 컴퓨터의 좌표에서 수학 포인트로 치환한다.
         /// </summary>
         /// <param name="RealPoint">컴퓨터의 좌표</param>
-        /// <returns>수학 포인트</returns>
+        /// <returns>수학 좌표</returns>
         public PointF RealPointToMathPoint(PointF RealPoint)
         {
             // 수학 포인트
@@ -83,11 +83,11 @@ namespace EveryChart
         }
 
         /// <summary>
-        /// 그래프 좌표에서 컴퓨터의 좌표로 치환한다.
+        /// 그래프 좌표에서 수학 좌표로 바꾼다.
         /// </summary>
         /// <param name="GraphPoint">그래프 좌표</param>
-        /// <returns>컴퓨터의 좌표</returns>
-        public PointF GraphPointToRealPoint(PointF GraphPoint)
+        /// <returns>수학 좌표</returns>
+        public PointF GraphPointToMathPoint(PointF GraphPoint)
         {
             // 수학 포인트
             PointF RealPoint = new PointF();
@@ -125,7 +125,7 @@ namespace EveryChart
         /// 컴퓨터 좌표의 X값을 수학 포인트의 X값으로 바꾼다.
         /// </summary>
         /// <param name="RealPointXValue">컴퓨터가 인식하는 좌표의 X값</param>
-        /// <returns>수학 포인트의 X값</returns>
+        /// <returns>수학 좌표의 X값</returns>
         public float GetMathPointXValue(int RealPointXValue) {
             // 수학 포인트의 X값
             float MathPointXValue = -1.0f;
@@ -156,7 +156,7 @@ namespace EveryChart
         /// 컴퓨터 좌표의 X값을 수학 포인트의 Y값으로 바꾼다.
         /// </summary>
         /// <param name="RealPointYValue">컴퓨터 좌표의 Y값</param>
-        /// <returns>수학 포인트의 Y값</returns>
+        /// <returns>수학 좌표의 Y값</returns>
         public float GetMathPointYValue(int RealPointYValue)
         {
             // 수학 포인트의 X값
@@ -204,7 +204,7 @@ namespace EveryChart
                 GraphPoint.Y = 0;
             }
 
-            MathXPoint = GraphPointToRealPoint(GraphPoint);
+            MathXPoint = GraphPointToMathPoint(GraphPoint);
 
             return MathXPoint;
         }
@@ -229,7 +229,7 @@ namespace EveryChart
                 GraphPoint.Y = ((DrawRect.Height * Value) / (Max - Min));
             }
 
-            MathYPoint = GraphPointToRealPoint(GraphPoint);
+            MathYPoint = GraphPointToMathPoint(GraphPoint);
 
             return MathYPoint;
         }
