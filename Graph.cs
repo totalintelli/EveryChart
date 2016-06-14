@@ -204,7 +204,7 @@ namespace EveryChart
                 GraphPoint.Y = 0;
             }
 
-            MathXPoint = GraphPointToMathPoint(GraphPoint);
+            MathXPoint = GraphPointToMathPoint(GraphPoint); 
 
             return MathXPoint;
         }
