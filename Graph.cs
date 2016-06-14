@@ -185,7 +185,7 @@ namespace EveryChart
         }
 
         /// <summary>
-        /// 그래프 포인트의 X좌표를 구한다.
+        /// 데이터 값에 대한 수학 좌표의 X값을 구한다.
         /// </summary>
         /// <param name="Value">데이터의 X값</param>
         /// <param name="Min">데이터의 X값의 최소값</param>
@@ -210,7 +210,7 @@ namespace EveryChart
         }
 
         /// <summary>
-        /// 그래프 포인트의 Y좌표를 구한다.
+        /// 데이터 값에 대한 수학 좌표의 Y값을 구한다.
         /// </summary>
         /// <param name="Value">데이터의 Y값</param>
         /// <param name="Min">데이터의 Y값의 최소값</param>
