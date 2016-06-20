@@ -126,7 +126,8 @@ namespace EveryChart
         /// </summary>
         /// <param name="RealPointXValue">컴퓨터가 인식하는 좌표의 X값</param>
         /// <returns>수학 좌표의 X값</returns>
-        public float GetMathPointXValue(int RealPointXValue) {
+        public float GetMathPointXValue(int RealPointXValue)
+        {
             // 수학 포인트의 X값
             float MathPointXValue = -1.0f;
 
@@ -204,7 +205,7 @@ namespace EveryChart
                 GraphPoint.Y = 0;
             }
 
-            MathXPoint = GraphPointToMathPoint(GraphPoint); 
+            MathXPoint = GraphPointToMathPoint(GraphPoint);
 
             return MathXPoint;
         }
@@ -232,6 +233,74 @@ namespace EveryChart
             MathYPoint = GraphPointToMathPoint(GraphPoint);
 
             return MathYPoint;
+        }
+
+        /// <summary>
+        /// 입력 받은 데이터 좌표의 X값으로 데이터의 X값을 구한다.
+        /// </summary>
+        /// <param name="XCoordinate">데이터 좌표의 X값</param>
+        /// <param name="XMin">X의 최소값</param>
+        /// <param name="XMax">X의 최대값</param>
+        /// <param name="DrawRect">그래프를 그리는 사각형</param>
+        /// <returns>데이터의 X</returns>
+        public float XCoordinateToXData(float XCoordinate, float XMin, float XMax, RectangleF DrawRect)
+        {
+            float XData = 0.0f;
+
+            // 데이터의 X값을 구한다.
+            switch (CurrentOriginPoint)
+            {
+                case OriginPointPosition.LowerLeft:
+                    XData = ((XCoordinate - GraphMargin.Left) * (XMax - XMin)) / DrawRect.Width;
+                    break;
+                case OriginPointPosition.LowerRight:
+                    XData = ((XCoordinate - GraphMargin.Right) * (XMax - XMin)) / DrawRect.Width;
+                    break;
+                case OriginPointPosition.UpperRight:
+                    XData = ((XCoordinate - GraphMargin.Right) * (XMax - XMin)) / DrawRect.Width;
+                    break;
+                case OriginPointPosition.UpperLeft:
+                    XData = ((XCoordinate - GraphMargin.Left) * (XMax - XMin)) / DrawRect.Width;
+                    break;
+                default:
+                    break;
+            }
+
+            return XData;
+        }
+
+        /// <summary>
+        /// 입력 받은 데이터 좌표의 Y값으로 데이터의 Y값을 구한다.
+        /// </summary>
+        /// <param name="YCoordinate">데이터 좌표의 Y값</param>
+        /// <param name="YMin">Y값의 최소값</param>
+        /// <param name="YMax">Y값의 최대값</param>
+        /// <param name="DrawRect">그래프를 그리는 사각형</param>
+        /// <returns>데이터의 Y값</returns>
+        public float YCoordinateToYData(float YCoordinate, float YMin, float YMax, RectangleF DrawRect)
+        {
+            float YData = 0.0f;
+
+            // 데이터의 Y값을 구한다.
+            switch (CurrentOriginPoint)
+            {
+                case OriginPointPosition.LowerLeft:
+                    YData = ((YCoordinate - GraphMargin.Bottom) * (YMax - YMin)) / DrawRect.Height;
+                    break;
+                case OriginPointPosition.LowerRight:
+                    YData = ((YCoordinate - GraphMargin.Bottom) * (YMax - YMin)) / DrawRect.Height;
+                    break;
+                case OriginPointPosition.UpperRight:
+                    YData = ((YCoordinate - GraphMargin.Top) * (YMax - YMin)) / DrawRect.Height;
+                    break;
+                case OriginPointPosition.UpperLeft:
+                    YData = ((YCoordinate - GraphMargin.Bottom) * (YMax - YMin)) / DrawRect.Height;
+                    break;
+                default:
+                    break;
+            }
+
+            return YData;
         }
     }
 }
