@@ -22,6 +22,7 @@ namespace EveryChart
 
             NewGraph.GraphMargin.Left = 54;
             NewGraph.GraphMargin.Top = 49;
+            NewGraph.GraphMargin.Right = 10;
 
             // 현재 원점의 위치를 정한다.
             NewGraph.CurrentOriginPoint = Graph.OriginPointPosition.LowerLeft;
@@ -88,6 +89,9 @@ namespace EveryChart
 
             // 그래프 포인트를 표시한다.
             e.Graphics.FillEllipse(Brushes.Red, GraphPointRect);
+
+            // 꺾은 선 그래프를 그린다.
+            DrawLineGraph(e);
         }
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
@@ -109,5 +113,32 @@ namespace EveryChart
             lbYData.Text = NewGraph.XCoordinateToXData(YValue, 0, 60, NewGraph.DrawRect).ToString();
         }
 
+        private void DrawLineGraph(PaintEventArgs e)
+        {
+            // 긴 수평선의 시작점의 실제 포인트 : 폼 위의 좌표
+            PointF LongHorizonStartRealPoint;
+            // 긴 수평선의 끝점의 실제 포인트
+            PointF LongHorizonEndRealPoint;
+            // 긴 수평선의 시작점
+            PointF LongHorizonStartPoint = new PointF();
+            // 긴 수평선의 끝점
+            PointF LongHorizonEndPoint = new PointF();
+            // 선을 그리는 펜
+            Pen LinePen = Pens.Blue;
+
+            // 긴 수평선을 그리는 부분
+            // 긴 수평선의 시작점의 실제 포인트를 초기화한다.
+            LongHorizonStartRealPoint = new PointF(0, ButtonDockPanel.Height * 2.5f);                                       // 2.5f는 긴 수평선을 그리기 위해 정한 값.
+            // 긴 수평선의 시작점의 실제 포인트의 좌표에서 긴 수평선의 시작점으로 바꾼다.
+            LongHorizonStartPoint = NewGraph.RealPointToMathPoint(LongHorizonStartRealPoint);
+            // 긴 수평선의 끝점의 실제 포인트를 초기화한다.
+            LongHorizonEndRealPoint = new PointF(panel1.Width - NewGraph.GraphMargin.Right, ButtonDockPanel.Height * 2.5f); // 2.5f는 긴 수평선을 그리기 위해 정한 값.
+            // 긴 수평선의 끝점의 실제 포인트의 좌표에서 긴 수평선의 끝점으로 바꾼다.
+            LongHorizonEndPoint = NewGraph.RealPointToMathPoint(LongHorizonEndRealPoint);
+            // 긴 수평선을 그린다.
+            e.Graphics.DrawLine(LinePen, LongHorizonStartPoint, LongHorizonEndPoint);
+
+            // 긴 수직선을 그리는 부분
+        }
     }
 }
