@@ -20,7 +20,7 @@ namespace EveryChart
         {
             InitializeComponent();
 
-            NewGraph.GraphMargin.Left = 54;
+            NewGraph.GraphMargin.Left = 200;
             NewGraph.GraphMargin.Top = 49;
             NewGraph.GraphMargin.Right = 10;
 
@@ -125,6 +125,14 @@ namespace EveryChart
             PointF LongHorizonEndPoint = new PointF();
             // 선을 그리는 펜
             Pen LinePen = Pens.Blue;
+            // 긴 수직선의 시작점의 실제 포인트
+            PointF LongVerticalStartRealPoint;
+            // 긴 수직선의 끝점의 실제 포인트
+            PointF LongVerticalEndRealPoint;
+            // 긴 수직선의 시작점
+            PointF LongVerticalStartPoint;
+            // 긴 수직선의 끝점
+            PointF LongVerticalEndPoint;
 
             // 긴 수평선을 그리는 부분
             // 긴 수평선의 시작점의 실제 포인트를 초기화한다.
@@ -139,6 +147,16 @@ namespace EveryChart
             e.Graphics.DrawLine(LinePen, LongHorizonStartPoint, LongHorizonEndPoint);
 
             // 긴 수직선을 그리는 부분
+            // 긴 수직선의 시작점의 실제 포인트를 초기화한다.
+            LongVerticalStartRealPoint = new PointF(NewGraph.GraphMargin.Left, 0);
+            // 긴 수직선의 시작점의 실제 포인트의 좌표에서 긴 수직선의 시작점으로 바꾼다.
+            LongVerticalStartPoint = NewGraph.RealPointToMathPoint(LongVerticalStartRealPoint);
+            // 긴 수직선의 끝점의 실제 포인트를 초기화한다.
+            LongVerticalEndRealPoint = new PointF(NewGraph.GraphMargin.Left, panel1.Height);
+            // 긴 수직선의 끝점의 실제 포인트의 좌표에서 긴 수직선의 끝점으로 바꾼다.
+            LongVerticalEndPoint = NewGraph.RealPointToMathPoint(LongVerticalEndRealPoint);
+            // 긴 수직선을 그린다.
+            e.Graphics.DrawLine(LinePen, LongVerticalStartPoint, LongVerticalEndPoint);
         }
     }
 }
