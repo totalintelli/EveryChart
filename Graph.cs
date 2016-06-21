@@ -285,16 +285,16 @@ namespace EveryChart
             switch (CurrentOriginPoint)
             {
                 case OriginPointPosition.LowerLeft:
-                    YData = ((YCoordinate - GraphMargin.Bottom) * (YMax - YMin)) / DrawRect.Height;
+                    YData = Math.Abs(((YCoordinate - GraphMargin.Bottom) * (YMax - YMin)) / DrawRect.Height);
                     break;
                 case OriginPointPosition.LowerRight:
-                    YData = ((YCoordinate - GraphMargin.Bottom) * (YMax - YMin)) / DrawRect.Height;
+                    YData = Math.Abs(((YCoordinate - GraphMargin.Bottom) * (YMax - YMin)) / DrawRect.Height);
                     break;
                 case OriginPointPosition.UpperRight:
-                    YData = ((YCoordinate - GraphMargin.Top) * (YMax - YMin)) / DrawRect.Height;
+                    YData = Math.Abs(((YCoordinate - GraphMargin.Top) * (YMax - YMin)) / DrawRect.Height);
                     break;
                 case OriginPointPosition.UpperLeft:
-                    YData = ((YCoordinate - GraphMargin.Bottom) * (YMax - YMin)) / DrawRect.Height;
+                    YData = Math.Abs(((YCoordinate - GraphMargin.Bottom) * (YMax - YMin)) / DrawRect.Height);
                     break;
                 default:
                     break;

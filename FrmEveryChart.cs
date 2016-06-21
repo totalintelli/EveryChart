@@ -102,6 +102,12 @@ namespace EveryChart
 
             // 수학 포인트의 Y 좌표값을 표시한다.
             lbMapthPointYValue.Text = NewGraph.GetMathPointYValue(YValue).ToString();
+
+            // 데이터의 X 값을 표시한다.
+            lbXData.Text = NewGraph.XCoordinateToXData(XValue, 0, 12, NewGraph.DrawRect).ToString();
+            // 데이터의 Y 값을 표시한다.
+            lbYData.Text = NewGraph.XCoordinateToXData(YValue, 0, 60, NewGraph.DrawRect).ToString();
         }
+
     }
 }
