@@ -86,9 +86,17 @@ namespace EveryChart
             PointF DiagonalStartPoint;
             // 대각선의 끝점
             PointF DiagonalEndPoint;
+            // 판매량 글자열
+            String SalesVolume = "판매량";
+            // 글자 폰트
+            Font TextFont = new Font("Arial", 24);
+            // 글자를 그리는 펜
+            Brush TextBrush = Brushes.Teal;
+            // 판매량의 위치
+            PointF SalesVolumePoint = NewGraph.RealPointToMathPoint(new PointF(10, 60));
 
-            // 그래프 영역을 정의한다.
-            NewGraph.DrawRect = GraphRect;
+            // 그리기 영역을 정의한다.
+            NewGraph.DrawRect = new RectangleF(0, ButtonDockPanel.Height, panel1.Width, panel1.Height - ButtonDockPanel.Height);
 
             // 그래프 영역을 그리는 부분
             e.Graphics.DrawRectangle(LinePen, GraphRect.Left, GraphRect.Top, GraphRect.Width, GraphRect.Height);
@@ -116,6 +124,10 @@ namespace EveryChart
             DiagonalEndPoint = new PointF(GraphRect.Left, GraphRect.Bottom);
             // 대각선을 그린다.
             e.Graphics.DrawLine(LinePen, DiagonalStartPoint, DiagonalEndPoint);
+
+            // "판매량"을 그리는 부분
+            e.Graphics.DrawString(SalesVolume, TextFont, TextBrush, SalesVolumePoint);
+
 
         }
     }
