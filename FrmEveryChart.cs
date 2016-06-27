@@ -82,6 +82,10 @@ namespace EveryChart
             RectangleF GraphRect = new RectangleF(NewGraph.GraphMargin.Left, NewGraph.GraphMargin.Top, 
                                     panel1.Width - NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right, 
                                     panel1.Height - NewGraph.GraphMargin.Top - NewGraph.GraphMargin.Bottom);
+            // 대각선의 시작점
+            PointF DiagonalStartPoint;
+            // 대각선의 끝점
+            PointF DiagonalEndPoint;
 
             // 그래프 영역을 정의한다.
             NewGraph.DrawRect = GraphRect;
@@ -105,6 +109,13 @@ namespace EveryChart
             // 긴 수직선을 그린다.
             e.Graphics.DrawLine(LinePen, LongVerticalStartPoint, LongVerticalEndPoint);
 
+            // 대각선을 그리는 부분
+            // 대각선의 시작점을 구한다.
+            DiagonalStartPoint = new PointF(0, panel1.Height);
+            // 대각선의 끝점을 구한다.
+            DiagonalEndPoint = new PointF(GraphRect.Left, GraphRect.Bottom);
+            // 대각선을 그린다.
+            e.Graphics.DrawLine(LinePen, DiagonalStartPoint, DiagonalEndPoint);
 
         }
     }
