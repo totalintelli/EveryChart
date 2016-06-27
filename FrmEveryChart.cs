@@ -21,8 +21,9 @@ namespace EveryChart
             InitializeComponent();
 
             NewGraph.GraphMargin.Left = 200;
-            NewGraph.GraphMargin.Top = 49;
+            NewGraph.GraphMargin.Top = 120;
             NewGraph.GraphMargin.Right = 10;
+            NewGraph.GraphMargin.Bottom = 120;
 
             // 현재 원점의 위치를 정한다.
             NewGraph.CurrentOriginPoint = Graph.OriginPointPosition.LowerLeft;
@@ -42,54 +43,6 @@ namespace EveryChart
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            // 실제 포인트 : 폼 위의 좌표
-            PointF RealPoint;
-            // 수학 포인트 : 실제 포인트를 원점의 위치에 맞게 변환한 포인트
-            PointF MathPoint = new PointF();
-            // 그래프 포인트 : 그래프에 있는 포인트
-            PointF GraphPoint = new PointF();
-            // 데이터 값
-            float Value;
-            // 데이터의 최소값
-            float Min;
-            // 데이터의 최대값
-            float Max;
-            // 수학 포인트를 둘러싸는 사각형
-            RectangleF MathPointRect = new RectangleF(0, 0, 10, 10);
-            // 그래프 포인트를 둘러싸는 사각형
-            RectangleF GraphPointRect = new RectangleF(0, 0 , 10, 10);
-
-            // 그리는 위치를 정한다.
-            NewGraph.DrawRect = new RectangleF(0, ButtonDockPanel.Height, panel1.Width, panel1.Height);
-
-            // 컴퓨터가 인식하는 포인트를 초기화한다.
-            RealPoint = new PointF(700, 500);
-
-            // 컴퓨터의 좌표에서 수학 포인트로 바꾼다.
-            MathPoint = NewGraph.RealPointToMathPoint(RealPoint);
-            MathPointRect.X = MathPoint.X - MathPointRect.Width * 0.5f;  // 0.5f는 점의 너비의 절반 값으로 원점의 X값을 정하기 위한 값.
-            MathPointRect.Y = MathPoint.Y - MathPointRect.Height * 0.5f; // 0.5f는 점의 높이의 절반 값으로 원점의 Y값을 정하기 위한 값.
-
-            // 그래프 포인트를 표시한다.
-            e.Graphics.FillEllipse(Brushes.Black, MathPointRect);
-
-            // 데이터 값을 정의한다.
-            Value = 23;
-            //Value = 1;
-            // 최소값을 정의한다.
-            Min = 0;
-            // 최대값을 정의한다.
-            Max = 70;
-            //Max = 13;
-            // 그래프 포인트를 구한다.
-            //GraphPoint = NewGraph.GetMathXPoint(Value, Min, Max);
-            GraphPoint = NewGraph.GetMathYPoint(Value, Min, Max);
-            GraphPointRect.X = GraphPoint.X - MathPointRect.Width * 0.5f;
-            GraphPointRect.Y = GraphPoint.Y - MathPointRect.Height * 0.5f;
-
-            // 그래프 포인트를 표시한다.
-            e.Graphics.FillEllipse(Brushes.Red, GraphPointRect);
-
             // 꺾은 선 그래프를 그린다.
             DrawLineGraph(e);
         }
@@ -115,14 +68,10 @@ namespace EveryChart
 
         private void DrawLineGraph(PaintEventArgs e)
         {
-            // 긴 수평선의 시작점의 실제 포인트 : 폼 위의 좌표
-            PointF LongHorizonStartRealPoint;
-            // 긴 수평선의 끝점의 실제 포인트
-            PointF LongHorizonEndRealPoint;
             // 긴 수평선의 시작점
-            PointF LongHorizonStartPoint = new PointF();
+            PointF LongHorizonStartPoint;
             // 긴 수평선의 끝점
-            PointF LongHorizonEndPoint = new PointF();
+            PointF LongHorizonEndPoint;
             // 선을 그리는 펜
             Pen LinePen = Pens.Blue;
             // 긴 수직선의 시작점의 실제 포인트
@@ -133,16 +82,22 @@ namespace EveryChart
             PointF LongVerticalStartPoint;
             // 긴 수직선의 끝점
             PointF LongVerticalEndPoint;
+            // 그래프 영역
+            RectangleF GraphRect = new RectangleF(NewGraph.GraphMargin.Left, NewGraph.GraphMargin.Top, 
+                                    panel1.Width - NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right, 
+                                    panel1.Height - NewGraph.GraphMargin.Top - NewGraph.GraphMargin.Bottom);
+
+            // 그래프 영역을 정의한다.
+            NewGraph.DrawRect = GraphRect;
+
+            // 그래프 영역을 그리는 부분
+            e.Graphics.DrawRectangle(LinePen, GraphRect.Left, GraphRect.Top, GraphRect.Width, GraphRect.Height);
 
             // 긴 수평선을 그리는 부분
-            // 긴 수평선의 시작점의 실제 포인트를 초기화한다.
-            LongHorizonStartRealPoint = new PointF(0, ButtonDockPanel.Height * 2.5f);                                       // 2.5f는 긴 수평선을 그리기 위해 정한 값.
-            // 긴 수평선의 시작점의 실제 포인트의 좌표에서 긴 수평선의 시작점으로 바꾼다.
-            LongHorizonStartPoint = NewGraph.RealPointToMathPoint(LongHorizonStartRealPoint);
-            // 긴 수평선의 끝점의 실제 포인트를 초기화한다.
-            LongHorizonEndRealPoint = new PointF(panel1.Width - NewGraph.GraphMargin.Right, ButtonDockPanel.Height * 2.5f); // 2.5f는 긴 수평선을 그리기 위해 정한 값.
+            // 긴 수평선의 시작점을 구한다.
+            LongHorizonStartPoint = new PointF(0, GraphRect.Top + GraphRect.Height);
             // 긴 수평선의 끝점의 실제 포인트의 좌표에서 긴 수평선의 끝점으로 바꾼다.
-            LongHorizonEndPoint = NewGraph.RealPointToMathPoint(LongHorizonEndRealPoint);
+            LongHorizonEndPoint = new PointF(GraphRect.Right, GraphRect.Top + GraphRect.Height);
             // 긴 수평선을 그린다.
             e.Graphics.DrawLine(LinePen, LongHorizonStartPoint, LongHorizonEndPoint);
 
@@ -156,7 +111,9 @@ namespace EveryChart
             // 긴 수직선의 끝점의 실제 포인트의 좌표에서 긴 수직선의 끝점으로 바꾼다.
             LongVerticalEndPoint = NewGraph.RealPointToMathPoint(LongVerticalEndRealPoint);
             // 긴 수직선을 그린다.
-            e.Graphics.DrawLine(LinePen, LongVerticalStartPoint, LongVerticalEndPoint);
+            //e.Graphics.DrawLine(LinePen, LongVerticalStartPoint, LongVerticalEndPoint);
+
+            
         }
     }
 }
