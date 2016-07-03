@@ -73,7 +73,7 @@ namespace EveryChart
             // 긴 수평선의 끝점
             PointF LongHorizonEndPoint;
             // 선을 그리는 펜
-            Pen LinePen = Pens.Blue;
+            Pen LinePen = new Pen(Color.Blue, 1.0f);
             // 긴 수직선의 시작점
             PointF LongVerticalStartPoint;
             // 긴 수직선의 끝점
@@ -98,6 +98,10 @@ namespace EveryChart
             String Month = "월";
             // 월의 위치
             PointF MonthPoint;
+            // 가로 눈금의 시작 위치
+            PointF HorizontalGridStartPoint;
+            // 가로 눈금의 끝 위치
+            PointF HorizontalGridEndPoint;
 
             // 그리기 영역을 정의한다.
             NewGraph.DrawRect = new RectangleF(0, ButtonDockPanel.Height, panel1.Width, panel1.Height - ButtonDockPanel.Height);
@@ -105,6 +109,24 @@ namespace EveryChart
             
             // 그래프 영역을 그리는 부분
             e.Graphics.DrawRectangle(LinePen, GraphRect.Left, GraphRect.Top, GraphRect.Width, GraphRect.Height);
+
+            // 그래프 가로 눈금을 그리는 부분
+            HorizontalGridStartPoint = new PointF(GraphRect.Left, GraphRect.Top + GraphRect.Height / 35.0f);
+            HorizontalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width, GraphRect.Top + GraphRect.Height / 35.0f);
+            for (int i = 0; i < 7; i++)
+            {
+                for(int j = 0; j < 5; j++)
+                {
+                    LinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                    if(j == 4)
+                    {
+                        LinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+                    }
+                    e.Graphics.DrawLine(LinePen, HorizontalGridStartPoint, HorizontalGridEndPoint);
+                    HorizontalGridStartPoint.Y += GraphRect.Height / 35.0f;
+                    HorizontalGridEndPoint.Y += GraphRect.Height / 35.0f;
+                }
+            }
 
             // 긴 수평선을 그리는 부분
             // 긴 수평선의 시작점을 구한다.
