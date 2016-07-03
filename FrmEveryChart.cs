@@ -91,7 +91,7 @@ namespace EveryChart
             // 글자 폰트
             Font TextFont = new Font("Arial", 24);
             // 글자를 그리는 펜
-            Brush TextBrush = Brushes.Black;
+            Brush TextBrush = Brushes.Teal;
             // 판매량의 위치
             PointF SalesVolumePoint;
             //PointF SalesVolumePoint = new PointF(10, 60);

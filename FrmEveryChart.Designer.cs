@@ -31,16 +31,16 @@
             this.btnLineGraph = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ButtonDockPanel = new System.Windows.Forms.Panel();
+            this.lbYData = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lbXData = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lbMapthPointYValue = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lbMathPointXValue = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lbXData = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lbYData = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.ButtonDockPanel.SuspendLayout();
             this.SuspendLayout();
@@ -57,7 +57,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.PowderBlue;
+            this.panel1.BackColor = System.Drawing.Color.LightCyan;
             this.panel1.Controls.Add(this.ButtonDockPanel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -86,6 +86,51 @@
             this.ButtonDockPanel.Name = "ButtonDockPanel";
             this.ButtonDockPanel.Size = new System.Drawing.Size(754, 49);
             this.ButtonDockPanel.TabIndex = 0;
+            // 
+            // lbYData
+            // 
+            this.lbYData.AutoSize = true;
+            this.lbYData.Location = new System.Drawing.Point(680, 29);
+            this.lbYData.Name = "lbYData";
+            this.lbYData.Size = new System.Drawing.Size(38, 12);
+            this.lbYData.TabIndex = 10;
+            this.lbYData.Text = "label7";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(646, 28);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(27, 12);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Y  =";
+            // 
+            // lbXData
+            // 
+            this.lbXData.AutoSize = true;
+            this.lbXData.Location = new System.Drawing.Point(601, 29);
+            this.lbXData.Name = "lbXData";
+            this.lbXData.Size = new System.Drawing.Size(38, 12);
+            this.lbXData.TabIndex = 8;
+            this.lbXData.Text = "label6";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(567, 29);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(27, 12);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "X = ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(495, 29);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(69, 12);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "데이터 값 : ";
             // 
             // label3
             // 
@@ -131,51 +176,6 @@
             this.label1.Size = new System.Drawing.Size(27, 12);
             this.label1.TabIndex = 1;
             this.label1.Text = "X = ";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(495, 29);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 12);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "데이터 값 : ";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(567, 29);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(27, 12);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "X = ";
-            // 
-            // lbXData
-            // 
-            this.lbXData.AutoSize = true;
-            this.lbXData.Location = new System.Drawing.Point(601, 29);
-            this.lbXData.Name = "lbXData";
-            this.lbXData.Size = new System.Drawing.Size(38, 12);
-            this.lbXData.TabIndex = 8;
-            this.lbXData.Text = "label6";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(646, 28);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(27, 12);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Y  =";
-            // 
-            // lbYData
-            // 
-            this.lbYData.AutoSize = true;
-            this.lbYData.Location = new System.Drawing.Point(680, 29);
-            this.lbYData.Name = "lbYData";
-            this.lbYData.Size = new System.Drawing.Size(38, 12);
-            this.lbYData.TabIndex = 10;
-            this.lbYData.Text = "label7";
             // 
             // FrmEveryChart
             // 
