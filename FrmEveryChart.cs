@@ -94,14 +94,15 @@ namespace EveryChart
             Brush TextBrush = Brushes.Teal;
             // 판매량의 위치
             PointF SalesVolumePoint;
-            //PointF SalesVolumePoint = new PointF(10, 60);
+            // 월 글자열
+            String Month = "월";
+            // 월의 위치
+            PointF MonthPoint;
 
             // 그리기 영역을 정의한다.
             NewGraph.DrawRect = new RectangleF(0, ButtonDockPanel.Height, panel1.Width, panel1.Height - ButtonDockPanel.Height);
 
-            // 판매량의 위치를 구한다.
-            SalesVolumePoint = NewGraph.RealPointToMathPoint(new PointF(10, 60));
-
+            
             // 그래프 영역을 그리는 부분
             e.Graphics.DrawRectangle(LinePen, GraphRect.Left, GraphRect.Top, GraphRect.Width, GraphRect.Height);
 
@@ -129,10 +130,15 @@ namespace EveryChart
             // 대각선을 그린다.
             e.Graphics.DrawLine(LinePen, DiagonalStartPoint, DiagonalEndPoint);
 
+            // 판매량의 위치를 구한다.
+            SalesVolumePoint = NewGraph.RealPointToMathPoint(new PointF(10, 60));
             // "판매량"을 그리는 부분
             e.Graphics.DrawString(SalesVolume, TextFont, TextBrush, SalesVolumePoint);
 
-
+            // 월의 위치를 구한다. 
+            MonthPoint = NewGraph.RealPointToMathPoint(new PointF(150, 20));
+            // "월"을 그리는 부분
+            e.Graphics.DrawString(Month, TextFont, TextBrush, MonthPoint);
         }
     }
 }
