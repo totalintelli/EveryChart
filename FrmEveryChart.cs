@@ -140,17 +140,17 @@ namespace EveryChart
             // 가로 큰 눈금의 개수
             int BigHorizontalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble(XMax - XMin))) + 1;
             // 세로 큰 눈금의 개수
-            int BigVertialGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble(YMax - YMin))) / 10 + 1;
+            int BigVerticalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble(YMax - YMin))) / 10 + 1;
             // 가로 눈금의 개수
             int HorizontalGridCount = BigHorizontalGridCount;
             // 세로 눈금의 개수
-            int VertalGridCount = BigVertialGridCount * 5;
+            int VerticalGridCount = BigVerticalGridCount * 5;
             // 가로 눈금의 시작 위치
             PointF HorizontalGridStartPoint;
             // 가로 눈금의 끝 위치
             PointF HorizontalGridEndPoint;
             // 세로 눈금으 시작 위치
-            PointF VertialGridStartPoint;
+            PointF VerticalGridStartPoint;
             // 세로 눈금의 끝 위치
             PointF VerticalGridEndPoint;
             // 숫자의 위치
@@ -164,10 +164,10 @@ namespace EveryChart
             e.Graphics.DrawRectangle(LinePen, GraphRect.Left, GraphRect.Top, GraphRect.Width, GraphRect.Height);
 
             // 그래프 가로 눈금과 세로 눈금을 그리는 부분
-            HorizontalGridStartPoint = new PointF(GraphRect.Left, GraphRect.Top + GraphRect.Height / VertalGridCount);
-            HorizontalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width, GraphRect.Top + GraphRect.Height / VertalGridCount);
-            NumberPoint = new PointF(GraphRect.Left - 50.0f, GraphRect.Top + GraphRect.Height * 3.0f/ VertalGridCount); // 50.0f와 3.0f는 글자의 위치를 설정하기 위한 값으로 고정값.
-            for (int i = 0; i < BigVertialGridCount; i++)
+            HorizontalGridStartPoint = new PointF(GraphRect.Left, GraphRect.Top + GraphRect.Height / VerticalGridCount);
+            HorizontalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width, GraphRect.Top + GraphRect.Height / VerticalGridCount);
+            NumberPoint = new PointF(GraphRect.Left - 50.0f, GraphRect.Top + GraphRect.Height * 3.0f/ VerticalGridCount); // 50.0f와 3.0f는 글자의 위치를 설정하기 위한 값으로 고정값.
+            for (int i = 0; i < BigVerticalGridCount; i++)
             {
                 for(int j = 0; j < 5; j++)
                 {
@@ -178,31 +178,39 @@ namespace EveryChart
                     }
                     // 가로 눈금를 그린다.
                     e.Graphics.DrawLine(LinePen, HorizontalGridStartPoint, HorizontalGridEndPoint);
-                    HorizontalGridStartPoint.Y += GraphRect.Height / VertalGridCount;
-                    HorizontalGridEndPoint.Y += GraphRect.Height / VertalGridCount;
+                    HorizontalGridStartPoint.Y += GraphRect.Height / VerticalGridCount;
+                    HorizontalGridEndPoint.Y += GraphRect.Height / VerticalGridCount;
                 }
                 if(i > 0)
                 {
                     // 세로 눈금의 숫자를 그린다.
-                    e.Graphics.DrawString(((BigVertialGridCount - i) * 10.0f).ToString(), TextFont, TextBrush, NumberPoint);
-                    NumberPoint.Y += GraphRect.Height * 5.0f / VertalGridCount;
+                    e.Graphics.DrawString(((BigVerticalGridCount - i) * 10.0f).ToString(), TextFont, TextBrush, NumberPoint);
+                    NumberPoint.Y += GraphRect.Height * 5.0f / VerticalGridCount;
                 }
             }
 
             // "(만 권)"을 그린다.
-            e.Graphics.DrawString("(만 권)", TextFont, TextBrush, new PointF(GraphRect.Left - 100.0f, GraphRect.Top - GraphRect.Height / VertalGridCount)); // 100.0f는 글자의 위치를 설정하기 위한 값으로 고정값.               
+            e.Graphics.DrawString("(만 권)", TextFont, TextBrush, new PointF(GraphRect.Left - 100.0f, GraphRect.Top - GraphRect.Height / VerticalGridCount)); // 100.0f는 글자의 위치를 설정하기 위한 값으로 고정값.               
             // "0"을 그린다.
             e.Graphics.DrawString("0", TextFont, TextBrush, new PointF(GraphRect.Left - 50.0f, 
-                                                                        GraphRect.Top + GraphRect.Height * (VertalGridCount - 4.0f) / VertalGridCount));  // 50.0f와 4.0f는 글자의 위치를 설정하기 위한 값으로 고정값.
+                                                                        GraphRect.Top + GraphRect.Height * (VerticalGridCount - 4.0f) / VerticalGridCount)); // 50.0f와 4.0f는 글자의 위치를 설정하기 위한 값으로 고정값.
 
             // 그래프의 세로 눈금을 그리는 부분
-            VertialGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top);
+            VerticalGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top);
             VerticalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top + GraphRect.Height);
+            NumberPoint = new PointF(VerticalGridStartPoint.X - 15.0f, VerticalGridEndPoint.Y + GraphRect.Height / VerticalGridCount);                       // 15.0f는 글자의 위치를 정하기 위한 값으로 고정 값.,
             for (int i = 0; i < HorizontalGridCount; i++)
             {
-               e.Graphics.DrawLine(LinePen, VertialGridStartPoint, VerticalGridEndPoint);
-               VertialGridStartPoint.X += GraphRect.Width / HorizontalGridCount;
-               VerticalGridEndPoint.X += GraphRect.Width / HorizontalGridCount;
+                e.Graphics.DrawLine(LinePen, VerticalGridStartPoint, VerticalGridEndPoint);
+                if(i < HorizontalGridCount - 1)
+                {
+                    e.Graphics.DrawString((i + 1).ToString(), TextFont, TextBrush, NumberPoint);
+                    NumberPoint.X += GraphRect.Width / HorizontalGridCount;
+                }
+                
+                VerticalGridStartPoint.X += GraphRect.Width / HorizontalGridCount;
+                VerticalGridEndPoint.X += GraphRect.Width / HorizontalGridCount;
+                
             }
 
             // 긴 수평선을 그리는 부분
