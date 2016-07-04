@@ -25,6 +25,8 @@ namespace EveryChart
             NewGraph.GraphMargin.Right = 10;
             NewGraph.GraphMargin.Bottom = 120;
 
+            // 현재 그래프를 정한다.
+            NewGraph.CurrentState = Graph.CurrentGraph.LineGraph;
             // 현재 원점의 위치를 정한다.
             NewGraph.CurrentOriginPoint = Graph.OriginPointPosition.LowerLeft;
         }
@@ -43,8 +45,45 @@ namespace EveryChart
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            // 꺾은 선 그래프를 그린다.
-            DrawLineGraph(e);
+            // X값의 최소값
+            float XMin;
+            // X값의 최대값
+            float XMax;
+            // Y값의 최소값
+            float YMin;
+            // Y값의 최대값
+            float YMax;
+
+            switch (NewGraph.CurrentState)
+            {
+                case Graph.CurrentGraph.None:
+                    break;
+                case Graph.CurrentGraph.LineGraph:
+                    {
+                        // X값의 최소값을 정의한다. 
+                        XMin = 0;
+                        // X값의 최대값을 정의한다.
+                        XMax = 12;
+                        // Y값의 최소값을 정의한다.
+                        YMin = 0;
+                        // Y값의 최대값을 정의한다.
+                        YMax = 60;
+                        // 꺾은 선 그래프를 그린다.
+                        DrawLineGraph(e, XMin, XMax, YMin, YMax);
+                    }
+                    break;
+                case Graph.CurrentGraph.BarGraph:
+                    break;
+                case Graph.CurrentGraph.CircleGraph:
+                    break;
+                case Graph.CurrentGraph.SpeacialGraph1:
+                    break;
+                case Graph.CurrentGraph.SpeacialGraph2:
+                    break;
+                default:
+                    break;
+            }
+           
         }
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
@@ -66,7 +105,7 @@ namespace EveryChart
             lbYData.Text = NewGraph.XCoordinateToXData(YValue, 0, 60, NewGraph.DrawRect).ToString();
         }
 
-        private void DrawLineGraph(PaintEventArgs e)
+        private void DrawLineGraph(PaintEventArgs e, float XMin, float XMax, float YMin, float YMax)
         {
             // 긴 수평선의 시작점
             PointF LongHorizonStartPoint;
@@ -98,6 +137,14 @@ namespace EveryChart
             String Month = "월";
             // 월의 위치
             PointF MonthPoint;
+            // 가로 큰 눈금의 개수
+            int BigHorizontalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble(XMax - XMin))) + 1;
+            // 세로 큰 눈금의 개수
+            int BigVertialGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble(YMax - YMin))) / 10 + 1;
+            // 가로 눈금의 개수
+            int HorizontalGridCount = BigHorizontalGridCount * 5;
+            // 세로 눈금의 개수
+            int VertalGridCount = BigVertialGridCount * 5;
             // 가로 눈금의 시작 위치
             PointF HorizontalGridStartPoint;
             // 가로 눈금의 끝 위치
@@ -111,8 +158,8 @@ namespace EveryChart
             e.Graphics.DrawRectangle(LinePen, GraphRect.Left, GraphRect.Top, GraphRect.Width, GraphRect.Height);
 
             // 그래프 가로 눈금을 그리는 부분
-            HorizontalGridStartPoint = new PointF(GraphRect.Left, GraphRect.Top + GraphRect.Height / 35.0f);
-            HorizontalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width, GraphRect.Top + GraphRect.Height / 35.0f);
+            HorizontalGridStartPoint = new PointF(GraphRect.Left, GraphRect.Top + GraphRect.Height / VertalGridCount);
+            HorizontalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width, GraphRect.Top + GraphRect.Height / VertalGridCount);
             for (int i = 0; i < 7; i++)
             {
                 for(int j = 0; j < 5; j++)
