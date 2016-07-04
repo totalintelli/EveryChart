@@ -53,7 +53,8 @@ namespace EveryChart
             float YMin;
             // Y값의 최대값
             float YMax;
-
+            // 데이터들
+            float[,] Data = new float[11, 2];
             switch (NewGraph.CurrentState)
             {
                 case Graph.CurrentGraph.None:
@@ -68,8 +69,31 @@ namespace EveryChart
                         YMin = 0;
                         // Y값의 최대값을 정의한다.
                         YMax = 60;
+                        // 데이터들을 정의한다.
+                        Data[0, 0] = 1;
+                        Data[0, 1] = 23;
+                        Data[1, 0] = 2;
+                        Data[1, 1] = 32;
+                        Data[2, 0] = 3;
+                        Data[2, 1] = 50;
+                        Data[3, 0] = 4;
+                        Data[3, 1] = 44;
+                        Data[4, 0] = 5;
+                        Data[4, 1] = 52;
+                        Data[5, 0] = 6;
+                        Data[5, 1] = 49;
+                        Data[6, 0] = 7;
+                        Data[6, 1] = 38;
+                        Data[7, 0] = 8;
+                        Data[7, 1] = 36;
+                        Data[8, 0] = 10;
+                        Data[8, 1] = 57;
+                        Data[9, 0] = 11;
+                        Data[9, 1] = 51;
+                        Data[10, 0] = 12;
+                        Data[10, 1] = 55;
                         // 꺾은 선 그래프를 그린다.
-                        DrawLineGraph(e, XMin, XMax, YMin, YMax);
+                        DrawLineGraph(e, XMin, XMax, YMin, YMax, Data);
                     }
                     break;
                 case Graph.CurrentGraph.BarGraph:
@@ -105,7 +129,7 @@ namespace EveryChart
             lbYData.Text = NewGraph.XCoordinateToXData(YValue, 0, 60, NewGraph.DrawRect).ToString();
         }
 
-        private void DrawLineGraph(PaintEventArgs e, float XMin, float XMax, float YMin, float YMax)
+        private void DrawLineGraph(PaintEventArgs e, float XMin, float XMax, float YMin, float YMax, float[,] Data)
         {
             // 긴 수평선의 시작점
             PointF LongHorizonStartPoint;
@@ -158,7 +182,19 @@ namespace EveryChart
             // 점의 색상
             SolidBrush PointBrush = new SolidBrush(Color.Red);
             // 점을 그리는 사각형
-            RectangleF PointRect;
+            RectangleF DataPointRect;
+            // 점의 반지름
+            float PointRadius = 5.0f;
+            // 점의 크기
+            float PointSize = 10.0f;
+            // X축 눈금 하나에 해당하는 값
+            float OneGridXValue = 1.0f;
+            // Y축 눈금 하나에 해당하는 값
+            float OneGridYValue = 10.0f;
+            // 선의 시작점
+            PointF DataLineStartPoint;
+            // 선의 끝점
+            PointF DataLineEndPoint;
 
             // 그리기 영역을 정의한다.
             //NewGraph.DrawRect = new RectangleF(0, ButtonDockPanel.Height, panel1.Width, panel1.Height - ButtonDockPanel.Height);
@@ -253,9 +289,12 @@ namespace EveryChart
 
             // 그래프의 점을 그리는 부분
             // 점을 그리는 사각형을 정의한다.
-            PointRect = new RectangleF(NewGraph.GetMathXPoint(1, XMin, XMax).X - 10.0f,
-                                                   NewGraph.GetMathYPoint(23, YMin, YMax).Y - 10.0f, 10.0f, 10.0f);
-            e.Graphics.FillEllipse(PointBrush, PointRect);
+            for(int i = 0; i < Data.GetLength(0); i++)
+            {
+                DataPointRect = new RectangleF(NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X - PointRadius,                               
+                                                        NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y - PointRadius, PointSize, PointSize);   
+                e.Graphics.FillEllipse(PointBrush, DataPointRect);
+            }
             // 그래프의 선을 그리는 부분
         }
     }

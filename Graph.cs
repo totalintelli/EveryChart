@@ -90,35 +90,35 @@ namespace EveryChart
         public PointF GraphPointToMathPoint(PointF GraphPoint)
         {
             // 수학 포인트
-            PointF RealPoint = new PointF();
+            PointF MathPoint = new PointF();
 
             switch (CurrentOriginPoint)
             {
                 case OriginPointPosition.LowerLeft:
                     // 원점이 왼쪽 아래인 수학 포인트를 구한다.
-                    RealPoint.X = GraphPoint.X + GraphMargin.Left;
-                    RealPoint.Y = DrawRect.Height - GraphPoint.Y + GraphMargin.Bottom;
+                    MathPoint.X = GraphPoint.X + GraphMargin.Left;
+                    MathPoint.Y = DrawRect.Height - GraphPoint.Y + GraphMargin.Bottom;
                     break;
                 case OriginPointPosition.LowerRight:
                     // 원점이 오른쪽 아래인 수학 포인트를 구한다.
-                    RealPoint.X = DrawRect.Width - GraphPoint.X + GraphMargin.Right;
-                    RealPoint.Y = DrawRect.Height - GraphPoint.Y + GraphMargin.Bottom;
+                    MathPoint.X = DrawRect.Width - GraphPoint.X + GraphMargin.Right;
+                    MathPoint.Y = DrawRect.Height - GraphPoint.Y + GraphMargin.Bottom;
                     break;
                 case OriginPointPosition.UpperRight:
                     // 원점이 오른쪽 위인 수학 포인트를 구한다.
-                    RealPoint.X = DrawRect.Width - GraphPoint.X + GraphMargin.Right;
-                    RealPoint.Y = GraphPoint.Y + GraphMargin.Top;
+                    MathPoint.X = DrawRect.Width - GraphPoint.X + GraphMargin.Right;
+                    MathPoint.Y = GraphPoint.Y + GraphMargin.Top;
                     break;
                 case OriginPointPosition.UpperLeft:
                     // 원점이 왼쪽 위인 수학 포인트를 구한다.
-                    RealPoint.X = GraphPoint.X + GraphMargin.Left;
-                    RealPoint.Y = GraphPoint.Y + GraphMargin.Top;
+                    MathPoint.X = GraphPoint.X + GraphMargin.Left;
+                    MathPoint.Y = GraphPoint.Y + GraphMargin.Top;
                     break;
                 default:
                     break;
             }
 
-            return RealPoint;
+            return MathPoint;
         }
 
         /// <summary>
