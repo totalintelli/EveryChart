@@ -191,6 +191,8 @@ namespace EveryChart
             float OneGridXValue = 1.0f;
             // Y축 눈금 하나에 해당하는 값
             float OneGridYValue = 10.0f;
+            // 선의 색상
+            Pen DataLinePen = new Pen(Color.Red, 2.0f);
             // 선의 시작점
             PointF DataLineStartPoint;
             // 선의 끝점
@@ -296,6 +298,18 @@ namespace EveryChart
                 e.Graphics.FillEllipse(PointBrush, DataPointRect);
             }
             // 그래프의 선을 그리는 부분
+            for(int i = 0; i < Data.GetLength(0); i++)
+            {
+                DataLineStartPoint = new PointF(NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X,
+                                                    NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y);
+                if(i < Data.GetLength(0) - 1)
+                {
+                    DataLineEndPoint = new PointF(NewGraph.GetMathXPoint(Data[i + 1, 0], XMin, XMax + OneGridXValue).X,
+                                                    NewGraph.GetMathYPoint(Data[i + 1, 1], YMin, YMax + OneGridYValue).Y);
+                    e.Graphics.DrawLine(DataLinePen, DataLineStartPoint, DataLineEndPoint);
+                }
+                
+            }
         }
     }
 }
