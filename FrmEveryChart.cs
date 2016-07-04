@@ -155,6 +155,10 @@ namespace EveryChart
             PointF VerticalGridEndPoint;
             // 숫자의 위치
             PointF NumberPoint;
+            // 점의 색상
+            SolidBrush PointBrush = new SolidBrush(Color.Red);
+            // 점을 그리는 사각형
+            RectangleF PointRect;
 
             // 그리기 영역을 정의한다.
             NewGraph.DrawRect = new RectangleF(0, ButtonDockPanel.Height, panel1.Width, panel1.Height - ButtonDockPanel.Height);
@@ -166,7 +170,7 @@ namespace EveryChart
             // 그래프 가로 눈금과 세로 눈금을 그리는 부분
             HorizontalGridStartPoint = new PointF(GraphRect.Left, GraphRect.Top + GraphRect.Height / VerticalGridCount);
             HorizontalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width, GraphRect.Top + GraphRect.Height / VerticalGridCount);
-            NumberPoint = new PointF(GraphRect.Left - 50.0f, GraphRect.Top + GraphRect.Height * 3.0f/ VerticalGridCount); // 50.0f와 3.0f는 글자의 위치를 설정하기 위한 값으로 고정값.
+            NumberPoint = new PointF(GraphRect.Left - 50.0f, GraphRect.Top + GraphRect.Height * 3.0f/ VerticalGridCount); // 50.0f은 숫자의 X좌표 값을 설정하기 위한 값이고 3.0f는 숫자의 높이를 정하기 위한 값으로 고정값.
             for (int i = 0; i < BigVerticalGridCount; i++)
             {
                 for(int j = 0; j < 5; j++)
@@ -190,15 +194,15 @@ namespace EveryChart
             }
 
             // "(만 권)"을 그린다.
-            e.Graphics.DrawString("(만 권)", TextFont, TextBrush, new PointF(GraphRect.Left - 100.0f, GraphRect.Top - GraphRect.Height / VerticalGridCount)); // 100.0f는 글자의 위치를 설정하기 위한 값으로 고정값.               
+            e.Graphics.DrawString("(만 권)", TextFont, TextBrush, new PointF(GraphRect.Left - 100.0f, GraphRect.Top - GraphRect.Height / VerticalGridCount)); // 100.0f는 글자의 X좌표를 설정하기 위한 값으로 고정값.               
             // "0"을 그린다.
             e.Graphics.DrawString("0", TextFont, TextBrush, new PointF(GraphRect.Left - 50.0f, 
-                                                                        GraphRect.Top + GraphRect.Height * (VerticalGridCount - 4.0f) / VerticalGridCount)); // 50.0f와 4.0f는 글자의 위치를 설정하기 위한 값으로 고정값.
+                                                                        GraphRect.Top + GraphRect.Height * (VerticalGridCount - 4.0f) / VerticalGridCount)); // 50.0f은 "0"의 X좌표를, 4.0f는 "0"의 높이를 설정하기 위한 값으로 고정값.
 
             // 그래프의 세로 눈금을 그리는 부분
             VerticalGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top);
             VerticalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top + GraphRect.Height);
-            NumberPoint = new PointF(VerticalGridStartPoint.X - 15.0f, VerticalGridEndPoint.Y + GraphRect.Height / VerticalGridCount);                       // 15.0f는 글자의 위치를 정하기 위한 값으로 고정 값.,
+            NumberPoint = new PointF(VerticalGridStartPoint.X - 15.0f, VerticalGridEndPoint.Y + GraphRect.Height / VerticalGridCount);                       // 15.0f는 숫자의 X좌표를 정하기 위한 값으로 고정 값.,
             for (int i = 0; i < HorizontalGridCount; i++)
             {
                 e.Graphics.DrawLine(LinePen, VerticalGridStartPoint, VerticalGridEndPoint);
@@ -246,6 +250,13 @@ namespace EveryChart
             MonthPoint = NewGraph.RealPointToMathPoint(new PointF(150, 20));
             // "월"을 그리는 부분
             e.Graphics.DrawString(Month, TextFont, TextBrush, MonthPoint);
+
+            // 그래프의 점을 그리는 부분
+            // 점을 그리는 사각형을 정의한다.
+            PointRect = new RectangleF(NewGraph.GetMathXPoint(1, XMin, XMax).X - 10.0f,
+                                                   NewGraph.GetMathYPoint(23, YMin, YMax).Y - 10.0f, 10.0f, 10.0f);
+            e.Graphics.FillEllipse(PointBrush, PointRect);
+            // 그래프의 선을 그리는 부분
         }
     }
 }
