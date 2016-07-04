@@ -116,6 +116,14 @@ namespace EveryChart
             int XValue = e.X;
             // 마우스 커서가 가리키는 위치의 Y값
             int YValue = e.Y;
+            // X값의 최소값
+            float XMin = 0.0f;
+            // X값의 최대값
+            float XMax = 0.0f;
+            // Y값의 최소값
+            float YMin = 0.0f;
+            // Y값의 최대값
+            float YMax = 0.0f;
 
             // 수학 포인트의 X 좌표값을 표시한다.
             lbMathPointXValue.Text = NewGraph.GetMathPointXValue(XValue).ToString();
@@ -123,10 +131,35 @@ namespace EveryChart
             // 수학 포인트의 Y 좌표값을 표시한다.
             lbMapthPointYValue.Text = NewGraph.GetMathPointYValue(YValue).ToString();
 
+            switch (NewGraph.CurrentState)
+            {
+                case Graph.CurrentGraph.None:
+                    break;
+                case Graph.CurrentGraph.LineGraph:
+                    NewGraph.DrawRect = new RectangleF(NewGraph.GraphMargin.Left, NewGraph.GraphMargin.Top,
+                                    panel1.Width - NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right,
+                                    panel1.Height - NewGraph.GraphMargin.Top - NewGraph.GraphMargin.Bottom);
+                    XMin = 0.0f;
+                    XMax = 13.0f;
+                    YMin = 0.0f;
+                    YMax = 70.0f;
+                    break;
+                case Graph.CurrentGraph.BarGraph:
+                    break;
+                case Graph.CurrentGraph.CircleGraph:
+                    break;
+                case Graph.CurrentGraph.SpeacialGraph1:
+                    break;
+                case Graph.CurrentGraph.SpeacialGraph2:
+                    break;
+                default:
+                    break;
+            }
+
             // 데이터의 X 값을 표시한다.
-            lbXData.Text = NewGraph.XCoordinateToXData(XValue, 0, 12, NewGraph.DrawRect).ToString();
+            lbXData.Text = NewGraph.XCoordinateToXData(XValue, XMin, XMax, NewGraph.DrawRect).ToString();
             // 데이터의 Y 값을 표시한다.
-            lbYData.Text = NewGraph.XCoordinateToXData(YValue, 0, 60, NewGraph.DrawRect).ToString();
+            lbYData.Text = NewGraph.YCoordinateToYData(YValue, YMin, YMax, NewGraph.DrawRect).ToString();
         }
 
         private void DrawLineGraph(PaintEventArgs e, float XMin, float XMax, float YMin, float YMax, float[,] Data)
