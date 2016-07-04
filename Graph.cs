@@ -36,6 +36,14 @@ namespace EveryChart
         public Padding GraphMargin = new Padding(0, 0, 0, 0);
 
         // 실제 그래프 영역
+        RectangleF _RealRect = new Rectangle(0, 0, 0, 0);
+        public RectangleF RealRect
+        {
+            get { return _RealRect; }
+            set { _RealRect = value; }
+        }
+
+        // 그래프를 그리는 영역
         RectangleF _DrawRect = new RectangleF(0, 0, 0, 0);
         public RectangleF DrawRect
         {
@@ -170,10 +178,10 @@ namespace EveryChart
             {
                 case OriginPointPosition.LowerLeft:
                     // 원점이 왼쪽 아래인 수학 포인트의 X값을 구한다.
-                    MathPointYValue = DrawRect.Height - RealPointYValue;
+                    MathPointYValue = RealRect.Height - RealPointYValue;
                     break;
                 case OriginPointPosition.LowerRight:
-                    MathPointYValue = DrawRect.Height - RealPointYValue;
+                    MathPointYValue = RealRect.Height - RealPointYValue;
                     break;
                 case OriginPointPosition.UpperRight:
                     MathPointYValue = RealPointYValue;

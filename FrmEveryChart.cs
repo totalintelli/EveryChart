@@ -28,7 +28,10 @@ namespace EveryChart
             // 현재 그래프를 정한다.
             NewGraph.CurrentState = Graph.CurrentGraph.LineGraph;
             // 현재 원점의 위치를 정한다.
-            NewGraph.CurrentOriginPoint = Graph.OriginPointPosition.LowerRight;
+            NewGraph.CurrentOriginPoint = Graph.OriginPointPosition.LowerLeft;
+
+            // 실제 영역을 정한다.
+            NewGraph.RealRect = new RectangleF(panel1.Left, panel1.Top, panel1.Width, panel1.Height);
         }
 
         /// <summary>
