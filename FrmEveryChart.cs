@@ -199,7 +199,6 @@ namespace EveryChart
             PointF DataLineEndPoint;
 
             // 그리기 영역을 정의한다.
-            //NewGraph.DrawRect = new RectangleF(0, ButtonDockPanel.Height, panel1.Width, panel1.Height - ButtonDockPanel.Height);
             NewGraph.DrawRect = GraphRect;
 
             // 그래프 영역을 그리는 부분
