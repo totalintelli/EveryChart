@@ -142,13 +142,17 @@ namespace EveryChart
             // 세로 큰 눈금의 개수
             int BigVertialGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble(YMax - YMin))) / 10 + 1;
             // 가로 눈금의 개수
-            int HorizontalGridCount = BigHorizontalGridCount * 5;
+            int HorizontalGridCount = BigHorizontalGridCount;
             // 세로 눈금의 개수
             int VertalGridCount = BigVertialGridCount * 5;
             // 가로 눈금의 시작 위치
             PointF HorizontalGridStartPoint;
             // 가로 눈금의 끝 위치
             PointF HorizontalGridEndPoint;
+            // 세로 눈금으 시작 위치
+            PointF VertialGridStartPoint;
+            // 세로 눈금의 끝 위치
+            PointF VerticalGridEndPoint;
 
             // 그리기 영역을 정의한다.
             NewGraph.DrawRect = new RectangleF(0, ButtonDockPanel.Height, panel1.Width, panel1.Height - ButtonDockPanel.Height);
@@ -160,7 +164,7 @@ namespace EveryChart
             // 그래프 가로 눈금을 그리는 부분
             HorizontalGridStartPoint = new PointF(GraphRect.Left, GraphRect.Top + GraphRect.Height / VertalGridCount);
             HorizontalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width, GraphRect.Top + GraphRect.Height / VertalGridCount);
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < BigVertialGridCount; i++)
             {
                 for(int j = 0; j < 5; j++)
                 {
@@ -170,9 +174,19 @@ namespace EveryChart
                         LinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
                     }
                     e.Graphics.DrawLine(LinePen, HorizontalGridStartPoint, HorizontalGridEndPoint);
-                    HorizontalGridStartPoint.Y += GraphRect.Height / 35.0f;
-                    HorizontalGridEndPoint.Y += GraphRect.Height / 35.0f;
+                    HorizontalGridStartPoint.Y += GraphRect.Height / VertalGridCount;
+                    HorizontalGridEndPoint.Y += GraphRect.Height / VertalGridCount;
                 }
+            }
+
+            // 그래프의 세로 눈금을 그리는 부분
+            VertialGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top);
+            VerticalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top + GraphRect.Height);
+            for (int i = 0; i < HorizontalGridCount; i++)
+            {
+               e.Graphics.DrawLine(LinePen, VertialGridStartPoint, VerticalGridEndPoint);
+               VertialGridStartPoint.X += GraphRect.Width / HorizontalGridCount;
+               VerticalGridEndPoint.X += GraphRect.Width / HorizontalGridCount;
             }
 
             // 긴 수평선을 그리는 부분
