@@ -128,7 +128,7 @@ namespace EveryChart
             // 판매량 글자열
             String SalesVolume = "판매량";
             // 글자 폰트
-            Font TextFont = new Font("Arial", 24);
+            Font TextFont = new Font("Arial", 22);
             // 글자를 그리는 펜
             Brush TextBrush = Brushes.Teal;
             // 판매량의 위치
@@ -153,6 +153,8 @@ namespace EveryChart
             PointF VertialGridStartPoint;
             // 세로 눈금의 끝 위치
             PointF VerticalGridEndPoint;
+            // 숫자의 위치
+            PointF NumberPoint;
 
             // 그리기 영역을 정의한다.
             NewGraph.DrawRect = new RectangleF(0, ButtonDockPanel.Height, panel1.Width, panel1.Height - ButtonDockPanel.Height);
@@ -161,9 +163,10 @@ namespace EveryChart
             // 그래프 영역을 그리는 부분
             e.Graphics.DrawRectangle(LinePen, GraphRect.Left, GraphRect.Top, GraphRect.Width, GraphRect.Height);
 
-            // 그래프 가로 눈금을 그리는 부분
+            // 그래프 가로 눈금과 세로 눈금을 그리는 부분
             HorizontalGridStartPoint = new PointF(GraphRect.Left, GraphRect.Top + GraphRect.Height / VertalGridCount);
             HorizontalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width, GraphRect.Top + GraphRect.Height / VertalGridCount);
+            NumberPoint = new PointF(GraphRect.Left - 50.0f, GraphRect.Top + GraphRect.Height * 3.0f/ VertalGridCount); // 50.0f와 3.0f는 글자의 위치를 설정하기 위한 값으로 고정값.
             for (int i = 0; i < BigVertialGridCount; i++)
             {
                 for(int j = 0; j < 5; j++)
@@ -173,11 +176,24 @@ namespace EveryChart
                     {
                         LinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
                     }
+                    // 가로 눈금를 그린다.
                     e.Graphics.DrawLine(LinePen, HorizontalGridStartPoint, HorizontalGridEndPoint);
                     HorizontalGridStartPoint.Y += GraphRect.Height / VertalGridCount;
                     HorizontalGridEndPoint.Y += GraphRect.Height / VertalGridCount;
                 }
+                if(i > 0)
+                {
+                    // 세로 눈금의 숫자를 그린다.
+                    e.Graphics.DrawString(((BigVertialGridCount - i) * 10.0f).ToString(), TextFont, TextBrush, NumberPoint);
+                    NumberPoint.Y += GraphRect.Height * 5.0f / VertalGridCount;
+                }
             }
+
+            // "(만 권)"을 그린다.
+            e.Graphics.DrawString("(만 권)", TextFont, TextBrush, new PointF(GraphRect.Left - 100.0f, GraphRect.Top - GraphRect.Height / VertalGridCount)); // 100.0f는 글자의 위치를 설정하기 위한 값으로 고정값.               
+            // "0"을 그린다.
+            e.Graphics.DrawString("0", TextFont, TextBrush, new PointF(GraphRect.Left - 50.0f, 
+                                                                        GraphRect.Top + GraphRect.Height * (VertalGridCount - 4.0f) / VertalGridCount));  // 50.0f와 4.0f는 글자의 위치를 설정하기 위한 값으로 고정값.
 
             // 그래프의 세로 눈금을 그리는 부분
             VertialGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top);
