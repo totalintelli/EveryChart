@@ -138,12 +138,15 @@ namespace EveryChart
                     MathPointXValue = RealPointXValue;
                     break;
                 case OriginPointPosition.LowerRight:
+                    // 원점이 오른쪽 아래인 수학 포인트의 X값을 구한다.
                     MathPointXValue = DrawRect.Width - RealPointXValue;
                     break;
                 case OriginPointPosition.UpperRight:
+                    // 원점이 오른쪽 위인 수학 포인트의 X값을 구한다.
                     MathPointXValue = DrawRect.Width - RealPointXValue;
                     break;
                 case OriginPointPosition.UpperLeft:
+                    // 원점이 왼쪽 위인 수학 포인트의 X값을 구한다.
                     MathPointXValue = RealPointXValue;
                     break;
                 default:
