@@ -41,6 +41,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lbMathPointXValue = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.ButtonDockPanel.SuspendLayout();
             this.SuspendLayout();
@@ -51,7 +52,7 @@
             this.btnLineGraph.Name = "btnLineGraph";
             this.btnLineGraph.Size = new System.Drawing.Size(97, 23);
             this.btnLineGraph.TabIndex = 0;
-            this.btnLineGraph.Text = "꺾은 선 그래프";
+            this.btnLineGraph.Text = "그래프 갱신";
             this.btnLineGraph.UseVisualStyleBackColor = true;
             this.btnLineGraph.Click += new System.EventHandler(this.btnLineGraph_Click);
             // 
@@ -70,6 +71,7 @@
             // ButtonDockPanel
             // 
             this.ButtonDockPanel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ButtonDockPanel.Controls.Add(this.comboBox1);
             this.ButtonDockPanel.Controls.Add(this.lbYData);
             this.ButtonDockPanel.Controls.Add(this.label6);
             this.ButtonDockPanel.Controls.Add(this.lbXData);
@@ -177,6 +179,20 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "X = ";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "LowerLeft",
+            "LowerRight",
+            "UpperLeft",
+            "UpperRight"});
+            this.comboBox1.Location = new System.Drawing.Point(325, 14);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 20);
+            this.comboBox1.TabIndex = 11;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // FrmEveryChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -207,6 +223,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         public System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 
