@@ -203,9 +203,9 @@ namespace EveryChart
             }
 
             // 데이터의 X 값을 표시한다.
-            lbXData.Text = NewGraph.XCoordinateToXData(XValue, XMin, XMax, NewGraph.DrawRect).ToString();
+            lbXData.Text = Math.Round(System.Convert.ToDouble(NewGraph.XCoordinateToXData(XValue, XMin, XMax, NewGraph.DrawRect)), 1).ToString();
             // 데이터의 Y 값을 표시한다.
-            lbYData.Text = NewGraph.YCoordinateToYData(YValue, YMin, YMax, NewGraph.DrawRect).ToString();
+            lbYData.Text = Math.Round(System.Convert.ToDouble(NewGraph.YCoordinateToYData(YValue, YMin, YMax, NewGraph.DrawRect)), 1).ToString();
         }
 
         private void DrawLineGraph(PaintEventArgs e, float XMin, float XMax, float YMin, float YMax, float[,] Data)
