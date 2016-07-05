@@ -265,7 +265,7 @@ namespace EveryChart
                     XData = Math.Abs(((XCoordinate - GraphMargin.Left) * (XMax - XMin)) / DrawRect.Width);
                     break;
                 case OriginPointPosition.LowerRight:
-                    XData = Math.Abs(((XCoordinate - GraphMargin.Right) * (XMax - XMin)) / DrawRect.Width);
+                    XData = Math.Abs((XMax - (((XCoordinate - GraphMargin.Left) * (XMax - XMin)) / DrawRect.Width)));
                     break;
                 case OriginPointPosition.UpperRight:
                     XData = Math.Abs(((XCoordinate - GraphMargin.Right) * (XMax - XMin)) / DrawRect.Width);

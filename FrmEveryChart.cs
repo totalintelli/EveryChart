@@ -388,6 +388,26 @@ namespace EveryChart
                     // "0"을 그린다.
                     e.Graphics.DrawString("0", TextFont, TextBrush, new PointF(GraphRect.Left - 50.0f,
                                                                                 GraphRect.Top + GraphRect.Height * (VerticalGridCount - 4.0f) / VerticalGridCount)); // 50.0f은 "0"의 X좌표를, 4.0f는 "0"의 높이를 설정하기 위한 값으로 고정값.
+
+                    // 그래프의 세로 눈금을 그리는 부분
+                    VerticalGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top);
+                    VerticalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top + GraphRect.Height);
+                    NumberPoint = new PointF(VerticalGridStartPoint.X - 15.0f, VerticalGridEndPoint.Y + GraphRect.Height / VerticalGridCount);                       // 15.0f는 숫자의 X좌표를 정하기 위한 값으로 고정 값.,
+                    for (int i = 0; i < HorizontalGridCount; i++)
+                    {
+                        e.Graphics.DrawLine(LinePen, VerticalGridStartPoint, VerticalGridEndPoint);
+                        if (i < HorizontalGridCount - 1)
+                        {
+                            e.Graphics.DrawString((HorizontalGridCount - (i + 1)).ToString(), TextFont, TextBrush, NumberPoint);
+                            NumberPoint.X += GraphRect.Width / HorizontalGridCount;
+                        }
+
+                        VerticalGridStartPoint.X += GraphRect.Width / HorizontalGridCount;
+                        VerticalGridEndPoint.X += GraphRect.Width / HorizontalGridCount;
+
+                    }
+                    // 세로 눈금의 "0"을 그린다.
+                    e.Graphics.DrawString("0", TextFont, TextBrush, NumberPoint);
                     break;
                 case Graph.OriginPointPosition.UpperRight:
             
