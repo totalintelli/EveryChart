@@ -301,7 +301,7 @@ namespace EveryChart
                             }
                             if (i > 0)
                             {
-                                // 세로 눈금의 숫자를 그린다.
+                                // 가로 눈금의 숫자를 그린다.
                                 e.Graphics.DrawString(((BigVerticalGridCount - i) * 10.0f).ToString(), TextFont, TextBrush, NumberPoint);
                                 NumberPoint.Y += GraphRect.Height * 5.0f / VerticalGridCount;
                             }
@@ -376,7 +376,7 @@ namespace EveryChart
                         }
                         if (i > 0)
                         {
-                            // 세로 눈금의 숫자를 그린다.
+                            // 가로 눈금의 숫자를 그린다.
                             e.Graphics.DrawString(((BigVerticalGridCount - i) * 10.0f).ToString(), TextFont, TextBrush, NumberPoint);
                             NumberPoint.Y += GraphRect.Height * 5.0f / VerticalGridCount;
                         }
@@ -414,7 +414,7 @@ namespace EveryChart
                             }
                             if (i > 0)
                             {
-                                // 세로 눈금의 숫자를 그린다.
+                                // 가로 눈금의 숫자를 그린다.
                                 e.Graphics.DrawString( (i * 10.0f).ToString(), TextFont, TextBrush, NumberPoint);
                                 NumberPoint.Y += GraphRect.Height * 5.0f / VerticalGridCount;
                             }
