@@ -418,6 +418,21 @@ namespace EveryChart
                                                                 NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y - PointRadius, PointSize, PointSize);
                         e.Graphics.FillEllipse(PointBrush, DataPointRect);
                     }
+
+                    // 그래프의 선을 그리는 부분
+                    for (int i = 0; i < Data.GetLength(0); i++)
+                    {
+                        DataLineStartPoint = new PointF(NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X,
+                                                            NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y);
+                        if (i < Data.GetLength(0) - 1)
+                        {
+                            DataLineEndPoint = new PointF(NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(Data[i + 1, 0], XMin, XMax + OneGridXValue).X,
+                                                            NewGraph.GetMathYPoint(Data[i + 1, 1], YMin, YMax + OneGridYValue).Y);
+                            e.Graphics.DrawLine(DataLinePen, DataLineStartPoint, DataLineEndPoint);
+                        }
+
+                    }
+
                     break;
                 case Graph.OriginPointPosition.UpperRight:
             
