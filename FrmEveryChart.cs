@@ -340,6 +340,7 @@ namespace EveryChart
                                                                     NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y - PointRadius, PointSize, PointSize);
                             e.Graphics.FillEllipse(PointBrush, DataPointRect);
                         }
+
                         // 그래프의 선을 그리는 부분
                         for (int i = 0; i < Data.GetLength(0); i++)
                         {
@@ -408,6 +409,15 @@ namespace EveryChart
                     }
                     // 세로 눈금의 "0"을 그린다.
                     e.Graphics.DrawString("0", TextFont, TextBrush, NumberPoint);
+
+                    // 그래프의 점을 그리는 부분
+                    // 점을 그리는 사각형을 정의한다.
+                    for (int i = 0; i < Data.GetLength(0); i++)
+                    {
+                        DataPointRect = new RectangleF(NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X - PointRadius,
+                                                                NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y - PointRadius, PointSize, PointSize);
+                        e.Graphics.FillEllipse(PointBrush, DataPointRect);
+                    }
                     break;
                 case Graph.OriginPointPosition.UpperRight:
             
@@ -473,6 +483,7 @@ namespace EveryChart
                                                                     NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y - PointRadius, PointSize, PointSize);
                             e.Graphics.FillEllipse(PointBrush, DataPointRect);
                         }
+
                         // 그래프의 선을 그리는 부분
                         for (int i = 0; i < Data.GetLength(0); i++)
                         {
