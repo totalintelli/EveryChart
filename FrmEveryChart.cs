@@ -314,7 +314,7 @@ namespace EveryChart
             e.Graphics.DrawString(SalesVolume, TextFont, TextBrush, SalesVolumePoint);
 
             // 월의 위치를 구한다. 
-            MonthPoint = new PointF(150.0f, 500.0f);      // 150.0f와 500.0f는 월의 위치에 대한 X값과 Y값으로 고정값.
+            MonthPoint = new PointF(NewGraph.GraphMargin.Left * 7.5f / 10.0f, NewGraph.GraphMargin.Top + GraphRect.Height + NewGraph.GraphMargin.Bottom * 0.5f);      // 7.5f와 10.5f와 0.5f는 월의 위치에 대한 X값과 Y값으로 고정값.
             // "월"을 그리는 부분
             e.Graphics.DrawString(Month, TextFont, TextBrush, MonthPoint);
 
