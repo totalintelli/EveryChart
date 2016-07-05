@@ -31,6 +31,8 @@
             this.btnLineGraph = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ButtonDockPanel = new System.Windows.Forms.Panel();
+            this.cbGraph = new System.Windows.Forms.ComboBox();
+            this.cbOriginPoint = new System.Windows.Forms.ComboBox();
             this.lbYData = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lbXData = new System.Windows.Forms.Label();
@@ -41,7 +43,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lbMathPointXValue = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.ButtonDockPanel.SuspendLayout();
             this.SuspendLayout();
@@ -71,7 +72,8 @@
             // ButtonDockPanel
             // 
             this.ButtonDockPanel.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ButtonDockPanel.Controls.Add(this.comboBox1);
+            this.ButtonDockPanel.Controls.Add(this.cbGraph);
+            this.ButtonDockPanel.Controls.Add(this.cbOriginPoint);
             this.ButtonDockPanel.Controls.Add(this.lbYData);
             this.ButtonDockPanel.Controls.Add(this.label6);
             this.ButtonDockPanel.Controls.Add(this.lbXData);
@@ -88,6 +90,29 @@
             this.ButtonDockPanel.Name = "ButtonDockPanel";
             this.ButtonDockPanel.Size = new System.Drawing.Size(754, 49);
             this.ButtonDockPanel.TabIndex = 0;
+            // 
+            // cbGraph
+            // 
+            this.cbGraph.FormattingEnabled = true;
+            this.cbGraph.Items.AddRange(new object[] {
+            "LineGraph",
+            "BarGraph"});
+            this.cbGraph.Location = new System.Drawing.Point(158, 14);
+            this.cbGraph.Name = "cbGraph";
+            this.cbGraph.Size = new System.Drawing.Size(121, 20);
+            this.cbGraph.TabIndex = 12;
+            this.cbGraph.SelectedIndexChanged += new System.EventHandler(this.cbGraph_SelectedIndexChanged);
+            // 
+            // cbOriginPoint
+            // 
+            this.cbOriginPoint.FormattingEnabled = true;
+            this.cbOriginPoint.Items.AddRange(new object[] {
+            "LowerLeft"});
+            this.cbOriginPoint.Location = new System.Drawing.Point(325, 14);
+            this.cbOriginPoint.Name = "cbOriginPoint";
+            this.cbOriginPoint.Size = new System.Drawing.Size(121, 20);
+            this.cbOriginPoint.TabIndex = 11;
+            this.cbOriginPoint.SelectedIndexChanged += new System.EventHandler(this.cbOrigin_SelectedIndexChanged);
             // 
             // lbYData
             // 
@@ -179,17 +204,6 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "X = ";
             // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "LowerLeft"});
-            this.comboBox1.Location = new System.Drawing.Point(325, 14);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 20);
-            this.comboBox1.TabIndex = 11;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
             // FrmEveryChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -221,7 +235,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         public System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbOriginPoint;
+        private System.Windows.Forms.ComboBox cbGraph;
     }
 }
 

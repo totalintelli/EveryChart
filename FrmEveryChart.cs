@@ -47,14 +47,48 @@ namespace EveryChart
             panel1.Invalidate();
         }
 
-        /// <summary>
-        /// 현재 그래프의 원점의 위치를 정한다. 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbGraph_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (comboBox1.SelectedIndex)
+            switch (cbGraph.SelectedIndex)
+            {
+                case 0:
+                    {
+                        NewGraph.CurrentState = Graph.CurrentGraph.LineGraph;
+                        panel1.Invalidate();
+                    }
+                    break;
+                case 1:
+                    {
+                        NewGraph.CurrentState = Graph.CurrentGraph.BarGraph;
+                        panel1.Invalidate();
+                    }
+                    break;
+                case 2:
+                    {
+                        NewGraph.CurrentState = Graph.CurrentGraph.PieChart;
+                        panel1.Invalidate();
+                    }
+                    break;
+                case 3:
+                    {
+                        NewGraph.CurrentState = Graph.CurrentGraph.SpeacialGraph1;
+                        panel1.Invalidate();
+                    }
+                    break;
+                case 4:
+                    {
+                        NewGraph.CurrentState = Graph.CurrentGraph.SpeacialGraph2;
+                        panel1.Invalidate();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void cbOrigin_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cbOriginPoint.SelectedIndex)
             {
                 case 0:
                     {
@@ -66,7 +100,6 @@ namespace EveryChart
                     {
                         NewGraph.CurrentOriginPoint = Graph.OriginPointPosition.LowerRight;
                         panel1.Invalidate();
-                        
                     }
                     break;
                 case 2:
@@ -142,8 +175,18 @@ namespace EveryChart
                     }
                     break;
                 case Graph.CurrentGraph.BarGraph:
+                    // X값의 최소값을 정의한다. 
+                    XMin = 0;
+                    // X값의 최대값을 정의한다. 
+                    XMax = 2009;
+                    // Y값의 최소값을 정의한다.
+                    YMin = 0;
+                    // Y값의 최대값을 정의한다.
+                    YMax = 7000;
+                    // 막대 그래프를 그린다.
+                    DrawBarGraph(e, XMin, XMax, YMin, YMax, Data);
                     break;
-                case Graph.CurrentGraph.CircleGraph:
+                case Graph.CurrentGraph.PieChart:
                     break;
                 case Graph.CurrentGraph.SpeacialGraph1:
                     break;
@@ -155,6 +198,8 @@ namespace EveryChart
 
             
         }
+
+        
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -192,7 +237,7 @@ namespace EveryChart
                     break;
                 case Graph.CurrentGraph.BarGraph:
                     break;
-                case Graph.CurrentGraph.CircleGraph:
+                case Graph.CurrentGraph.PieChart:
                     break;
                 case Graph.CurrentGraph.SpeacialGraph1:
                     break;
@@ -642,5 +687,62 @@ namespace EveryChart
         {
            panel1.Invalidate();
         }
+
+        private void DrawBarGraph(PaintEventArgs e, float XMin, float XMax, float YMin, float YMax, float[,] data)
+        {
+            // 선을 그리는 펜
+            Pen LinePen = new Pen(Color.Blue, 1.0f);
+            // 그래프 영역
+            RectangleF GraphRect = new RectangleF(NewGraph.GraphMargin.Left, NewGraph.GraphMargin.Top,
+                                    panel1.Width - NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right,
+                                    panel1.Height - NewGraph.GraphMargin.Top - NewGraph.GraphMargin.Bottom);
+            // 글자 폰트
+            Font TextFont = new Font("Arial", 22);
+            // 글자를 그리는 펜
+            Brush TextBrush = Brushes.Teal;
+            // 가로 큰 눈금의 개수
+            int BigHorizontalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble(XMax - XMin))) + 1;
+            // 세로 큰 눈금의 개수
+            int BigVerticalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble(YMax - YMin))) / 10 + 1;
+            // 가로 눈금의 개수
+            int HorizontalGridCount = BigHorizontalGridCount;
+            // 세로 눈금의 개수
+            int VerticalGridCount = BigVerticalGridCount * 5;
+            // 가로 눈금의 시작 위치
+            PointF HorizontalGridStartPoint;
+            // 가로 눈금의 끝 위치
+            PointF HorizontalGridEndPoint;
+            // 세로 눈금으 시작 위치
+            PointF VerticalGridStartPoint;
+            // 세로 눈금의 끝 위치
+            PointF VerticalGridEndPoint;
+            // 숫자의 위치
+            PointF NumberPoint;
+            // 점의 색상
+            SolidBrush PointBrush = new SolidBrush(Color.Red);
+            // 점을 그리는 사각형
+            RectangleF DataPointRect;
+            // 점의 반지름
+            float PointRadius = 5.0f;
+            // 점의 크기
+            float PointSize = 10.0f;
+            // X축 눈금 하나에 해당하는 값
+            float OneGridXValue = 1.0f;
+            // Y축 눈금 하나에 해당하는 값
+            float OneGridYValue = 10.0f;
+            // 선의 색상
+            Pen DataLinePen = new Pen(Color.Red, 2.0f);
+            // 선의 시작점
+            PointF DataLineStartPoint;
+            // 선의 끝점
+            PointF DataLineEndPoint;
+
+            // 그리기 영역을 정의한다.
+            NewGraph.DrawRect = GraphRect;
+
+            // 그래프 영역을 그리는 부분
+            e.Graphics.DrawRectangle(LinePen, GraphRect.Left, GraphRect.Top, GraphRect.Width, GraphRect.Height);
+        }
+
     }
 }

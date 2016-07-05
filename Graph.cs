@@ -23,7 +23,7 @@ namespace EveryChart
             None = 0,           // 그래프가 없음.
             LineGraph = 1,      // 꺾은선 그래프.
             BarGraph = 2,       // 막대 그래프.
-            CircleGraph = 3,    // 원 그래프.
+            PieChart = 3,    // 원 그래프.
             SpeacialGraph1 = 4, // 특수 그래프1.
             SpeacialGraph2 = 5  // 특수 그래프2.
         }
