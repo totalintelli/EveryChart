@@ -308,7 +308,8 @@ namespace EveryChart
             e.Graphics.DrawLine(LinePen, DiagonalStartPoint, DiagonalEndPoint);
 
             // 판매량의 위치를 구한다.
-            SalesVolumePoint = new PointF(10.0f, 450.0f); // 10.0f와 450.0f는 판매량의 위치에 대한 X값과 Y값으로 고정값.
+            SalesVolumePoint = new PointF(NewGraph.GraphMargin.Left / 15.0f, 
+                                            NewGraph.GraphMargin.Top + GraphRect.Height + 10.0f); // 15.0f와 10.0f는 판매량의 위치를 정하기 위한 값들로 고정값.
             // "판매량"을 그리는 부분
             e.Graphics.DrawString(SalesVolume, TextFont, TextBrush, SalesVolumePoint);
 
@@ -504,10 +505,10 @@ namespace EveryChart
 
                         // "(만 권)"을 그린다.
                         e.Graphics.DrawString("(만 권)", TextFont, TextBrush, new PointF(GraphRect.Left - 100.0f,
-                                                                                    GraphRect.Top + GraphRect.Height * (VerticalGridCount - 4.0f) / VerticalGridCount));   // 50.0f은 "0"의 X좌표를, 4.0f는 "0"의 높이를 설정하기 위한 값으로 고정값.
+                                                                                    GraphRect.Top + GraphRect.Height * (VerticalGridCount - 4.0f) / VerticalGridCount));   // 100.0f은 "0"의 X좌표를, 4.0f는 "0"의 높이를 설정하기 위한 값으로 고정값.
 
                         // "0"을 그린다.
-                        e.Graphics.DrawString("0", TextFont, TextBrush, new PointF(GraphRect.Left - 50.0f, GraphRect.Top - GraphRect.Height / VerticalGridCount)); // 100.0f는 글자의 X좌표를 설정하기 위한 값으로 고정값.
+                        e.Graphics.DrawString("0", TextFont, TextBrush, new PointF(GraphRect.Left - 50.0f, GraphRect.Top - GraphRect.Height / VerticalGridCount)); // 50.0f는 글자의 X좌표를 설정하기 위한 값으로 고정값.
 
                         // 그래프의 세로 눈금을 그리는 부분
                         VerticalGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top);
@@ -637,6 +638,9 @@ namespace EveryChart
 
         }
 
-        
+        private void FrmEveryChart_SizeChanged(object sender, EventArgs e)
+        {
+           panel1.Invalidate();
+        }
     }
 }

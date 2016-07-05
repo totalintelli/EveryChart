@@ -201,6 +201,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "FrmEveryChart";
             this.Text = "모든 차트";
+            this.SizeChanged += new System.EventHandler(this.FrmEveryChart_SizeChanged);
             this.panel1.ResumeLayout(false);
             this.ButtonDockPanel.ResumeLayout(false);
             this.ButtonDockPanel.PerformLayout();
