@@ -22,31 +22,6 @@ namespace EveryChart
 
             // 실제 영역을 정한다.
             NewGraph.RealRect = new RectangleF(panel1.Left, panel1.Top, panel1.Width, panel1.Height);
-
-            // 그래프의 종류에 따라 마진을 정한다.
-            switch (NewGraph.CurrentState)
-            {
-                case Graph.CurrentGraph.None:
-                    break;
-                case Graph.CurrentGraph.LineGraph:
-                    
-                    break;
-                case Graph.CurrentGraph.BarGraph:
-                    
-                    break;
-                case Graph.CurrentGraph.PieChart:
-                    break;
-                case Graph.CurrentGraph.SpeacialGraph1:
-                    break;
-                case Graph.CurrentGraph.SpeacialGraph2:
-                    break;
-                default:
-                    break;
-            }
-            
-
-                       
-            
         }
 
       
@@ -147,6 +122,9 @@ namespace EveryChart
             // 데이터들
             float[,] Data = new float[11, 2];
 
+            // 실제 영역을 정한다.
+            NewGraph.RealRect = new RectangleF(panel1.Left, panel1.Top, panel1.Width, panel1.Height);
+
             switch (NewGraph.CurrentState)
             {
                 case Graph.CurrentGraph.None:
@@ -203,7 +181,7 @@ namespace EveryChart
                         NewGraph.GraphMargin.Right = 10;
                         NewGraph.GraphMargin.Bottom = 50;
                         // X값의 최소값을 정의한다. 
-                        XMin = 0;
+                        XMin = 2005;
                         // X값의 최대값을 정의한다. 
                         XMax = 2009;
                         // Y값의 최소값을 정의한다.
@@ -360,7 +338,7 @@ namespace EveryChart
             NewGraph.DrawRect = GraphRect;
 
             // 제목의 위치를 정한다.
-            TitlePoint = new PointF(NewGraph.GraphMargin.Left + GraphRect.Width / HorizontalGridCount * 3.0f, NewGraph.GraphMargin.Top * 0.6f);
+            TitlePoint = new PointF(NewGraph.RealRect.Width * 0.5f, NewGraph.GraphMargin.Top * 0.6f); // 0.5f와 0.6f는 제목의 위치를 정하기 위한 값들로 고정값.
             // 그래프의 제목을 그린다.
             e.Graphics.DrawString(TitleText, TextFont, TitleBrush, TitlePoint);
 
@@ -739,14 +717,18 @@ namespace EveryChart
             Font TextFont = new Font("Arial", 22);
             // 글자를 그리는 펜
             Brush TextBrush = Brushes.Teal;
+            // X축 눈금 하나에 해당하는 값
+            float OneGridXValue = 1.0f;
+            // Y축 눈금 하나에 해당하는 값
+            float OneGridYValue = 1000.0f;
             // 가로 큰 눈금의 개수
-            int BigHorizontalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble(XMax - XMin))) + 1;
+            int BigHorizontalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble((XMax - XMin) / OneGridXValue))) + 1;
             // 세로 큰 눈금의 개수
-            int BigVerticalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble(YMax - YMin))) / 10 + 1;
+            int BigVerticalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble((YMax - YMin) / OneGridYValue)));
             // 가로 눈금의 개수
             int HorizontalGridCount = BigHorizontalGridCount;
             // 세로 눈금의 개수
-            int VerticalGridCount = BigVerticalGridCount * 5;
+            int VerticalGridCount = BigVerticalGridCount;
             // 가로 눈금의 시작 위치
             PointF HorizontalGridStartPoint;
             // 가로 눈금의 끝 위치
@@ -765,10 +747,6 @@ namespace EveryChart
             float PointRadius = 5.0f;
             // 점의 크기
             float PointSize = 10.0f;
-            // X축 눈금 하나에 해당하는 값
-            float OneGridXValue = 1.0f;
-            // Y축 눈금 하나에 해당하는 값
-            float OneGridYValue = 10.0f;
             // 선의 색상
             Pen DataLinePen = new Pen(Color.Red, 2.0f);
             // 선의 시작점
@@ -789,7 +767,7 @@ namespace EveryChart
             e.Graphics.DrawRectangle(LinePen, GraphRect.Left, GraphRect.Top, GraphRect.Width, GraphRect.Height);
 
             // 제목의 위치를 정한다.
-            TitlePoint = new PointF(NewGraph.GraphMargin.Left + GraphRect.Width / HorizontalGridCount * 3.0f, NewGraph.GraphMargin.Top * 0.6f);
+            TitlePoint = new PointF(NewGraph.RealRect.Width * 0.5f, NewGraph.GraphMargin.Top * 0.6f);
             // 그래프의 제목을 그린다.
             e.Graphics.DrawString(TitleText, TextFont, TitleBrush, TitlePoint);
         }
