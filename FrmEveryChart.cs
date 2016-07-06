@@ -20,18 +20,33 @@ namespace EveryChart
         {
             InitializeComponent();
 
-            NewGraph.GraphMargin.Left = 200;
-            NewGraph.GraphMargin.Top = 120;
-            NewGraph.GraphMargin.Right = 10;
-            NewGraph.GraphMargin.Bottom = 120;
-
-            
-            // 현재 그래프를 정한다.
-            NewGraph.CurrentState = Graph.CurrentGraph.LineGraph;
-
-
             // 실제 영역을 정한다.
             NewGraph.RealRect = new RectangleF(panel1.Left, panel1.Top, panel1.Width, panel1.Height);
+
+            // 그래프의 종류에 따라 마진을 정한다.
+            switch (NewGraph.CurrentState)
+            {
+                case Graph.CurrentGraph.None:
+                    break;
+                case Graph.CurrentGraph.LineGraph:
+                    
+                    break;
+                case Graph.CurrentGraph.BarGraph:
+                    
+                    break;
+                case Graph.CurrentGraph.PieChart:
+                    break;
+                case Graph.CurrentGraph.SpeacialGraph1:
+                    break;
+                case Graph.CurrentGraph.SpeacialGraph2:
+                    break;
+                default:
+                    break;
+            }
+            
+
+                       
+            
         }
 
       
@@ -138,6 +153,12 @@ namespace EveryChart
                     break;
                 case Graph.CurrentGraph.LineGraph:
                     {
+                        // 그래프의 마진을 정한다.
+                        NewGraph.GraphMargin.Left = 200;
+                        NewGraph.GraphMargin.Top = 120;
+                        NewGraph.GraphMargin.Right = 10;
+                        NewGraph.GraphMargin.Bottom = 120;
+
                         // X값의 최소값을 정의한다. 
                         XMin = 0;
                         // X값의 최대값을 정의한다.
@@ -175,16 +196,23 @@ namespace EveryChart
                     }
                     break;
                 case Graph.CurrentGraph.BarGraph:
-                    // X값의 최소값을 정의한다. 
-                    XMin = 0;
-                    // X값의 최대값을 정의한다. 
-                    XMax = 2009;
-                    // Y값의 최소값을 정의한다.
-                    YMin = 0;
-                    // Y값의 최대값을 정의한다.
-                    YMax = 7000;
-                    // 막대 그래프를 그린다.
-                    DrawBarGraph(e, XMin, XMax, YMin, YMax, Data);
+                    {
+                        // 그래프의 마진을 정한다.
+                        NewGraph.GraphMargin.Left = 120;
+                        NewGraph.GraphMargin.Top = 120;
+                        NewGraph.GraphMargin.Right = 10;
+                        NewGraph.GraphMargin.Bottom = 50;
+                        // X값의 최소값을 정의한다. 
+                        XMin = 0;
+                        // X값의 최대값을 정의한다. 
+                        XMax = 2009;
+                        // Y값의 최소값을 정의한다.
+                        YMin = 0;
+                        // Y값의 최대값을 정의한다.
+                        YMax = 7000;
+                        // 막대 그래프를 그린다.
+                        DrawBarGraph(e, XMin, XMax, YMin, YMax, Data);
+                    }
                     break;
                 case Graph.CurrentGraph.PieChart:
                     break;
@@ -747,12 +775,23 @@ namespace EveryChart
             PointF DataLineStartPoint;
             // 선의 끝점
             PointF DataLineEndPoint;
+            // 제목 글자
+            String TitleText = "월별 책의 판매량";
+            // 제목의 색상
+            SolidBrush TitleBrush = new SolidBrush(Color.Blue);
+            // 제목의 위치
+            PointF TitlePoint;
 
             // 그리기 영역을 정의한다.
             NewGraph.DrawRect = GraphRect;
 
             // 그래프 영역을 그리는 부분
             e.Graphics.DrawRectangle(LinePen, GraphRect.Left, GraphRect.Top, GraphRect.Width, GraphRect.Height);
+
+            // 제목의 위치를 정한다.
+            TitlePoint = new PointF(NewGraph.GraphMargin.Left + GraphRect.Width / HorizontalGridCount * 3.0f, NewGraph.GraphMargin.Top * 0.6f);
+            // 그래프의 제목을 그린다.
+            e.Graphics.DrawString(TitleText, TextFont, TitleBrush, TitlePoint);
         }
 
     }
