@@ -313,10 +313,14 @@ namespace EveryChart
             String Month = "월";
             // 월의 위치
             PointF MonthPoint;
+            // X축 눈금 하나에 해당하는 값
+            float OneGridXValue = 1.0f;
+            // Y축 눈금 하나에 해당하는 값
+            float OneGridYValue = 10.0f;
             // 가로 큰 눈금의 개수
-            int BigHorizontalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble(XMax - XMin))) + 1;
+            int BigHorizontalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble((XMax - XMin) / OneGridXValue))) + 1;
             // 세로 큰 눈금의 개수
-            int BigVerticalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble(YMax - YMin))) / 10 + 1;
+            int BigVerticalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble((YMax - YMin) / OneGridYValue))) + 1;
             // 가로 눈금의 개수
             int HorizontalGridCount = BigHorizontalGridCount;
             // 세로 눈금의 개수
@@ -339,10 +343,6 @@ namespace EveryChart
             float PointRadius = 5.0f;
             // 점의 크기
             float PointSize = 10.0f;
-            // X축 눈금 하나에 해당하는 값
-            float OneGridXValue = 1.0f;
-            // Y축 눈금 하나에 해당하는 값
-            float OneGridYValue = 10.0f;
             // 선의 색상
             Pen DataLinePen = new Pen(Color.Red, 2.0f);
             // 선의 시작점
