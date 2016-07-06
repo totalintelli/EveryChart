@@ -420,10 +420,12 @@ namespace EveryChart
                         // 그래프의 세로 눈금을 그리는 부분
                         VerticalGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top);
                         VerticalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top + GraphRect.Height);
-                        NumberPoint = new PointF(VerticalGridStartPoint.X - 15.0f, VerticalGridEndPoint.Y + GraphRect.Height / VerticalGridCount);                       // 15.0f는 숫자의 X좌표를 정하기 위한 값으로 고정 값.,
+                        NumberPoint = new PointF(VerticalGridStartPoint.X - 15.0f, VerticalGridEndPoint.Y + GraphRect.Height / VerticalGridCount);                       // 15.0f는 숫자의 X좌표를 정하기 위한 값으로 고정 값.
                         for (int i = 0; i < HorizontalGridCount; i++)
                         {
                             e.Graphics.DrawLine(LinePen, VerticalGridStartPoint, VerticalGridEndPoint);
+
+                            // 세로 눈금에 해당하는 숫자를 그린다.
                             if (i < HorizontalGridCount - 1)
                             {
                                 e.Graphics.DrawString((i + 1).ToString(), TextFont, TextBrush, NumberPoint);
@@ -496,10 +498,12 @@ namespace EveryChart
                     // 그래프의 세로 눈금을 그리는 부분
                     VerticalGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top);
                     VerticalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top + GraphRect.Height);
-                    NumberPoint = new PointF(VerticalGridStartPoint.X - 15.0f, VerticalGridEndPoint.Y + GraphRect.Height / VerticalGridCount);                       // 15.0f는 숫자의 X좌표를 정하기 위한 값으로 고정 값.,
+                    NumberPoint = new PointF(VerticalGridStartPoint.X - 15.0f, VerticalGridEndPoint.Y + GraphRect.Height / VerticalGridCount);                       // 15.0f는 숫자의 X좌표를 정하기 위한 값으로 고정 값.
                     for (int i = 0; i < HorizontalGridCount; i++)
                     {
                         e.Graphics.DrawLine(LinePen, VerticalGridStartPoint, VerticalGridEndPoint);
+
+                        // 세로 눈금에 해당하는 숫자를 그린다.
                         if (i < HorizontalGridCount - 1)
                         {
                             e.Graphics.DrawString((HorizontalGridCount - (i + 1)).ToString(), TextFont, TextBrush, NumberPoint);
@@ -570,15 +574,17 @@ namespace EveryChart
                                                                                     GraphRect.Top + GraphRect.Height * (VerticalGridCount - 4.0f) / VerticalGridCount));   // 100.0f은 "0"의 X좌표를, 4.0f는 "0"의 높이를 설정하기 위한 값으로 고정값.
 
                         // "0"을 그린다.
-                        e.Graphics.DrawString("0", TextFont, TextBrush, new PointF(GraphRect.Left - 50.0f, GraphRect.Top - GraphRect.Height / VerticalGridCount)); // 50.0f는 글자의 X좌표를 설정하기 위한 값으로 고정값.
+                        e.Graphics.DrawString("0", TextFont, TextBrush, new PointF(GraphRect.Left - 50.0f, GraphRect.Top - GraphRect.Height / VerticalGridCount));         // 50.0f는 글자의 X좌표를 설정하기 위한 값으로 고정값.
 
                         // 그래프의 세로 눈금을 그리는 부분
                         VerticalGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top);
                         VerticalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top + GraphRect.Height);
-                        NumberPoint = new PointF(VerticalGridStartPoint.X - 15.0f, VerticalGridEndPoint.Y + GraphRect.Height / VerticalGridCount);                       // 15.0f는 숫자의 X좌표를 정하기 위한 값으로 고정 값.,
+                        NumberPoint = new PointF(VerticalGridStartPoint.X - 15.0f, VerticalGridEndPoint.Y + GraphRect.Height / VerticalGridCount);                         // 15.0f는 숫자의 X좌표를 정하기 위한 값으로 고정 값.
                         for (int i = 0; i < HorizontalGridCount; i++)
                         {
                             e.Graphics.DrawLine(LinePen, VerticalGridStartPoint, VerticalGridEndPoint);
+
+                            // 세로 눈금에 해당하는 숫자를 그린다.
                             if (i < HorizontalGridCount - 1)
                             {
                                 e.Graphics.DrawString((HorizontalGridCount - (i + 1)).ToString(), TextFont, TextBrush, NumberPoint);
@@ -650,15 +656,17 @@ namespace EveryChart
                                                                                     GraphRect.Top + GraphRect.Height * (VerticalGridCount - 4.0f) / VerticalGridCount));   // 50.0f은 "0"의 X좌표를, 4.0f는 "0"의 높이를 설정하기 위한 값으로 고정값.
 
                         // "0"을 그린다.
-                        e.Graphics.DrawString("0", TextFont, TextBrush, new PointF(GraphRect.Left - 50.0f, GraphRect.Top - GraphRect.Height / VerticalGridCount)); // 100.0f는 글자의 X좌표를 설정하기 위한 값으로 고정값.
+                        e.Graphics.DrawString("0", TextFont, TextBrush, new PointF(GraphRect.Left - 50.0f, GraphRect.Top - GraphRect.Height / VerticalGridCount));         // 100.0f는 글자의 X좌표를 설정하기 위한 값으로 고정값.
 
                         // 그래프의 세로 눈금을 그리는 부분
                         VerticalGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top);
                         VerticalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top + GraphRect.Height);
-                        NumberPoint = new PointF(VerticalGridStartPoint.X - 15.0f, VerticalGridEndPoint.Y + GraphRect.Height / VerticalGridCount);                       // 15.0f는 숫자의 X좌표를 정하기 위한 값으로 고정 값.,
+                        NumberPoint = new PointF(VerticalGridStartPoint.X - 15.0f, VerticalGridEndPoint.Y + GraphRect.Height / VerticalGridCount);                         // 15.0f는 숫자의 X좌표를 정하기 위한 값으로 고정 값.
                         for (int i = 0; i < HorizontalGridCount; i++)
                         {
                             e.Graphics.DrawLine(LinePen, VerticalGridStartPoint, VerticalGridEndPoint);
+
+                            // 세로 눈금에 해당하는 숫자를 그린다.
                             if (i < HorizontalGridCount - 1)
                             {
                                 e.Graphics.DrawString((i + 1).ToString(), TextFont, TextBrush, NumberPoint);
@@ -778,7 +786,7 @@ namespace EveryChart
                         // 그래프 가로 눈금을 그리는 부분
                         HorizontalGridStartPoint = new PointF(GraphRect.Left, GraphRect.Top + GraphRect.Height / VerticalGridCount);
                         HorizontalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width, GraphRect.Top + GraphRect.Height / VerticalGridCount);
-                        NumberPoint = new PointF(GraphRect.Left - 80.0f, GraphRect.Top - 20.0f); // 50.0f은 숫자의 X좌표 값을 설정하기 위한 값이고 3.0f는 숫자의 높이를 정하기 위한 값으로 고정값.
+                        NumberPoint = new PointF(GraphRect.Left - 80.0f, GraphRect.Top - 20.0f);                                                           // 80.0f은 숫자의 X좌표 값을 설정하기 위한 값이고 20.0f는 숫자의 높이를 정하기 위한 값으로 고정값.
                         for (int i = 0; i <= BigVerticalGridCount; i++)
                         {
                             // 가로 눈금를 그린다.
@@ -794,15 +802,14 @@ namespace EveryChart
                         // 그래프의 세로 눈금을 그리는 부분
                         VerticalGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top + GraphRect.Height - 10.0f);
                         VerticalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top + GraphRect.Height);
-                        NumberPoint = new PointF(VerticalGridStartPoint.X - 15.0f, VerticalGridEndPoint.Y + GraphRect.Height / VerticalGridCount);                       // 15.0f는 숫자의 X좌표를 정하기 위한 값으로 고정 값.,
-                        for (int i = 0; i < HorizontalGridCount; i++)
+                        NumberPoint = new PointF(GraphRect.Left + (GraphRect.Width / HorizontalGridCount * 0.2f), VerticalGridEndPoint.Y + 10.0f); // 0.2f는 숫자의 X좌표를, 10.0f는 숫자의 Y좌표를 정하기 위한 값으로 고정 값.
+                        for (int i = 0; i <= HorizontalGridCount; i++)
                         {
                             e.Graphics.DrawLine(LinePen, VerticalGridStartPoint, VerticalGridEndPoint);
-                            if (i < HorizontalGridCount - 1)
-                            {
-                                e.Graphics.DrawString((i + 1).ToString(), TextFont, TextBrush, NumberPoint);
-                                NumberPoint.X += GraphRect.Width / HorizontalGridCount;
-                            }
+
+                            // 세로 눈금에 해당하는 숫자를 그린다.
+                            e.Graphics.DrawString((i + XMin).ToString(), TextFont, TextBrush, NumberPoint);
+                            NumberPoint.X += GraphRect.Width / HorizontalGridCount;
 
                             VerticalGridStartPoint.X += GraphRect.Width / HorizontalGridCount;
                             VerticalGridEndPoint.X += GraphRect.Width / HorizontalGridCount;
