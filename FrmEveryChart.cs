@@ -321,9 +321,20 @@ namespace EveryChart
             PointF DataLineStartPoint;
             // 선의 끝점
             PointF DataLineEndPoint;
+            // 제목 글자
+            String TitleText = "월별 책의 판매량";
+            // 제목의 색상
+            SolidBrush TitleBrush = new SolidBrush(Color.Blue);
+            // 제목의 위치
+            PointF TitlePoint;
 
             // 그리기 영역을 정의한다.
             NewGraph.DrawRect = GraphRect;
+
+            // 제목의 위치를 정한다.
+            TitlePoint = new PointF(NewGraph.GraphMargin.Left + GraphRect.Width / HorizontalGridCount * 3.0f, NewGraph.GraphMargin.Top * 0.6f);
+            // 그래프의 제목을 그린다.
+            e.Graphics.DrawString(TitleText, TextFont, TitleBrush, TitlePoint);
 
             // 그래프 영역을 그리는 부분
             e.Graphics.DrawRectangle(LinePen, GraphRect.Left, GraphRect.Top, GraphRect.Width, GraphRect.Height);
