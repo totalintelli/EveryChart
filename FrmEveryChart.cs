@@ -635,8 +635,8 @@ namespace EveryChart
                             if (i > 0) // 원점에 "0"을 중복해서 그리지 않는다.
                             {
                                 // 가로 눈금의 숫자를 그린다.
-                                e.Graphics.DrawString((NewGraph.HorizontalGridNumber * 10.0f).ToString(), TextFont, TextBrush, NewGraph.HorizontalGridNumberPoint);
-                                NewGraph.HorizontalGridNumberPoint.Y += NewGraph.DrawRect.Height * 5.0f / NewGraph.VerticalGridCount;
+                                e.Graphics.DrawString((NewGraph.HorizontalGridNumber * NewGraph.OneGridYValue).ToString(), TextFont, TextBrush, NewGraph.HorizontalGridNumberPoint);
+                                NewGraph.HorizontalGridNumberPoint.Y += NewGraph.DrawRect.Height / NewGraph.VerticalGridCount * 5.0f; // 눈금의 숫자를 그리는 위치를 작은 눈금 다섯 개씩 이동한다.
 
                                 // 눈금의 숫자를 구한다.
                                 if (NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerLeft || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight)
@@ -699,7 +699,7 @@ namespace EveryChart
                             {
 
                                 // 세로 눈금에 해당하는 숫자를 그린다.
-                                e.Graphics.DrawString(NewGraph.VerticalGridNumber.ToString(), TextFont, TextBrush, NewGraph.VerticalGridNumberPoint);
+                                e.Graphics.DrawString((NewGraph.VerticalGridNumber * NewGraph.OneGridXValue).ToString(), TextFont, TextBrush, NewGraph.VerticalGridNumberPoint);
                                 NewGraph.VerticalGridNumberPoint.X += NewGraph.DrawRect.Width / NewGraph.HorizontalGridCount;
 
                                 // 눈금의 숫자를 구한다.
