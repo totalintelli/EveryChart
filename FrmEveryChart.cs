@@ -20,8 +20,20 @@ namespace EveryChart
         {
             InitializeComponent();
 
+            // 그래프를 초기화한다.
+            NewGraph.CurrentState = Graph.CurrentGraph.LineGraph;
+
+            // 원점의 위치를 초기화한다.
+            NewGraph.CurrentOriginPoint = Graph.OriginPointPosition.LowerLeft;
+
             // 실제 영역을 정한다.
             NewGraph.RealRect = new RectangleF(panel1.Left, panel1.Top, panel1.Width, panel1.Height);
+
+            // 콤보박스 초기화
+            cbGraph.Text = "LineGraph";
+            cbGraph.SelectedIndex = 0;
+            cbOriginPoint.Text = "LowerLeft";
+            cbOriginPoint.SelectedIndex = 0;
         }
 
       
@@ -131,6 +143,9 @@ namespace EveryChart
                     break;
                 case Graph.CurrentGraph.LineGraph:
                     {
+                        // 그래프를 정한다.
+                        NewGraph.CurrentState = Graph.CurrentGraph.LineGraph;
+                        
                         // 그래프의 마진을 정한다.
                         NewGraph.GraphMargin.Left = 200;
                         NewGraph.GraphMargin.Top = 120;
@@ -340,6 +355,13 @@ namespace EveryChart
             NewGraph.BigHorizontalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble((XMax - XMin) / NewGraph.OneGridXValue))) + 1;
             // X축 눈금의 개수
             NewGraph.HorizontalGridCount = NewGraph.BigHorizontalGridCount;
+            // 그래프의 세로 눈금을 그리는 부분
+            NewGraph.VerticalGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / NewGraph.HorizontalGridCount, GraphRect.Top);
+            NewGraph.VerticalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width / NewGraph.HorizontalGridCount, GraphRect.Top + GraphRect.Height);
+            // X축 눈금의 숫자의 위치를 구한다.
+            NewGraph.VerticalGridNumberPoint = new PointF(NewGraph.VerticalGridStartPoint.X - 15.0f, 
+                                                            NewGraph.VerticalGridEndPoint.Y 
+                                                             + (NewGraph.DrawRect.Height / NewGraph.HorizontalGridCount) * 0.3f); // 15.0f는 숫자의 X좌표를 정하기 위한 값으로 고정 값.            
             #endregion
 
             #region Y축 눈금
@@ -347,15 +369,13 @@ namespace EveryChart
             NewGraph.BigVerticalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble((YMax - YMin) / NewGraph.OneGridYValue))) + 1;
             // Y축 눈금의 개수
             NewGraph.VerticalGridCount = NewGraph.BigVerticalGridCount * 5; // 5 : 큰 눈금들 사이에 있는 눈금의 개수
-            #endregion 
-
             // 그래프의 X축의 시작점과 끝점을 정한다.
             NewGraph.HorizontalGridStartPoint = new PointF(GraphRect.Left, GraphRect.Top + GraphRect.Height / NewGraph.VerticalGridCount);
             NewGraph.HorizontalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width, GraphRect.Top + GraphRect.Height / NewGraph.VerticalGridCount);
-
-            // 가로 눈금의 숫자의 위치를 구한다.
-            NewGraph.NumberPoint = new PointF(GraphRect.Left - 50.0f,
+            // Y축 눈금의 숫자의 위치를 구한다.
+            NewGraph.HorizontalGridNumberPoint = new PointF(GraphRect.Left - 50.0f,
                 GraphRect.Top + GraphRect.Height * 3.0f / NewGraph.VerticalGridCount); // 50.0f은 숫자의 X좌표 값을 설정하기 위한 값이고 3.0f는 숫자의 높이를 정하기 위한 값으로 고정값.
+            #endregion
 
             switch (NewGraph.CurrentOriginPoint)
             {
@@ -590,7 +610,7 @@ namespace EveryChart
                         // 눈금의 숫자를 정의한다.
                         if(NewGraph.CurrentOriginPoint ==Graph.OriginPointPosition.LowerLeft || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight)
                         {
-                            NewGraph.HorizontalGridNumber = NewGraph.BigVerticalGridCount;
+                            NewGraph.HorizontalGridNumber = NewGraph.BigVerticalGridCount - 1;
                         }
                         else
                         {
@@ -615,8 +635,8 @@ namespace EveryChart
                             if (i > 0) // 원점에 "0"을 중복해서 그리지 않는다.
                             {
                                 // 가로 눈금의 숫자를 그린다.
-                                e.Graphics.DrawString((NewGraph.HorizontalGridNumber * 10.0f).ToString(), TextFont, TextBrush, NewGraph.NumberPoint);
-                                NewGraph.NumberPoint.Y += NewGraph.DrawRect.Height * 5.0f / NewGraph.VerticalGridCount;
+                                e.Graphics.DrawString((NewGraph.HorizontalGridNumber * 10.0f).ToString(), TextFont, TextBrush, NewGraph.HorizontalGridNumberPoint);
+                                NewGraph.HorizontalGridNumberPoint.Y += NewGraph.DrawRect.Height * 5.0f / NewGraph.VerticalGridCount;
 
                                 // 눈금의 숫자를 구한다.
                                 if (NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerLeft || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight)
@@ -633,7 +653,7 @@ namespace EveryChart
                         // 세로 눈금의 "0"을 그린다.
                         if (NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperLeft || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperRight)
                         {
-                            e.Graphics.DrawString("0", TextFont, TextBrush, NewGraph.NumberPoint);
+                            e.Graphics.DrawString("0", TextFont, TextBrush, NewGraph.HorizontalGridNumberPoint);
                         }
                     }
                     break;
@@ -660,9 +680,8 @@ namespace EveryChart
                     break;
                 case Graph.CurrentGraph.LineGraph:
                     {
-
                         // 눈금의 숫자를 정의한다.
-                        if(NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperRight)
+                        if (NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperRight)
                         {
                             NewGraph.VerticalGridNumber = NewGraph.HorizontalGridCount - 1;
                         }
@@ -680,8 +699,8 @@ namespace EveryChart
                             {
 
                                 // 세로 눈금에 해당하는 숫자를 그린다.
-                                e.Graphics.DrawString(NewGraph.VerticalGridNumber.ToString(), TextFont, TextBrush, NewGraph.NumberPoint);
-                                NewGraph.NumberPoint.X += NewGraph.DrawRect.Width / NewGraph.HorizontalGridCount;
+                                e.Graphics.DrawString(NewGraph.VerticalGridNumber.ToString(), TextFont, TextBrush, NewGraph.VerticalGridNumberPoint);
+                                NewGraph.VerticalGridNumberPoint.X += NewGraph.DrawRect.Width / NewGraph.HorizontalGridCount;
 
                                 // 눈금의 숫자를 구한다.
                                 if(NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperRight)

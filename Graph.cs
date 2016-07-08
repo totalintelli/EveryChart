@@ -46,6 +46,8 @@ namespace EveryChart
         public int HorizontalGridNumber;
         // X축 눈금 하나에 해당하는 값
         public float OneGridXValue = 1.0f;
+        // X축 눈금에 해당하는 숫자의 위치
+        public PointF HorizontalGridNumberPoint;
         #endregion
 
         #region Y축 눈금
@@ -55,12 +57,12 @@ namespace EveryChart
         public int BigVerticalGridCount = 0;
         // 눈금의 개수
         public int VerticalGridCount = 0;
-        // 눈금에 해당하는 숫자의 위치
-        public PointF NumberPoint;
         // Y축 눈금에 해당하는 숫자
         public int VerticalGridNumber;
         // Y축 눈금 하나에 해당하는 값
         public float OneGridYValue;
+        // X축 눈금에 해당하는 숫자의 위치
+        public PointF VerticalGridNumberPoint;
         #endregion
 
 
