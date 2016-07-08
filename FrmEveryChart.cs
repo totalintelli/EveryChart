@@ -607,10 +607,10 @@ namespace EveryChart
                     break;
                 case Graph.CurrentGraph.LineGraph:
                     {
-                        // 눈금의 숫자를 정의한다.
+                        // 그래프의 원점의 위치에 따른 Y축 눈금의 첫 번째 숫자를 구한다.
                         if(NewGraph.CurrentOriginPoint ==Graph.OriginPointPosition.LowerLeft || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight)
                         {
-                            NewGraph.HorizontalGridNumber = NewGraph.BigVerticalGridCount - 1;
+                            NewGraph.HorizontalGridNumber = NewGraph.BigVerticalGridCount - 1; // 꼭대기에 있는 Y축 눈금에 해당하는 숫자를 그리지 않기 위해서 1을 뺌.
                         }
                         else
                         {
@@ -638,7 +638,7 @@ namespace EveryChart
                                 e.Graphics.DrawString((NewGraph.HorizontalGridNumber * NewGraph.OneGridYValue).ToString(), TextFont, TextBrush, NewGraph.HorizontalGridNumberPoint);
                                 NewGraph.HorizontalGridNumberPoint.Y += NewGraph.DrawRect.Height / NewGraph.VerticalGridCount * 5.0f; // 눈금의 숫자를 그리는 위치를 작은 눈금 다섯 개씩 이동한다.
 
-                                // 눈금의 숫자를 구한다.
+                                // Y축 눈금의 숫자를 구한다.
                                 if (NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerLeft || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight)
                                 {
                                     NewGraph.HorizontalGridNumber--;
