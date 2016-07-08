@@ -106,7 +106,8 @@
             // 
             this.cbOriginPoint.FormattingEnabled = true;
             this.cbOriginPoint.Items.AddRange(new object[] {
-            "LowerLeft"});
+            "LowerLeft",
+            "LowerRight"});
             this.cbOriginPoint.Location = new System.Drawing.Point(325, 14);
             this.cbOriginPoint.Name = "cbOriginPoint";
             this.cbOriginPoint.Size = new System.Drawing.Size(121, 20);

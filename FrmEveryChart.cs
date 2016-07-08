@@ -387,7 +387,7 @@ namespace EveryChart
                         // 그래프의 세로 눈금을 그린다.
                         DrawVerticalGrid(NewGraph, LinePen, TextFont, TextBrush, e);
                         
-                        // 그래프의 점을 그리는 부분
+                        // 그래프의 점을 그린다.
                         // 점을 그리는 사각형을 정의한다.
                         for (int i = 0; i < Data.GetLength(0); i++)
                         {
