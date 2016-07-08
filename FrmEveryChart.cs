@@ -683,7 +683,7 @@ namespace EveryChart
                         // 눈금의 숫자를 정의한다.
                         if (NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperRight)
                         {
-                            NewGraph.VerticalGridNumber = NewGraph.HorizontalGridCount - 1;
+                            NewGraph.VerticalGridNumber = NewGraph.HorizontalGridCount - 1; // 맨 왼쪽에 있는 큰 눈금에 숫자를 표시하지 않기 위해서 1을 뺌.
                         }
                         else
                         {
@@ -692,6 +692,7 @@ namespace EveryChart
 
                         for (int i = 0; i < NewGraph.HorizontalGridCount; i++)
                         {
+                            // 세로 눈금을 그린다.
                             e.Graphics.DrawLine(LinePen, NewGraph.VerticalGridStartPoint, NewGraph.VerticalGridEndPoint);
 
 
