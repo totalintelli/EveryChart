@@ -95,8 +95,7 @@
             // 
             this.cbGraph.FormattingEnabled = true;
             this.cbGraph.Items.AddRange(new object[] {
-            "LineGraph",
-            "BarGraph"});
+            "LineGraph"});
             this.cbGraph.Location = new System.Drawing.Point(158, 14);
             this.cbGraph.Name = "cbGraph";
             this.cbGraph.Size = new System.Drawing.Size(121, 20);

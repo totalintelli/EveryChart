@@ -35,6 +35,35 @@ namespace EveryChart
         // 그래프의 마진
         public Padding GraphMargin = new Padding(0, 0, 0, 0);
 
+        #region X축 눈금
+        // 큰 눈금의 개수
+        public int BigHorizontalGridCount = 0;
+        // 눈금의 개수
+        public int HorizontalGridCount = 0;
+        public PointF VerticalGridStartPoint;
+        public PointF VerticalGridEndPoint;
+        // X축 눈금에 해당하는 숫자
+        public int HorizontalGridNumber;
+        // X축 눈금 하나에 해당하는 값
+        public float OneGridXValue = 1.0f;
+        #endregion
+
+        #region Y축 눈금
+        public PointF HorizontalGridStartPoint = new PointF(0, 0);
+        public PointF HorizontalGridEndPoint = new PointF(0, 0);
+        // 큰 눈금의 개수
+        public int BigVerticalGridCount = 0;
+        // 눈금의 개수
+        public int VerticalGridCount = 0;
+        // 눈금에 해당하는 숫자의 위치
+        public PointF NumberPoint;
+        // Y축 눈금에 해당하는 숫자
+        public int VerticalGridNumber;
+        // Y축 눈금 하나에 해당하는 값
+        public float OneGridYValue;
+        #endregion
+
+
         // 실제 그래프 영역
         RectangleF _RealRect = new Rectangle(0, 0, 0, 0);
         public RectangleF RealRect
