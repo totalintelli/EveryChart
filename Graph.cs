@@ -35,7 +35,7 @@ namespace EveryChart
         // 그래프의 마진
         public Padding GraphMargin = new Padding(0, 0, 0, 0);
 
-        #region X축 눈금
+        #region X축 
         // 큰 눈금의 개수
         public int BigHorizontalGridCount = 0;
         // 눈금의 개수
@@ -48,9 +48,13 @@ namespace EveryChart
         public float OneGridXValue = 1.0f;
         // X축 눈금에 해당하는 숫자의 위치
         public PointF HorizontalGridNumberPoint;
+        // X의 최대값
+        public double XMax = 0.0f;
+        // X의 최소값
+        public double XMin = 0.0f;
         #endregion
 
-        #region Y축 눈금
+        #region Y축 
         public PointF HorizontalGridStartPoint = new PointF(0, 0);
         public PointF HorizontalGridEndPoint = new PointF(0, 0);
         // 큰 눈금의 개수
@@ -63,8 +67,29 @@ namespace EveryChart
         public float OneGridYValue;
         // X축 눈금에 해당하는 숫자의 위치
         public PointF VerticalGridNumberPoint;
+        // Y의 최대값
+        public double YMax = 0.0f;
+        // Y의 최소값
+        public double YMin = 0.0f;
         #endregion
 
+        #region 데이터
+        public SortedList<double, double> DataList = new SortedList<double, double>();
+        // 점의 색상
+        public SolidBrush PointBrush;
+        // 점을 그리는 사각형
+        public RectangleF DataPointRect;
+        // 점의 반지름
+        public float PointRadius;
+        // 점의 크기
+        public float PointSize;
+        // 선의 색상
+        public Pen DataLinePen;
+        // 선의 시작점
+        public PointF DataLineStartPoint;
+        // 선의 끝점
+        public PointF DataLineEndPoint;
+        #endregion
 
         // 실제 그래프 영역
         RectangleF _RealRect = new Rectangle(0, 0, 0, 0);
@@ -234,7 +259,7 @@ namespace EveryChart
         /// <param name="Min">데이터의 X값의 최소값</param>
         /// <param name="Max">데이터의 X값의 최대값</param>
         /// <returns></returns>
-        public PointF GetMathXPoint(float Value, float Min, float Max)
+        public PointF GetMathXPoint(double Value, double Min, double Max)
         {
             PointF GraphPoint = new PointF();
             PointF MathXPoint = new PointF();
@@ -243,7 +268,7 @@ namespace EveryChart
             if (Value >= Min && Value <= Max)
             {
                 // 맞으면 실제 포인트의 X값을 구한다.
-                GraphPoint.X = ((DrawRect.Width * Value) / (Max - Min));
+                GraphPoint.X = System.Convert.ToSingle((DrawRect.Width * Value) / (Max - Min));
                 GraphPoint.Y = 0;
             }
 
@@ -259,7 +284,7 @@ namespace EveryChart
         /// <param name="Min">데이터의 Y값의 최소값</param>
         /// <param name="Max">데이터의 Y값의 최대값</param>
         /// <returns></returns>
-        public PointF GetMathYPoint(float Value, float Min, float Max)
+        public PointF GetMathYPoint(double Value, double Min, double Max)
         {
             PointF GraphPoint = new PointF();
             PointF MathYPoint = new PointF();
@@ -269,7 +294,7 @@ namespace EveryChart
             {
                 GraphPoint.X = 0;
                 // 맞으면 실제 포인트의 Y값을 구한다.
-                GraphPoint.Y = ((DrawRect.Height * Value) / (Max - Min));
+                GraphPoint.Y = System.Convert.ToSingle((DrawRect.Height * Value) / (Max - Min));
             }
 
             MathYPoint = GraphPointToMathPoint(GraphPoint);
