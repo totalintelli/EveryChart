@@ -16,3 +16,12 @@ E:\Projects\EveryChart\obj\Debug\EveryChart.csproj.GenerateResource.Cache
 E:\Projects\EveryChart\obj\Debug\EveryChart.exe
 E:\Projects\EveryChart\obj\Debug\EveryChart.pdb
 E:\Projects\EveryChart\obj\Debug\EveryChart.csprojResolveAssemblyReference.cache
+C:\Users\Hi\Documents\EveryChart\bin\Debug\EveryChart.exe.config
+C:\Users\Hi\Documents\EveryChart\obj\Debug\EveryChart.exe
+C:\Users\Hi\Documents\EveryChart\obj\Debug\EveryChart.pdb
+C:\Users\Hi\Documents\EveryChart\bin\Debug\EveryChart.exe
+C:\Users\Hi\Documents\EveryChart\bin\Debug\EveryChart.pdb
+C:\Users\Hi\Documents\EveryChart\obj\Debug\EveryChart.csprojResolveAssemblyReference.cache
+C:\Users\Hi\Documents\EveryChart\obj\Debug\EveryChart.FrmEveryChart.resources
+C:\Users\Hi\Documents\EveryChart\obj\Debug\EveryChart.Properties.Resources.resources
+C:\Users\Hi\Documents\EveryChart\obj\Debug\EveryChart.csproj.GenerateResource.Cache

@@ -151,11 +151,17 @@ namespace EveryChart
                         // Y값의 최대값을 정의한다.
                         NewGraph.YMax = 60;
 
-                        // 꺾은 선 그래프를 그린다.
-                        DrawLineGraph(NewGraph, e);
+                        // X축 눈금의 개수
+                        NewGraph.BigHorizontalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble((NewGraph.XMax - NewGraph.XMin) / NewGraph.OneGridXValue))) + 1;
+                        // X축 눈금의 개수
+                        NewGraph.HorizontalGridCount = NewGraph.BigHorizontalGridCount;
 
                         // 데이터를 가져온다.
                         GetData(NewGraph);
+
+                        // 꺾은 선 그래프를 그린다.
+                        DrawLineGraph(NewGraph, e);
+
                     }
                     break;
                 case Graph.CurrentGraph.BarGraph:
@@ -309,10 +315,6 @@ namespace EveryChart
                                                                          + NewGraph.GraphMargin.Bottom * 0.5f));                       // 0.5f : "월"의 위치의 Y값을 구하기 위한 값.);
 
             #region X축 눈금
-            // X축 눈금의 개수
-            NewGraph.BigHorizontalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble((NewGraph.XMax - NewGraph.XMin) / NewGraph.OneGridXValue))) + 1;
-            // X축 눈금의 개수
-            NewGraph.HorizontalGridCount = NewGraph.BigHorizontalGridCount;
             // 그래프의 세로 눈금을 그리는 부분
             NewGraph.VerticalGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / NewGraph.HorizontalGridCount, GraphRect.Top);
             NewGraph.VerticalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width / NewGraph.HorizontalGridCount, GraphRect.Top + GraphRect.Height);
