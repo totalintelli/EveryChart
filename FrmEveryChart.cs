@@ -337,211 +337,209 @@ namespace EveryChart
                 GraphRect.Top + GraphRect.Height * 3.0f / NewGraph.VerticalGridCount); // 50.0f은 숫자의 X좌표 값을 설정하기 위한 값이고 3.0f는 숫자의 높이를 정하기 위한 값으로 고정값.
             #endregion
 
+            // 그래프의 가로 눈금을 그린다.
+            DrawHorizontalGrid(NewGraph, LinePen, TextFont, TextBrush, e);
+
+            // 그래프의 세로 눈금을 그린다.
+            DrawVerticalGrid(NewGraph, LinePen, TextFont, TextBrush, e);
+
+            // 그래프의 점을 그린다.
+            DrawGraphPoint(NewGraph, e);
+
+            // 그래프의 선을 그린다.
+            DrawGraphLine(NewGraph, e);
+
             switch (NewGraph.CurrentOriginPoint)
             {
-                case Graph.OriginPointPosition.LowerLeft:
-                    {
-                        // 그래프의 가로 눈금을 그린다.
-                        DrawHorizontalGrid(NewGraph, LinePen, TextFont, TextBrush, e);
-
-                        // 그래프의 세로 눈금을 그린다.
-                        DrawVerticalGrid(NewGraph, LinePen, TextFont, TextBrush, e);
-
-                        // 그래프의 점을 그린다.
-                        DrawGraphPoint(NewGraph, e);
-
-                        // 그래프의 선을 그린다.
-                        DrawGraphLine(NewGraph, e);
-
-                        // 데이터를 초기화한다.
-                        NewGraph.DataList.Clear();
-                    }
-                    break;
-                 /*
+                 
                 case Graph.OriginPointPosition.LowerRight:
-                    // 그래프의 가로 눈금을 그린다.
-                    DrawHorizontalGrid(NewGraph, LinePen, TextFont, TextBrush, e);
-
-                    for (int i = 0; i < HorizontalGridCount; i++)
                     {
-                        e.Graphics.DrawLine(LinePen, VerticalGridStartPoint, VerticalGridEndPoint);
+                   //    // 그래프의 가로 눈금을 그린다.
+                   //    DrawHorizontalGrid(NewGraph, LinePen, TextFont, TextBrush, e);
 
-                        // 세로 눈금에 해당하는 숫자를 그린다.
-                        if (i < HorizontalGridCount - 1)
-                        {
-                            e.Graphics.DrawString((HorizontalGridCount - (i + 1)).ToString(), TextFont, TextBrush, NumberPoint);
-                            NumberPoint.X += GraphRect.Width / HorizontalGridCount;
-                        }
+                   //    for (int i = 0; i < HorizontalGridCount; i++)
+                   //    {
+                   //        e.Graphics.DrawLine(LinePen, VerticalGridStartPoint, VerticalGridEndPoint);
 
-                        VerticalGridStartPoint.X += GraphRect.Width / HorizontalGridCount;
-                        VerticalGridEndPoint.X += GraphRect.Width / HorizontalGridCount;
+                   //        // 세로 눈금에 해당하는 숫자를 그린다.
+                   //        if (i < HorizontalGridCount - 1)
+                   //        {
+                   //            e.Graphics.DrawString((HorizontalGridCount - (i + 1)).ToString(), TextFont, TextBrush, NumberPoint);
+                   //            NumberPoint.X += GraphRect.Width / HorizontalGridCount;
+                   //        }
 
-                    }
+                   //        VerticalGridStartPoint.X += GraphRect.Width / HorizontalGridCount;
+                   //        VerticalGridEndPoint.X += GraphRect.Width / HorizontalGridCount;
 
-                    // 그래프의 점을 그리는 부분
-                    // 점을 그리는 사각형을 정의한다.
-                    for (int i = 0; i < Data.GetLength(0); i++)
-                    {
-                        DataPointRect = new RectangleF(NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X - PointRadius,
-                                                                NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y - PointRadius, PointSize, PointSize);
-                        e.Graphics.FillEllipse(PointBrush, DataPointRect);
-                    }
+                   //    }
 
-                    // 그래프의 선을 그리는 부분
-                    for (int i = 0; i < Data.GetLength(0); i++)
-                    {
-                        DataLineStartPoint = new PointF(NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X,
-                                                            NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y);
-                        if (i < Data.GetLength(0) - 1)
-                        {
-                            DataLineEndPoint = new PointF(NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(Data[i + 1, 0], XMin, XMax + OneGridXValue).X,
-                                                            NewGraph.GetMathYPoint(Data[i + 1, 1], YMin, YMax + OneGridYValue).Y);
-                            e.Graphics.DrawLine(DataLinePen, DataLineStartPoint, DataLineEndPoint);
-                        }
+                   //    // 그래프의 점을 그리는 부분
+                   //    // 점을 그리는 사각형을 정의한다.
+                   //    for (int i = 0; i < Data.GetLength(0); i++)
+                   //    {
+                   //        DataPointRect = new RectangleF(NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X - PointRadius,
+                   //                                                NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y - PointRadius, PointSize, PointSize);
+                   //        e.Graphics.FillEllipse(PointBrush, DataPointRect);
+                   //    }
 
-                    }
+                   //    // 그래프의 선을 그리는 부분
+                   //    for (int i = 0; i < Data.GetLength(0); i++)
+                   //    {
+                   //        DataLineStartPoint = new PointF(NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X,
+                   //                                            NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y);
+                   //        if (i < Data.GetLength(0) - 1)
+                   //        {
+                   //            DataLineEndPoint = new PointF(NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(Data[i + 1, 0], XMin, XMax + OneGridXValue).X,
+                   //                                            NewGraph.GetMathYPoint(Data[i + 1, 1], YMin, YMax + OneGridYValue).Y);
+                   //            e.Graphics.DrawLine(DataLinePen, DataLineStartPoint, DataLineEndPoint);
+                   //        }
 
-                    break;
-                case Graph.OriginPointPosition.UpperRight:
-                    {
-                        for (int i = 0; i < BigVerticalGridCount; i++)
-                        {
-                            for (int j = 0; j < 5; j++)
-                            {
-                                LinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-                                if (j == 4)
-                                {
-                                    LinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-                                }
-                                // 가로 눈금를 그린다.
-                                e.Graphics.DrawLine(LinePen, HorizontalGridStartPoint, HorizontalGridEndPoint);
-                                HorizontalGridStartPoint.Y += GraphRect.Height / VerticalGridCount;
-                                HorizontalGridEndPoint.Y += GraphRect.Height / VerticalGridCount;
-                            }
-                            if (i > 0)
-                            {
-                                // 가로 눈금의 숫자를 그린다.
-                                e.Graphics.DrawString((i * 10.0f).ToString(), TextFont, TextBrush, NumberPoint);
-                                NumberPoint.Y += GraphRect.Height * 5.0f / VerticalGridCount;
-                            }
-                        }
+                   //    }
+                   }
 
-
-                        // 그래프의 세로 눈금을 그리는 부분
-                        VerticalGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top);
-                        VerticalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top + GraphRect.Height);
-                        NumberPoint = new PointF(VerticalGridStartPoint.X - 15.0f, VerticalGridEndPoint.Y + GraphRect.Height / VerticalGridCount);                         // 15.0f는 숫자의 X좌표를 정하기 위한 값으로 고정 값.
-                        for (int i = 0; i < HorizontalGridCount; i++)
-                        {
-                            e.Graphics.DrawLine(LinePen, VerticalGridStartPoint, VerticalGridEndPoint);
-
-                            // 세로 눈금에 해당하는 숫자를 그린다.
-                            if (i < HorizontalGridCount - 1)
-                            {
-                                e.Graphics.DrawString((HorizontalGridCount - (i + 1)).ToString(), TextFont, TextBrush, NumberPoint);
-                                NumberPoint.X += GraphRect.Width / HorizontalGridCount;
-                            }
-
-                            VerticalGridStartPoint.X += GraphRect.Width / HorizontalGridCount;
-                            VerticalGridEndPoint.X += GraphRect.Width / HorizontalGridCount;
-
-                        }
-
-                        // 그래프의 점을 그리는 부분
-                        // 점을 그리는 사각형을 정의한다.
-                        for (int i = 0; i < Data.GetLength(0); i++)
-                        {
-                            DataPointRect = new RectangleF(NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X - PointRadius,
-                                                                    NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y - PointRadius, PointSize, PointSize);
-                            e.Graphics.FillEllipse(PointBrush, DataPointRect);
-                        }
-                    }
-
-                    // 그래프의 선을 그리는 부분
-                    for (int i = 0; i < Data.GetLength(0); i++)
-                    {
-                        DataLineStartPoint = new PointF(NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X,
-                                                            NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y);
-                        if (i < Data.GetLength(0) - 1)
-                        {
-                            DataLineEndPoint = new PointF(NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(Data[i + 1, 0], XMin, XMax + OneGridXValue).X,
-                                                            NewGraph.GetMathYPoint(Data[i + 1, 1], YMin, YMax + OneGridYValue).Y);
-                            e.Graphics.DrawLine(DataLinePen, DataLineStartPoint, DataLineEndPoint);
-                        }
-
-                    }
-
-                    break;
-                case Graph.OriginPointPosition.UpperLeft:
-                    {
-                        for (int i = 0; i < BigVerticalGridCount; i++)
-                        {
-                            for (int j = 0; j < 5; j++)
-                            {
-                                LinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-                                if (j == 4)
-                                {
-                                    LinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-                                }
-                                // 가로 눈금를 그린다.
-                                e.Graphics.DrawLine(LinePen, HorizontalGridStartPoint, HorizontalGridEndPoint);
-                                HorizontalGridStartPoint.Y += GraphRect.Height / VerticalGridCount;
-                                HorizontalGridEndPoint.Y += GraphRect.Height / VerticalGridCount;
-                            }
-                            if (i > 0)
-                            {
-                                // 가로 눈금의 숫자를 그린다.
-                                e.Graphics.DrawString((i * OneGridYValue).ToString(), TextFont, TextBrush, NumberPoint);
-                                NumberPoint.Y += GraphRect.Height * 5.0f / VerticalGridCount;
-                            }
-                        }
+               break;
+           case Graph.OriginPointPosition.UpperRight:
+               {
+               //    for (int i = 0; i < BigVerticalGridCount; i++)
+               //    {
+               //        for (int j = 0; j < 5; j++)
+               //        {
+               //            LinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+               //            if (j == 4)
+               //            {
+               //                LinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+               //            }
+               //            // 가로 눈금를 그린다.
+               //            e.Graphics.DrawLine(LinePen, HorizontalGridStartPoint, HorizontalGridEndPoint);
+               //            HorizontalGridStartPoint.Y += GraphRect.Height / VerticalGridCount;
+               //            HorizontalGridEndPoint.Y += GraphRect.Height / VerticalGridCount;
+               //        }
+               //        if (i > 0)
+               //        {
+               //            // 가로 눈금의 숫자를 그린다.
+               //            e.Graphics.DrawString((i * 10.0f).ToString(), TextFont, TextBrush, NumberPoint);
+               //            NumberPoint.Y += GraphRect.Height * 5.0f / VerticalGridCount;
+               //        }
+               //    }
 
 
-                        for (int i = 0; i < HorizontalGridCount; i++)
-                        {
-                            e.Graphics.DrawLine(LinePen, VerticalGridStartPoint, VerticalGridEndPoint);
+               //    // 그래프의 세로 눈금을 그리는 부분
+               //    VerticalGridStartPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top);
+               //    VerticalGridEndPoint = new PointF(GraphRect.Left + GraphRect.Width / HorizontalGridCount, GraphRect.Top + GraphRect.Height);
+               //    NumberPoint = new PointF(VerticalGridStartPoint.X - 15.0f, VerticalGridEndPoint.Y + GraphRect.Height / VerticalGridCount);                         // 15.0f는 숫자의 X좌표를 정하기 위한 값으로 고정 값.
+               //    for (int i = 0; i < HorizontalGridCount; i++)
+               //    {
+               //        e.Graphics.DrawLine(LinePen, VerticalGridStartPoint, VerticalGridEndPoint);
 
-                            // 세로 눈금에 해당하는 숫자를 그린다.
-                            if (i < HorizontalGridCount - 1)
-                            {
-                                e.Graphics.DrawString((i + 1).ToString(), TextFont, TextBrush, NumberPoint);
-                                NumberPoint.X += GraphRect.Width / HorizontalGridCount;
-                            }
+               //        // 세로 눈금에 해당하는 숫자를 그린다.
+               //        if (i < HorizontalGridCount - 1)
+               //        {
+               //            e.Graphics.DrawString((HorizontalGridCount - (i + 1)).ToString(), TextFont, TextBrush, NumberPoint);
+               //            NumberPoint.X += GraphRect.Width / HorizontalGridCount;
+               //        }
 
-                            VerticalGridStartPoint.X += GraphRect.Width / HorizontalGridCount;
-                            VerticalGridEndPoint.X += GraphRect.Width / HorizontalGridCount;
+               //        VerticalGridStartPoint.X += GraphRect.Width / HorizontalGridCount;
+               //        VerticalGridEndPoint.X += GraphRect.Width / HorizontalGridCount;
 
-                        }
+               //    }
 
-                        // 그래프의 점을 그리는 부분
-                        // 점을 그리는 사각형을 정의한다.
-                        for (int i = 0; i < Data.GetLength(0); i++)
-                        {
-                            DataPointRect = new RectangleF(NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X - PointRadius,
-                                                                    NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y - PointRadius, PointSize, PointSize);
-                            e.Graphics.FillEllipse(PointBrush, DataPointRect);
-                        }
+               //    // 그래프의 점을 그리는 부분
+               //    // 점을 그리는 사각형을 정의한다.
+               //    for (int i = 0; i < Data.GetLength(0); i++)
+               //    {
+               //        DataPointRect = new RectangleF(NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X - PointRadius,
+               //                                                NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y - PointRadius, PointSize, PointSize);
+               //        e.Graphics.FillEllipse(PointBrush, DataPointRect);
+               //    }
+               //}
 
-                        // 그래프의 선을 그리는 부분
-                        for (int i = 0; i < Data.GetLength(0); i++)
-                        {
-                            DataLineStartPoint = new PointF(NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X,
-                                                                NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y);
-                            if (i < Data.GetLength(0) - 1)
-                            {
-                                DataLineEndPoint = new PointF(NewGraph.GetMathXPoint(Data[i + 1, 0], XMin, XMax + OneGridXValue).X,
-                                                                NewGraph.GetMathYPoint(Data[i + 1, 1], YMin, YMax + OneGridYValue).Y);
-                                e.Graphics.DrawLine(DataLinePen, DataLineStartPoint, DataLineEndPoint);
-                            }
+               //// 그래프의 선을 그리는 부분
+               //for (int i = 0; i < Data.GetLength(0); i++)
+               //{
+               //    DataLineStartPoint = new PointF(NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X,
+               //                                        NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y);
+               //    if (i < Data.GetLength(0) - 1)
+               //    {
+               //        DataLineEndPoint = new PointF(NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(Data[i + 1, 0], XMin, XMax + OneGridXValue).X,
+               //                                        NewGraph.GetMathYPoint(Data[i + 1, 1], YMin, YMax + OneGridYValue).Y);
+               //        e.Graphics.DrawLine(DataLinePen, DataLineStartPoint, DataLineEndPoint);
+               //    }
 
-                        }
-                    }
-                    break;
-                    */
-                default:
-                    break;
+               }
+
+               break;
+           case Graph.OriginPointPosition.UpperLeft:
+               {
+                   //for (int i = 0; i < BigVerticalGridCount; i++)
+                   //{
+                   //    for (int j = 0; j < 5; j++)
+                   //    {
+                   //        LinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                   //        if (j == 4)
+                   //        {
+                   //            LinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+                   //        }
+                   //        // 가로 눈금를 그린다.
+                   //        e.Graphics.DrawLine(LinePen, HorizontalGridStartPoint, HorizontalGridEndPoint);
+                   //        HorizontalGridStartPoint.Y += GraphRect.Height / VerticalGridCount;
+                   //        HorizontalGridEndPoint.Y += GraphRect.Height / VerticalGridCount;
+                   //    }
+                   //    if (i > 0)
+                   //    {
+                   //        // 가로 눈금의 숫자를 그린다.
+                   //        e.Graphics.DrawString((i * OneGridYValue).ToString(), TextFont, TextBrush, NumberPoint);
+                   //        NumberPoint.Y += GraphRect.Height * 5.0f / VerticalGridCount;
+                   //    }
+                   //}
+
+
+                   //for (int i = 0; i < HorizontalGridCount; i++)
+                   //{
+                   //    e.Graphics.DrawLine(LinePen, VerticalGridStartPoint, VerticalGridEndPoint);
+
+                   //    // 세로 눈금에 해당하는 숫자를 그린다.
+                   //    if (i < HorizontalGridCount - 1)
+                   //    {
+                   //        e.Graphics.DrawString((i + 1).ToString(), TextFont, TextBrush, NumberPoint);
+                   //        NumberPoint.X += GraphRect.Width / HorizontalGridCount;
+                   //    }
+
+                   //    VerticalGridStartPoint.X += GraphRect.Width / HorizontalGridCount;
+                   //    VerticalGridEndPoint.X += GraphRect.Width / HorizontalGridCount;
+
+                   //}
+
+                   //// 그래프의 점을 그리는 부분
+                   //// 점을 그리는 사각형을 정의한다.
+                   //for (int i = 0; i < Data.GetLength(0); i++)
+                   //{
+                   //    DataPointRect = new RectangleF(NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X - PointRadius,
+                   //                                            NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y - PointRadius, PointSize, PointSize);
+                   //    e.Graphics.FillEllipse(PointBrush, DataPointRect);
+                   //}
+
+                   //// 그래프의 선을 그리는 부분
+                   //for (int i = 0; i < Data.GetLength(0); i++)
+                   //{
+                   //    DataLineStartPoint = new PointF(NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X,
+                   //                                        NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y);
+                   //    if (i < Data.GetLength(0) - 1)
+                   //    {
+                   //        DataLineEndPoint = new PointF(NewGraph.GetMathXPoint(Data[i + 1, 0], XMin, XMax + OneGridXValue).X,
+                   //                                        NewGraph.GetMathYPoint(Data[i + 1, 1], YMin, YMax + OneGridYValue).Y);
+                   //        e.Graphics.DrawLine(DataLinePen, DataLineStartPoint, DataLineEndPoint);
+                   //    }
+
+                   //}
+               }
+               break;
+
+            default:
+                break;
             }
 
+            // 데이터를 초기화한다.
+            NewGraph.DataList.Clear();
         }
 
        private void DrawHorizontalGrid(Graph NewGraph, Pen LinePen, Font TextFont, Brush TextBrush, PaintEventArgs e)
@@ -596,11 +594,12 @@ namespace EveryChart
                             }
                         }
 
-                        // 세로 눈금의 "0"을 그린다.
-                        if (NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperLeft || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperRight)
-                        {
-                            e.Graphics.DrawString("0", TextFont, TextBrush, NewGraph.HorizontalGridNumberPoint);
-                        }
+                        // "(만 권)"을 그린다.
+                        e.Graphics.DrawString("(만 권)", TextFont, TextBrush, new PointF(NewGraph.DrawRect.Left - 100.0f, NewGraph.DrawRect.Top - NewGraph.DrawRect.Height / NewGraph.VerticalGridCount)); // 100.0f는 글자의 X좌표를 설정하기 위한 값으로 고정값.               
+
+                        // "0"을 그린다.
+                        e.Graphics.DrawString("0", TextFont, TextBrush, new PointF(NewGraph.DrawRect.Left - 50.0f,
+                                                                                    NewGraph.DrawRect.Top + NewGraph.DrawRect.Height * (NewGraph.VerticalGridCount - 4.0f) / NewGraph.VerticalGridCount)); // 50.0f은 "0"의 X좌표를, 4.0f는 "0"의 높이를 설정하기 위한 값으로 고정값.
                     }
                     break;
                 case Graph.CurrentGraph.BarGraph:
@@ -665,12 +664,13 @@ namespace EveryChart
 
                         }
 
-                        // "(만 권)"을 그린다.
-                        e.Graphics.DrawString("(만 권)", TextFont, TextBrush, new PointF(NewGraph.DrawRect.Left - 100.0f, NewGraph.DrawRect.Top - NewGraph.DrawRect.Height / NewGraph.VerticalGridCount)); // 100.0f는 글자의 X좌표를 설정하기 위한 값으로 고정값.               
+                        
 
-                        // "0"을 그린다.
-                        e.Graphics.DrawString("0", TextFont, TextBrush, new PointF(NewGraph.DrawRect.Left - 50.0f,
-                                                                                    NewGraph.DrawRect.Top + NewGraph.DrawRect.Height * (NewGraph.VerticalGridCount - 4.0f) / NewGraph.VerticalGridCount)); // 50.0f은 "0"의 X좌표를, 4.0f는 "0"의 높이를 설정하기 위한 값으로 고정값.
+                        // 가로 눈금에 "0"을 그린다.
+                        if (NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperRight)
+                        {
+                            e.Graphics.DrawString("0", TextFont, TextBrush, NewGraph.VerticalGridNumberPoint);
+                        }
                     }
                     break;
                 case Graph.CurrentGraph.BarGraph:
@@ -705,6 +705,8 @@ namespace EveryChart
             double CurrentKey = 0.0;
             // 현재 데이터의 Y값
             double CurrentValue = 0.0;
+            // 현재 데이터의 표시하는 점의 X값
+            float CurrentPointX = 0.0f;
 
             switch (NewGraph.CurrentState)
             {
@@ -719,9 +721,18 @@ namespace EveryChart
                             CurrentKey = System.Convert.ToDouble(NewGraph.DataList.GetKey(i));
                             CurrentValue = System.Convert.ToDouble(NewGraph.DataList[CurrentKey]);
 
+                            if(NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperRight)
+                            {
+                                CurrentPointX = NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(CurrentKey, NewGraph.XMin,
+                                                                    NewGraph.XMax + NewGraph.OneGridXValue).X - NewGraph.PointRadius;
+                            }
+                            else
+                            {
+                                CurrentPointX = NewGraph.GetMathXPoint(CurrentKey, NewGraph.XMin, NewGraph.XMax + NewGraph.OneGridXValue).X - NewGraph.PointRadius;
+                            }
+
                             // 현재 데이터에 해당하는 점을 그리는 사각형을 구한다.
-                            NewGraph.DataPointRect = new RectangleF(NewGraph.GetMathXPoint(CurrentKey, NewGraph.XMin, 
-                                                                    NewGraph.XMax + NewGraph.OneGridXValue).X - NewGraph.PointRadius,
+                            NewGraph.DataPointRect = new RectangleF(CurrentPointX,
                                                                     NewGraph.GetMathYPoint(CurrentValue, NewGraph.YMin, NewGraph.YMax + NewGraph.OneGridYValue).Y 
                                                                     - NewGraph.PointRadius, NewGraph.PointSize, NewGraph.PointSize);
 
