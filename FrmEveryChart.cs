@@ -350,19 +350,8 @@ namespace EveryChart
                         // 그래프의 점을 그린다.
                         DrawGraphPoint(NewGraph, e);
 
-                        // 그래프의 선을 그리는 부분
-                        //for (int i = 0; i < Data.GetLength(0); i++)
-                        //{
-                        //    DataLineStartPoint = new PointF(NewGraph.GetMathXPoint(Data[i, 0], NewGraph.XMin, NewGraph.XMax + NewGraph.OneGridXValue).X,
-                        //                                        NewGraph.GetMathYPoint(Data[i, 1], NewGraph.YMin, NewGraph.YMax + NewGraph.OneGridYValue).Y);
-                        //    if (i < Data.GetLength(0) - 1)
-                        //    {
-                        //        DataLineEndPoint = new PointF(NewGraph.GetMathXPoint(Data[i + 1, 0], NewGraph.XMin, NewGraph.XMax + NewGraph.OneGridXValue).X,
-                        //                                        NewGraph.GetMathYPoint(Data[i + 1, 1], NewGraph.YMin, NewGraph.YMax + NewGraph.OneGridYValue).Y);
-                        //        e.Graphics.DrawLine(DataLinePen, DataLineStartPoint, DataLineEndPoint);
-                        //    }
-
-                        //}
+                        // 그래프의 선을 그린다.
+                        DrawGraphLine(NewGraph, e);
 
                         // 데이터를 초기화한다.
                         NewGraph.DataList.Clear();
@@ -712,23 +701,83 @@ namespace EveryChart
             
         private void DrawGraphPoint(Graph NewGraph, PaintEventArgs e)
         {
+            // 현재 데이터의 X값
+            double CurrentKey = 0.0;
+            // 현재 데이터의 Y값
+            double CurrentValue = 0.0;
+
             switch (NewGraph.CurrentState)
             {
                 case Graph.CurrentGraph.None:
                     break;
                 case Graph.CurrentGraph.LineGraph:
                     {
-                        // 리스트의 위치
-                        int i = 0;
                         // 점을 그리는 사각형을 정의한다.
-                        foreach (KeyValuePair<double, double> Couple in NewGraph.DataList)
+                        for (int i = 0; i < NewGraph.DataList.Count; i++)
                         {
-                            NewGraph.DataPointRect = new RectangleF(NewGraph.GetMathXPoint(Couple.Key, NewGraph.XMin, 
+                            // 현재 데이터의 값들을 구한다.
+                            CurrentKey = System.Convert.ToDouble(NewGraph.DataList.GetKey(i));
+                            CurrentValue = System.Convert.ToDouble(NewGraph.DataList[CurrentKey]);
+
+                            // 현재 데이터에 해당하는 점을 그리는 사각형을 구한다.
+                            NewGraph.DataPointRect = new RectangleF(NewGraph.GetMathXPoint(CurrentKey, NewGraph.XMin, 
                                                                     NewGraph.XMax + NewGraph.OneGridXValue).X - NewGraph.PointRadius,
-                                                                    NewGraph.GetMathYPoint(Couple.Value, NewGraph.YMin, NewGraph.YMax + NewGraph.OneGridYValue).Y 
+                                                                    NewGraph.GetMathYPoint(CurrentValue, NewGraph.YMin, NewGraph.YMax + NewGraph.OneGridYValue).Y 
                                                                     - NewGraph.PointRadius, NewGraph.PointSize, NewGraph.PointSize);
+
+                            // 점을 그린다.
                             e.Graphics.FillEllipse(NewGraph.PointBrush, NewGraph.DataPointRect);
-                            i++;
+                        }
+                    }
+                    break;
+                case Graph.CurrentGraph.BarGraph:
+                    break;
+                case Graph.CurrentGraph.PieChart:
+                    break;
+                case Graph.CurrentGraph.SpeacialGraph1:
+                    break;
+                case Graph.CurrentGraph.SpeacialGraph2:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void DrawGraphLine(Graph NewGraph, PaintEventArgs e)
+        {
+            // 현재 데이터의 X값
+            double CurrentKey = 0.0;
+            // 현재 데이터의 Y값
+            double CurrentValue = 0.0;
+            // 다음 데이터의 X값
+            double NextKey = 0.0;
+            // 다음 데이터의 Y값
+            double NextValue = 0.0;
+              
+            switch (NewGraph.CurrentState)
+            {
+                case Graph.CurrentGraph.None:
+                    break;
+                case Graph.CurrentGraph.LineGraph:
+                    {
+                        // 그래프의 선을 그리는 부분
+                        for (int i = 0; i < NewGraph.DataList.Count - 1; i++) // 마지막 점을 시작점으로 하는 선을 그리지 않기 위해서 1을 뺐다.
+                        {
+                            // 현재 데이터의 X값, Y값과 다음 데이터의 X값과 Y값을 구한다.
+                            CurrentKey = System.Convert.ToDouble(NewGraph.DataList.GetKey(i));
+                            CurrentValue = System.Convert.ToDouble(NewGraph.DataList[CurrentKey]);
+                            NextKey = System.Convert.ToDouble(NewGraph.DataList.GetKey(i + 1));
+                            NextValue = System.Convert.ToDouble(NewGraph.DataList[NextKey]);
+
+                            // 선의 시작점과 끝점을 구한다.
+                            NewGraph.DataLineStartPoint = new PointF(NewGraph.GetMathXPoint(CurrentKey, NewGraph.XMin, NewGraph.XMax + NewGraph.OneGridXValue).X,
+                                                                     NewGraph.GetMathYPoint(CurrentValue, NewGraph.YMin, NewGraph.YMax + NewGraph.OneGridYValue).Y);
+                            NewGraph.DataLineEndPoint = new PointF(NewGraph.GetMathXPoint(NextKey , NewGraph.XMin, NewGraph.XMax + NewGraph.OneGridXValue).X,
+                                                                NewGraph.GetMathYPoint(NextValue, NewGraph.YMin, NewGraph.YMax + NewGraph.OneGridYValue).Y);
+
+                            // 선을 그린다.
+                            e.Graphics.DrawLine(NewGraph.DataLinePen, NewGraph.DataLineStartPoint, NewGraph.DataLineEndPoint);
+
                         }
                     }
                     break;

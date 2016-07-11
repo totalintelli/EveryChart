@@ -74,7 +74,7 @@ namespace EveryChart
         #endregion
 
         #region 데이터
-        public SortedList<double, double> DataList = new SortedList<double, double>();
+        public System.Collections.SortedList DataList = new System.Collections.SortedList();
         // 점의 색상
         public SolidBrush PointBrush;
         // 점을 그리는 사각형
