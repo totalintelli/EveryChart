@@ -75,6 +75,9 @@ namespace EveryChart
 
         #region 데이터
         public System.Collections.SortedList DataList = new System.Collections.SortedList();
+        #endregion
+
+        #region 꺾은 선 그래프
         // 점의 색상
         public SolidBrush PointBrush;
         // 점을 그리는 사각형
@@ -89,6 +92,13 @@ namespace EveryChart
         public PointF DataLineStartPoint;
         // 선의 끝점
         public PointF DataLineEndPoint;
+        #endregion
+
+        #region 막대 그래프
+        // 막대의 색상
+        public SolidBrush BarBrush;
+        // 막대의 시작점
+        public PointF BarStartPoint;
         #endregion
 
         // 실제 그래프 영역
