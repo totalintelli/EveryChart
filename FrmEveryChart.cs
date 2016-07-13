@@ -34,7 +34,7 @@ namespace EveryChart
             cbGraph.SelectedIndex = 0;
             cbOriginPoint.Text = "LowerLeft";
             cbOriginPoint.SelectedIndex = 0;
-            
+
         }
 
 
@@ -135,7 +135,7 @@ namespace EveryChart
                     {
                         // 그래프를 정한다.
                         NewGraph.CurrentState = Graph.CurrentGraph.LineGraph;
-                        
+
                         // 그래프의 마진을 정한다.
                         NewGraph.GraphMargin.Left = 200;
                         NewGraph.GraphMargin.Top = 120;
@@ -193,10 +193,10 @@ namespace EveryChart
                     break;
             }
 
-            
+
         }
 
-        
+
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -252,10 +252,10 @@ namespace EveryChart
 
         private void DrawLineGraph(Graph NewGraph, PaintEventArgs e)
         {
-         
+
             // 선을 그리는 펜
             Pen LinePen = new Pen(Color.Blue, 1.0f);
-            
+
             // 그래프 영역
             RectangleF DrawRect = new RectangleF(NewGraph.GraphMargin.Left, NewGraph.GraphMargin.Top,
                                     panel1.Width - NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right,
@@ -287,9 +287,9 @@ namespace EveryChart
 
             // 그리기 영역을 정의한다.
             NewGraph.DrawRect = DrawRect;
-        
+
             // 그래프의 제목을 그린다.
-            e.Graphics.DrawString("월별 책의 판매량", TextFont, new SolidBrush(Color.Blue), 
+            e.Graphics.DrawString("월별 책의 판매량", TextFont, new SolidBrush(Color.Blue),
                 new PointF(NewGraph.RealRect.Width * 0.5f, NewGraph.GraphMargin.Top * 0.6f));
 
             // 그래프 영역을 그리는 부분
@@ -311,7 +311,7 @@ namespace EveryChart
 
             // "월"을 그리는 부분
             e.Graphics.DrawString("월", TextFont, TextBrush, new PointF(NewGraph.GraphMargin.Left * 7.5f / 10.0f, // 7.5f / 10.0f : "월"의 위치의 X값을 구하기 위한 값.
-                                                                         NewGraph.GraphMargin.Top + DrawRect.Height 
+                                                                         NewGraph.GraphMargin.Top + DrawRect.Height
                                                                          + NewGraph.GraphMargin.Bottom * 0.5f)); // 0.5f : "월"의 위치의 Y값을 구하기 위한 값.
 
             #region X축 눈금
@@ -319,8 +319,8 @@ namespace EveryChart
             NewGraph.VerticalGridStartPoint = new PointF(DrawRect.Left + DrawRect.Width / NewGraph.HorizontalGridCount, DrawRect.Top);
             NewGraph.VerticalGridEndPoint = new PointF(DrawRect.Left + DrawRect.Width / NewGraph.HorizontalGridCount, DrawRect.Top + DrawRect.Height);
             // X축 눈금의 숫자의 위치를 구한다.
-            NewGraph.VerticalGridNumberPoint = new PointF(NewGraph.VerticalGridStartPoint.X - 15.0f, 
-                                                            NewGraph.VerticalGridEndPoint.Y 
+            NewGraph.VerticalGridNumberPoint = new PointF(NewGraph.VerticalGridStartPoint.X - 15.0f,
+                                                            NewGraph.VerticalGridEndPoint.Y
                                                              + (NewGraph.DrawRect.Height / NewGraph.HorizontalGridCount) * 0.3f); // 15.0f는 숫자의 X좌표를 정하기 위한 값으로 고정 값.            
             #endregion
 
@@ -353,7 +353,7 @@ namespace EveryChart
             NewGraph.DataList.Clear();
         }
 
-       private void DrawHorizontalGrid(Graph NewGraph, Pen LinePen, Font TextFont, Brush TextBrush, PaintEventArgs e)
+        private void DrawHorizontalGrid(Graph NewGraph, Pen LinePen, Font TextFont, Brush TextBrush, PaintEventArgs e)
         {
 
             switch (NewGraph.CurrentState)
@@ -363,7 +363,7 @@ namespace EveryChart
                 case Graph.CurrentGraph.LineGraph:
                     {
                         // 그래프의 원점의 위치에 따른 Y축 눈금의 첫 번째 숫자를 구한다.
-                        if(NewGraph.CurrentOriginPoint ==Graph.OriginPointPosition.LowerLeft || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight)
+                        if (NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerLeft || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight)
                         {
                             NewGraph.HorizontalGridNumber = NewGraph.BigVerticalGridCount - 1; // 꼭대기에 있는 Y축 눈금에 해당하는 숫자를 그리지 않기 위해서 1을 뺌.
                         }
@@ -407,14 +407,14 @@ namespace EveryChart
 
                         // "(만 권)"을 그린다.
                         e.Graphics.DrawString("(만 권)", TextFont, TextBrush, new PointF(NewGraph.DrawRect.Left - 100.0f, // 100.0f는 글자의 X좌표를 설정하기 위한 값
-                                                                                        NewGraph.DrawRect.Top - NewGraph.DrawRect.Height 
-                                                                                        / NewGraph.VerticalGridCount));              
+                                                                                        NewGraph.DrawRect.Top - NewGraph.DrawRect.Height
+                                                                                        / NewGraph.VerticalGridCount));
 
-                        if(NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperLeft || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperRight)
+                        if (NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperLeft || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperRight)
                         {
                             // "0"을 그린다.
                             e.Graphics.DrawString("0", TextFont, TextBrush, new PointF(NewGraph.DrawRect.Left - 50.0f, // 50.0f은 "0"의 X좌표를 정하기 위한 값
-                                                                                      NewGraph.DrawRect.Top + NewGraph.DrawRect.Height * (NewGraph.VerticalGridCount - 4.0f) / 
+                                                                                      NewGraph.DrawRect.Top + NewGraph.DrawRect.Height * (NewGraph.VerticalGridCount - 4.0f) /
                                                                                       NewGraph.VerticalGridCount)); // 4.0f는 "0"의 높이를 정하기 위한 값
                         }
                     }
@@ -423,7 +423,7 @@ namespace EveryChart
                     {
                         // 그래프 가로 눈금을 그리는 부분
                         NewGraph.HorizontalGridStartPoint = new PointF(NewGraph.DrawRect.Left, NewGraph.DrawRect.Top + NewGraph.DrawRect.Height / NewGraph.VerticalGridCount);
-                        NewGraph.HorizontalGridEndPoint = new PointF(NewGraph.DrawRect.Left + NewGraph.DrawRect.Width, 
+                        NewGraph.HorizontalGridEndPoint = new PointF(NewGraph.DrawRect.Left + NewGraph.DrawRect.Width,
                                                                      NewGraph.DrawRect.Top + NewGraph.DrawRect.Height / NewGraph.VerticalGridCount);
                         NewGraph.HorizontalGridNumberPoint = new PointF(NewGraph.DrawRect.Left - 80.0f, NewGraph.DrawRect.Top - 20.0f);                                                           // 80.0f은 숫자의 X좌표 값을 설정하기 위한 값이고 20.0f는 숫자의 높이를 정하기 위한 값으로 고정값.
                         for (int i = 0; i <= NewGraph.BigVerticalGridCount; i++)
@@ -434,7 +434,7 @@ namespace EveryChart
                             NewGraph.HorizontalGridEndPoint.Y += NewGraph.DrawRect.Height / NewGraph.VerticalGridCount;
 
                             // 가로 눈금의 숫자를 그린다.
-                            e.Graphics.DrawString(((NewGraph.BigVerticalGridCount - i) * NewGraph.OneGridYValue).ToString(), TextFont, TextBrush, 
+                            e.Graphics.DrawString(((NewGraph.BigVerticalGridCount - i) * NewGraph.OneGridYValue).ToString(), TextFont, TextBrush,
                                                   NewGraph.HorizontalGridNumberPoint);
                             NewGraph.HorizontalGridNumberPoint.Y += NewGraph.DrawRect.Height / NewGraph.VerticalGridCount;
                         }
@@ -450,7 +450,7 @@ namespace EveryChart
                     break;
             }
 
-           
+
         }
 
         private void DrawVerticalGrid(Graph NewGraph, Pen LinePen, Font TextFont, Brush TextBrush, PaintEventArgs e)
@@ -485,7 +485,7 @@ namespace EveryChart
                                 NewGraph.VerticalGridNumberPoint.X += NewGraph.DrawRect.Width / NewGraph.HorizontalGridCount;
 
                                 // 눈금의 숫자를 구한다.
-                                if(NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperRight)
+                                if (NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperRight)
                                 {
                                     NewGraph.VerticalGridNumber--;
                                 }
@@ -510,11 +510,11 @@ namespace EveryChart
                 case Graph.CurrentGraph.BarGraph:
                     {
                         // 그래프의 세로 눈금을 그리는 부분
-                        NewGraph.VerticalGridStartPoint = new PointF(NewGraph.DrawRect.Left + NewGraph.DrawRect.Width / NewGraph.HorizontalGridCount, 
+                        NewGraph.VerticalGridStartPoint = new PointF(NewGraph.DrawRect.Left + NewGraph.DrawRect.Width / NewGraph.HorizontalGridCount,
                                                                      NewGraph.DrawRect.Top + NewGraph.DrawRect.Height - 10.0f);
-                        NewGraph.VerticalGridEndPoint = new PointF(NewGraph.DrawRect.Left + NewGraph.DrawRect.Width / NewGraph.HorizontalGridCount, 
+                        NewGraph.VerticalGridEndPoint = new PointF(NewGraph.DrawRect.Left + NewGraph.DrawRect.Width / NewGraph.HorizontalGridCount,
                                                                     NewGraph.DrawRect.Top + NewGraph.DrawRect.Height);
-                        NewGraph.VerticalGridNumberPoint = new PointF(NewGraph.DrawRect.Left + (NewGraph.DrawRect.Width / NewGraph.HorizontalGridCount * 0.2f), 
+                        NewGraph.VerticalGridNumberPoint = new PointF(NewGraph.DrawRect.Left + (NewGraph.DrawRect.Width / NewGraph.HorizontalGridCount * 0.2f),
                                                                       NewGraph.VerticalGridEndPoint.Y + 10.0f); // 0.2f는 숫자의 X좌표를, 10.0f는 숫자의 Y좌표를 정하기 위한 값으로 고정 값.
                         for (int i = 0; i <= NewGraph.HorizontalGridCount; i++)
                         {
@@ -546,14 +546,14 @@ namespace EveryChart
             Random Blend = new Random();
             double RandomYData = 0.0;
 
-            for(int i = 0; i < NewGraph.HorizontalGridCount; i++)
+            for (int i = 0; i < NewGraph.HorizontalGridCount; i++)
             {
                 RandomYData = Blend.Next(System.Convert.ToInt32(Math.Round(NewGraph.YMin)),
                                      System.Convert.ToInt32(Math.Round(NewGraph.YMax)));
                 NewGraph.DataList.Add(NewGraph.XMin + NewGraph.OneGridXValue * (i + 1), RandomYData);
             }
         }
-            
+
         private void DrawGraphPoint(Graph NewGraph, PaintEventArgs e)
         {
             // 현재 데이터의 X값
@@ -577,7 +577,7 @@ namespace EveryChart
                             CurrentValue = System.Convert.ToDouble(NewGraph.DataList[CurrentKey]);
 
                             // 현재 데이터를 표시하는 점의 X값을 구한다.
-                            if(NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperRight)
+                            if (NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperRight)
                             {
                                 CurrentPointX = NewGraph.GraphMargin.Left - NewGraph.GraphMargin.Right + NewGraph.GetMathXPoint(CurrentKey, NewGraph.XMin,
                                                                     NewGraph.XMax + NewGraph.OneGridXValue).X - NewGraph.PointRadius;
@@ -589,7 +589,7 @@ namespace EveryChart
 
                             // 현재 데이터에 해당하는 점을 그리는 사각형을 구한다.
                             NewGraph.DataPointRect = new RectangleF(CurrentPointX,
-                                                                    NewGraph.GetMathYPoint(CurrentValue, NewGraph.YMin, NewGraph.YMax + NewGraph.OneGridYValue).Y 
+                                                                    NewGraph.GetMathYPoint(CurrentValue, NewGraph.YMin, NewGraph.YMax + NewGraph.OneGridYValue).Y
                                                                     - NewGraph.PointRadius, NewGraph.PointSize, NewGraph.PointSize);
 
                             // 점을 그린다.
@@ -685,7 +685,7 @@ namespace EveryChart
 
         private void FrmEveryChart_SizeChanged(object sender, EventArgs e)
         {
-           panel1.Invalidate();
+            panel1.Invalidate();
         }
 
         private void DrawBarGraph(Graph NewGraph, PaintEventArgs e)
@@ -708,21 +708,13 @@ namespace EveryChart
             // 가로 큰 눈금의 개수
             NewGraph.BigHorizontalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble((NewGraph.XMax - NewGraph.XMin) / NewGraph.OneGridXValue))) + 1;
             // 세로 큰 눈금의 개수
-            NewGraph. BigVerticalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble((NewGraph.YMax - NewGraph.YMin) / NewGraph.OneGridYValue)));
+            NewGraph.BigVerticalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble((NewGraph.YMax - NewGraph.YMin) / NewGraph.OneGridYValue)));
             // 가로 눈금의 개수
             NewGraph.HorizontalGridCount = NewGraph.BigHorizontalGridCount;
             // 세로 눈금의 개수
             NewGraph.VerticalGridCount = NewGraph.BigVerticalGridCount;
             // 막대의 색상
             NewGraph.BarBrush = new SolidBrush(Color.Blue);
-            // 막대의 시작점
-            NewGraph.BarStartPoint = new PointF(0, 0);
-            // 제목 글자
-            String TitleText = "연도별 매출 성장 변화 추이";
-            // 제목의 색상
-            SolidBrush TitleBrush = new SolidBrush(Color.Blue);
-            // 제목의 위치
-            PointF TitlePoint;
 
             // 그리기 영역을 정의한다.
             NewGraph.DrawRect = DrawRect;
@@ -730,10 +722,8 @@ namespace EveryChart
             // 그래프 영역을 그리는 부분
             e.Graphics.DrawRectangle(LinePen, DrawRect.Left, DrawRect.Top, DrawRect.Width, DrawRect.Height);
 
-            // 제목의 위치를 정한다.
-            TitlePoint = new PointF(NewGraph.RealRect.Width * 0.3f, NewGraph.GraphMargin.Top * 0.6f);
             // 그래프의 제목을 그린다.
-            e.Graphics.DrawString(TitleText, TextFont, TitleBrush, TitlePoint);
+            e.Graphics.DrawString("연도별 매출 성장 변화 추이", TextFont, new SolidBrush(Color.Blue), new PointF(NewGraph.RealRect.Width * 0.3f, NewGraph.GraphMargin.Top * 0.6f));
 
             // 그래프의 가로 눈금을 그린다.
             DrawHorizontalGrid(NewGraph, LinePen, TextFont, TextBrush, e);
@@ -746,19 +736,8 @@ namespace EveryChart
                 case Graph.OriginPointPosition.LowerLeft:
                     {
                         // 그래프의 막대를 그린다.
-                        // 그래프의 막대를 그리는 부분
-                        //for (int i = 0; i < Data.GetLength(0); i++)
-                        //{
-                        //    DataLineStartPoint = new PointF(NewGraph.GetMathXPoint(Data[i, 0], XMin, XMax + OneGridXValue).X,
-                        //                                        NewGraph.GetMathYPoint(Data[i, 1], YMin, YMax + OneGridYValue).Y);
-                        //    if (i < Data.GetLength(0) - 1)
-                        //    {
-                        //        DataLineEndPoint = new PointF(NewGraph.GetMathXPoint(Data[i + 1, 0], XMin, XMax + OneGridXValue).X,
-                        //                                        NewGraph.GetMathYPoint(Data[i + 1, 1], YMin, YMax + OneGridYValue).Y);
-                        //        e.Graphics.DrawLine(DataLinePen, DataLineStartPoint, DataLineEndPoint);
-                        //    }
-
-                        //}
+                        DrawBar(NewGraph, e);
+                        
                     }
                     break;
                 case Graph.OriginPointPosition.LowerRight:
@@ -769,6 +748,20 @@ namespace EveryChart
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void DrawBar(Graph NewGraph, PaintEventArgs e)
+        {
+            // 그래프의 막대를 그리는 부분
+            for (int i = 0; i < NewGraph.DataList.Count; i++)
+            {
+               NewGraph.BarRect = new RectangleF(NewGraph.GetMathXPoint(System.Convert.ToDouble(NewGraph.DataList.GetKey(i)), NewGraph.XMin, 
+                                                                        NewGraph.XMax + NewGraph.OneGridXValue).X,
+                                                       NewGraph.GetMathYPoint(System.Convert.ToDouble(NewGraph.DataList[NewGraph.DataList.GetKey(i)]),
+                                                                               NewGraph.YMin, NewGraph.YMax + NewGraph.OneGridYValue).Y,
+                                                       30, 30);
+               e.Graphics.DrawLine(NewGraph.DataLinePen, NewGraph.DataLineStartPoint, NewGraph.DataLineEndPoint);
             }
         }
     }

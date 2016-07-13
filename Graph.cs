@@ -97,8 +97,8 @@ namespace EveryChart
         #region 막대 그래프
         // 막대의 색상
         public SolidBrush BarBrush;
-        // 막대의 시작점
-        public PointF BarStartPoint;
+        // 막대
+        public RectangleF BarRect;
         #endregion
 
         // 실제 그래프 영역
@@ -278,7 +278,7 @@ namespace EveryChart
             if (Value >= Min && Value <= Max)
             {
                 // 맞으면 실제 포인트의 X값을 구한다.
-                GraphPoint.X = System.Convert.ToSingle((DrawRect.Width * Value) / (Max - Min));
+                GraphPoint.X = System.Convert.ToSingle((DrawRect.Width * (Value - Min)) / (Max - Min));
                 GraphPoint.Y = 0;
             }
 
@@ -304,7 +304,7 @@ namespace EveryChart
             {
                 GraphPoint.X = 0;
                 // 맞으면 실제 포인트의 Y값을 구한다.
-                GraphPoint.Y = System.Convert.ToSingle((DrawRect.Height * Value) / (Max - Min));
+                GraphPoint.Y = System.Convert.ToSingle((DrawRect.Height * (Value - Min)) / (Max - Min));
             }
 
             MathYPoint = GraphPointToMathPoint(GraphPoint);
