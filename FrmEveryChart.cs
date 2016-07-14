@@ -371,6 +371,14 @@ namespace EveryChart
                     break;
                 case Graph.CurrentGraph.LineGraph:
                     {
+                        // 수평 눈금 텍스트의 위치 구한다.
+                        NewGraph.HorizontalGridNumberPoint = new PointF(NewGraph.DrawRect.Left - 100.0f, // 100.0f는 글자의 X좌표를 설정하기 위한 값
+                                                                                        NewGraph.DrawRect.Top - (NewGraph.DrawRect.Height
+                                                                                        / NewGraph.VerticalGridCount) * 2); // 출력할 텍스트를 숫자가 적혀 있는 작은 눈금들의 간격 2개 만큼 위로 이동시킨다.
+
+                        // "(만 권)"을 그린다.
+                        e.Graphics.DrawString("(만 권)", TextFont, TextBrush, NewGraph.HorizontalGridNumberPoint);
+
                         // 그래프의 원점의 위치에 따른 Y축 눈금의 첫 번째 숫자를 구한다.
                         if (NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerLeft || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight)
                         {
@@ -399,8 +407,8 @@ namespace EveryChart
                             if (i > 0) // 원점에 "0"을 중복해서 그리지 않는다.
                             {
                                 // 가로 눈금의 숫자를 그린다.
-                                e.Graphics.DrawString((NewGraph.HorizontalGridNumber * NewGraph.OneGridYValue).ToString(), TextFont, TextBrush, NewGraph.HorizontalGridNumberPoint);
                                 NewGraph.HorizontalGridNumberPoint.Y += NewGraph.DrawRect.Height / NewGraph.VerticalGridCount * 5.0f; // 눈금의 숫자를 그리는 위치를 작은 눈금 다섯 개씩 이동한다.
+                                e.Graphics.DrawString((NewGraph.HorizontalGridNumber * NewGraph.OneGridYValue).ToString(), TextFont, TextBrush, NewGraph.HorizontalGridNumberPoint);
 
                                 // Y축 눈금의 숫자를 구한다.
                                 if (NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerLeft || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.LowerRight)
@@ -414,10 +422,7 @@ namespace EveryChart
                             }
                         }
 
-                        // "(만 권)"을 그린다.
-                        e.Graphics.DrawString("(만 권)", TextFont, TextBrush, new PointF(NewGraph.DrawRect.Left - 100.0f, // 100.0f는 글자의 X좌표를 설정하기 위한 값
-                                                                                        NewGraph.DrawRect.Top - NewGraph.DrawRect.Height
-                                                                                        / NewGraph.VerticalGridCount));
+                       
 
                         if (NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperLeft || NewGraph.CurrentOriginPoint == Graph.OriginPointPosition.UpperRight)
                         {

@@ -37,36 +37,37 @@ namespace EveryChart
 
         #region X축 
         // 큰 눈금의 개수
-        public int BigHorizontalGridCount = 0;
+        public int BigVerticalGridCount = 0;
         // 눈금의 개수
-        public int HorizontalGridCount = 0;
-        public PointF VerticalGridStartPoint;
-        public PointF VerticalGridEndPoint;
+        public int VerticalGridCount = 0;
         // X축 눈금에 해당하는 숫자
-        public int HorizontalGridNumber;
+        public int VerticalGridNumber;
+        // X축 눈금 하나에 해당하는 값
+        public float OneGridYValue;
+        // X축 눈금에 해당하는 숫자의 위치
+        public PointF VerticalGridNumberPoint;
+        
         // X축 눈금 하나에 해당하는 값
         public float OneGridXValue = 1.0f;
-        // X축 눈금에 해당하는 숫자의 위치
-        public PointF HorizontalGridNumberPoint;
         // X의 최대값
         public double XMax = 0.0f;
         // X의 최소값
         public double XMin = 0.0f;
+        public PointF VerticalGridStartPoint;
+        public PointF VerticalGridEndPoint;
         #endregion
 
         #region Y축 
+        // 큰 눈금의 개수
+        public int BigHorizontalGridCount = 0;
         public PointF HorizontalGridStartPoint = new PointF(0, 0);
         public PointF HorizontalGridEndPoint = new PointF(0, 0);
-        // 큰 눈금의 개수
-        public int BigVerticalGridCount = 0;
         // 눈금의 개수
-        public int VerticalGridCount = 0;
+        public int HorizontalGridCount = 0;
         // Y축 눈금에 해당하는 숫자
-        public int VerticalGridNumber;
-        // Y축 눈금 하나에 해당하는 값
-        public float OneGridYValue;
-        // X축 눈금에 해당하는 숫자의 위치
-        public PointF VerticalGridNumberPoint;
+        public int HorizontalGridNumber;
+        // Y축 눈금에 해당하는 숫자의 위치
+        public PointF HorizontalGridNumberPoint;
         // Y의 최대값
         public double YMax = 0.0f;
         // Y의 최소값
