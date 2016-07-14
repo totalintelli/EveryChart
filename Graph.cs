@@ -171,7 +171,7 @@ namespace EveryChart
                 case OriginPointPosition.LowerLeft:
                     // 원점이 왼쪽 아래인 수학 포인트를 구한다.
                     MathPoint.X = GraphPoint.X + GraphMargin.Left;
-                    MathPoint.Y = DrawRect.Height - GraphPoint.Y + GraphMargin.Bottom;
+                    MathPoint.Y = DrawRect.Height - GraphPoint.Y + GraphMargin.Top;
                     break;
                 case OriginPointPosition.LowerRight:
                     // 원점이 오른쪽 아래인 수학 포인트를 구한다.

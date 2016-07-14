@@ -179,6 +179,15 @@ namespace EveryChart
                         NewGraph.YMin = 0;
                         // Y값의 최대값을 정의한다.
                         NewGraph.YMax = 7000;
+
+                        // X축 눈금의 개수
+                        NewGraph.BigHorizontalGridCount = Convert.ToInt32(Math.Round(System.Convert.ToDouble((NewGraph.XMax - NewGraph.XMin) / NewGraph.OneGridXValue))) + 1;
+                        // X축 눈금의 개수
+                        NewGraph.HorizontalGridCount = NewGraph.BigHorizontalGridCount;
+
+                        // 데이터를 가져온다.
+                        GetData(NewGraph);
+
                         // 막대 그래프를 그린다.
                         DrawBarGraph(NewGraph, e);
                     }
@@ -550,7 +559,16 @@ namespace EveryChart
             {
                 RandomYData = Blend.Next(System.Convert.ToInt32(Math.Round(NewGraph.YMin)),
                                      System.Convert.ToInt32(Math.Round(NewGraph.YMax)));
-                NewGraph.DataList.Add(NewGraph.XMin + NewGraph.OneGridXValue * (i + 1), RandomYData);
+
+                // X값이 순차적이지 않은 막대 그래프의 경우에는 0보다 큰 값들 중 최소값이 XMin이 된다.
+                if(NewGraph.CurrentState == Graph.CurrentGraph.BarGraph)
+                {
+                    NewGraph.DataList.Add(NewGraph.XMin + NewGraph.OneGridXValue * i, RandomYData);
+                }
+                else
+                {
+                    NewGraph.DataList.Add(NewGraph.XMin + NewGraph.OneGridXValue * (i + 1), RandomYData);
+                }
             }
         }
 
@@ -720,7 +738,7 @@ namespace EveryChart
             NewGraph.DrawRect = DrawRect;
 
             // 그래프 영역을 그리는 부분
-            e.Graphics.DrawRectangle(LinePen, DrawRect.Left, DrawRect.Top, DrawRect.Width, DrawRect.Height);
+            e.Graphics.DrawRectangle(LinePen, NewGraph.DrawRect.Left, NewGraph.DrawRect.Top, NewGraph.DrawRect.Width, NewGraph.DrawRect.Height);
 
             // 그래프의 제목을 그린다.
             e.Graphics.DrawString("연도별 매출 성장 변화 추이", TextFont, new SolidBrush(Color.Blue), new PointF(NewGraph.RealRect.Width * 0.3f, NewGraph.GraphMargin.Top * 0.6f));
@@ -737,7 +755,6 @@ namespace EveryChart
                     {
                         // 그래프의 막대를 그린다.
                         DrawBar(NewGraph, e);
-                        
                     }
                     break;
                 case Graph.OriginPointPosition.LowerRight:
@@ -749,19 +766,25 @@ namespace EveryChart
                 default:
                     break;
             }
+
+            // 데이터를 초기화한다.
+            NewGraph.DataList.Clear();
         }
 
         private void DrawBar(Graph NewGraph, PaintEventArgs e)
         {
+            NewGraph.BarBrush = new SolidBrush(Color.Blue);
+
             // 그래프의 막대를 그리는 부분
             for (int i = 0; i < NewGraph.DataList.Count; i++)
             {
                NewGraph.BarRect = new RectangleF(NewGraph.GetMathXPoint(System.Convert.ToDouble(NewGraph.DataList.GetKey(i)), NewGraph.XMin, 
-                                                                        NewGraph.XMax + NewGraph.OneGridXValue).X,
-                                                       NewGraph.GetMathYPoint(System.Convert.ToDouble(NewGraph.DataList[NewGraph.DataList.GetKey(i)]),
-                                                                               NewGraph.YMin, NewGraph.YMax + NewGraph.OneGridYValue).Y,
+                                                                        NewGraph.XMax + NewGraph.OneGridXValue).X + 
+                                                                        (NewGraph.DrawRect.Width / NewGraph.HorizontalGridCount / 3), // 그래프의 막대를 큰 눈금의 3분의 1만큼 뒤로 이동시킨다.
+                                                 NewGraph.GetMathYPoint(System.Convert.ToDouble(NewGraph.DataList[NewGraph.DataList.GetKey(i)]),
+                                                                        NewGraph.YMin, NewGraph.YMax).Y,
                                                        30, 30);
-               e.Graphics.DrawLine(NewGraph.DataLinePen, NewGraph.DataLineStartPoint, NewGraph.DataLineEndPoint);
+               e.Graphics.FillRectangle(NewGraph.BarBrush, NewGraph.BarRect);
             }
         }
     }
