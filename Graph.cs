@@ -99,6 +99,8 @@ namespace EveryChart
         public SolidBrush BarBrush;
         // 막대
         public RectangleF BarRect;
+        // 막대의 왼쪽 상단에 있는 점
+        public PointF BarPoint;
         #endregion
 
         // 실제 그래프 영역

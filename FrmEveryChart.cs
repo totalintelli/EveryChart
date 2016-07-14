@@ -773,18 +773,27 @@ namespace EveryChart
 
         private void DrawBar(Graph NewGraph, PaintEventArgs e)
         {
+            // 막대의 왼쪽 상단에 있는 점
+            NewGraph.BarPoint = new PointF(0, 0);
+
+            // 막대의 색상을 정한다.
             NewGraph.BarBrush = new SolidBrush(Color.Blue);
 
             // 그래프의 막대를 그리는 부분
             for (int i = 0; i < NewGraph.DataList.Count; i++)
             {
-               NewGraph.BarRect = new RectangleF(NewGraph.GetMathXPoint(System.Convert.ToDouble(NewGraph.DataList.GetKey(i)), NewGraph.XMin, 
-                                                                        NewGraph.XMax + NewGraph.OneGridXValue).X + 
-                                                                        (NewGraph.DrawRect.Width / NewGraph.HorizontalGridCount / 3), // 그래프의 막대를 큰 눈금의 3분의 1만큼 뒤로 이동시킨다.
-                                                 NewGraph.GetMathYPoint(System.Convert.ToDouble(NewGraph.DataList[NewGraph.DataList.GetKey(i)]),
-                                                                        NewGraph.YMin, NewGraph.YMax).Y,
-                                                       30, 30);
-               e.Graphics.FillRectangle(NewGraph.BarBrush, NewGraph.BarRect);
+                // 막대의 왼쪽 상단에 있는 점의 좌표를 구한다.
+                NewGraph.BarPoint.X = NewGraph.GetMathXPoint(System.Convert.ToDouble(NewGraph.DataList.GetKey(i)), NewGraph.XMin,
+                                                                        NewGraph.XMax + NewGraph.OneGridXValue).X +
+                                                                        (NewGraph.DrawRect.Width / NewGraph.HorizontalGridCount / 3); // 그래프의 막대를 큰 눈금의 3분의 1만큼 뒤로 이동시킨다.
+                NewGraph.BarPoint.Y = NewGraph.GetMathYPoint(System.Convert.ToDouble(NewGraph.DataList[NewGraph.DataList.GetKey(i)]),
+                                                                        NewGraph.YMin, NewGraph.YMax).Y;
+
+                // 막대를 구한다.
+                NewGraph.BarRect = new RectangleF(NewGraph.BarPoint.X, NewGraph.BarPoint.Y, 30, panel1.Height - NewGraph.GraphMargin.Bottom - NewGraph.BarPoint.Y);
+
+                // 막대를 그린다.
+                e.Graphics.FillRectangle(NewGraph.BarBrush, NewGraph.BarRect);
             }
         }
     }
